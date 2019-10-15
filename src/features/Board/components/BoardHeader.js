@@ -22,11 +22,21 @@ const StyledList = styled(ListAlt)`
   margin: auto;
 `;
 
+const BoardTotal = styled.span`
+  font-size: 1.25rem;
+  margin-left: auto;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  line-height: 1.75em;
+`;
+
 const BoardHeader = props => {
   return (
     <Wrapper>
       <StyledList size="24" />
       <BoardTitle boardId={props.boardId} />
+      <BoardTotal>200</BoardTotal>
     </Wrapper>
   );
 };
