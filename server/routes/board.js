@@ -1,21 +1,18 @@
-const articlecontroller = require("./../controllers/article.ctrl");
+const boardController = require("./../controllers/board.ctrl");
 const multipart = require("connect-multiparty");
 const multipartWare = multipart();
 module.exports = router => {
   /**
-   * get all articles
+   * get user boards
    */
-  router.route("/articles").get(articlecontroller.getAll);
+  router.route("/boards").get(boardController.getUserBoards);
   /**
-   * add an article
+   * add a board
    */
-  router.route("/article").post(multipartWare, articlecontroller.addArticle);
+  router.route("/board").post(multipartWare, boardController.createBoard);
+
   /**
-   * comment on an article
+   * delete a board
    */
-  router.route("/article/comment").post(articlecontroller.commentArticle);
-  /**
-   * get a particlular article to view
-   */
-  router.route("/article/:id").get(articlecontroller.getArticle);
+  router.route("/board").delete(multipartWare, boardController.deleteBoard);
 };

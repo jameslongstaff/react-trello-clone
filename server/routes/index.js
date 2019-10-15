@@ -1,7 +1,5 @@
-const user = require("./user");
-const article = require("./article");
+const board = require("./board");
 
 module.exports = router => {
-  user(router);
-  article(router);
+  board(router);
 };

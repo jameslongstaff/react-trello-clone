@@ -13,7 +13,7 @@ import TaskModal from "features/Task/components/TaskModal";
 import * as taskListActions from "store/TaskList/actionCreators";
 
 const Wrapper = styled.div`
-  padding: 2rem 0 0.5rem 6rem;
+  padding: 2rem 0.5rem 0.5rem 0.5rem;
   position: relative;
   z-index: 1;
 `;

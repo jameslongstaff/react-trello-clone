@@ -5,7 +5,7 @@ const initialState = {
   byId: {
     1: {
       id: 1,
-      title: "Deathstalker November"
+      title: "Test board"
     },
     2: {
       id: 2,

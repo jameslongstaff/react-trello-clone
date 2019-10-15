@@ -12,7 +12,7 @@ import TaskListTaskCreator from "features/TaskList/components/TaskListTaskCreato
 
 const Column = styled.div`
   float: left;
-  margin: 0 1rem 0 0;
+  margin: 0 0.5rem 0 0;
   width: 16rem;
 `;
 

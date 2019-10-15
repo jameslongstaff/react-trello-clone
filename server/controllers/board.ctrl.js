@@ -1,4 +1,4 @@
-//https://codeburst.io/build-simple-medium-com-on-node-js-and-react-js-a278c5192f47
+//https://developer.okta.com/blog/2019/05/07/nodejs-typescript-api tsAPI
 
 /** server/controllers/article.ctrl.js*/
 const Article = require("./../models/Article");
