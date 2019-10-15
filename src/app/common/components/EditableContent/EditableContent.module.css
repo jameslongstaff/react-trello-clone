@@ -1,0 +1,25 @@
+.EditableContent {
+  padding: 0.5rem 0;
+  width: 100%;
+}
+
+.EditableContent p {
+  margin: 0 0 1.1rem 0;
+}
+
+.EditableContent p:last-of-type {
+  margin-bottom: 0;
+}
+
+.EditableContent textarea {
+  background: none;
+  border: none;
+}
+
+.EditableContent textarea:focus {
+  outline: none;
+}
+
+.EditableContent p {
+  cursor: pointer;
+}

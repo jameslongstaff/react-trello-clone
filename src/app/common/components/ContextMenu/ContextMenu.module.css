@@ -1,0 +1,27 @@
+.ContextMenu {
+  background: #373543;
+  position: absolute;
+  left: calc(100% - 2rem);
+  top: 1.35rem;
+  width: 11rem;
+  z-index: 2;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  box-shadow: 0px 2px 5px -2px #252323;
+}
+
+.ContextMenu:after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #373543;
+  top: -5px;
+  left: 9px;
+  position: absolute;
+}
+
+.ListTitle {
+  float: left;
+}

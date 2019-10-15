@@ -1,0 +1,28 @@
+.ContextMenuLink {
+}
+
+.ContextMenuLink:last-of-type button {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.ContextMenuLink button {
+  width: 100%;
+  border: none;
+  background: none;
+  font-size: 0.8rem;
+  color: #c1c0c6;
+  text-align: left;
+  font-weight: 500;
+  padding: 0 0 0.5rem 0;
+  margin-bottom: 0.25rem;
+  border-bottom: solid 1px #322f3c;
+}
+
+.ContextMenuLink button i {
+  width: 1rem;
+  width: 1rem;
+  display: inline-block;
+  text-align: center;
+  margin-right: 0.25rem;
+}

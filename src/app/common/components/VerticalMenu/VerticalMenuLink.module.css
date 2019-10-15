@@ -1,0 +1,15 @@
+.VerticalMenuLink {
+  border: none;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0.25rem 0.2rem;
+  text-align: center;
+  background: #ddd;
+  box-shadow: 0 2px 0 0 #cecece;
+  color: #000;
+  cursor: pointer;
+  margin-top: 0.4rem;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+}

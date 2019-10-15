@@ -1,0 +1,14 @@
+.Modal {
+  position: absolute;
+  top: 10vh;
+  margin: auto;
+  left: 0;
+  right: 0;
+  width: 40rem;
+  background: #eee;
+  border-radius: 3px;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 2;
+  margin-bottom: 10vh;
+}
