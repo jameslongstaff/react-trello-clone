@@ -26,4 +26,4 @@ yarn-error.log*
 
 # api
 
-server/node_modules
+backend/node_modules
