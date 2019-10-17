@@ -14,3 +14,5 @@ server.on("listening", (): void => {
 });
 
 module.exports = App;
+
+//https://github.com/santiq/bulletproof-nodejs/tree/master/src
