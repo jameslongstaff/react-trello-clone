@@ -9,7 +9,7 @@ if (!envFound) {
 
   throw new Error("⚠️  Couldn't find .env file  ⚠️");
 }
-
+//
 export default {
   /**
    * Your favorite port
@@ -22,44 +22,15 @@ export default {
   databaseURL: process.env.MONGODB_URI,
 
   /**
-   * Your secret sauce
-   */
-  jwtSecret: process.env.JWT_SECRET,
-
-  /**
    * Used by winston logger
    */
   logs: {
     level: process.env.LOG_LEVEL || "silly"
   },
-
-  /**
-   * Agenda.js stuff
-   */
-  agenda: {
-    dbCollection: process.env.AGENDA_DB_COLLECTION,
-    pooltime: process.env.AGENDA_POOL_TIME,
-    concurrency: parseInt(process.env.AGENDA_CONCURRENCY, 10)
-  },
-
-  // /**
-  //  * Agendash config
-  //  */
-  // agendash: {
-  //   user: "agendash",
-  //   password: "123456"
-  // },
   /**
    * API configs
    */
   api: {
     prefix: "/api"
-  },
-  /**
-   * Mailgun email credentials
-   */
-  emails: {
-    apiKey: "API key from mailgun",
-    domain: "Domain Name from mailgun"
   }
 };

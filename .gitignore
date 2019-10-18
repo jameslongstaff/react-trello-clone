@@ -27,3 +27,5 @@ yarn-error.log*
 # api
 
 backend/node_modules
+backend/build
+backend/.env

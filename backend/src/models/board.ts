@@ -1,11 +1,16 @@
 import { IBoard } from "../interfaces/IBoard";
-import { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 export const Board = new mongoose.Schema(
   {
     id: {
       type: String,
-      required: [true, "Please enter a full name"],
+      required: [true],
+      index: true
+    },
+    title: {
+      type: String,
+      required: [true],
       index: true
     }
   },

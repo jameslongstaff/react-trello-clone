@@ -5,7 +5,12 @@ export const List = new mongoose.Schema(
   {
     id: {
       type: String,
-      required: [true, "Please enter a full name"],
+      required: [true],
+      index: true
+    },
+    title: {
+      type: String,
+      required: [true, "Please enter a title"],
       index: true
     }
   },
