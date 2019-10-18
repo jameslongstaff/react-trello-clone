@@ -1,5 +1,5 @@
 import { IBoard } from "../interfaces/IBoard";
-import mongoose from "mongoose";
+import { mongoose } from "mongoose";
 
 export const Board = new mongoose.Schema(
   {
