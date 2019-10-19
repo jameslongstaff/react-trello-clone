@@ -19,7 +19,9 @@ export default {
   /**
    * That long string from mlab
    */
-  databaseURL: process.env.MONGODB_URI,
+  databaseUser: process.env.MONGO_USER,
+  databasePassword: process.env.MONGO_PASSWORD,
+  databasePath: process.env.MONGO_PATH,
 
   /**
    * Used by winston logger
