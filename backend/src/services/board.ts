@@ -23,8 +23,8 @@ export default class BoardService implements ICrudService {
     return board;
   }
 
-  public async update(data: IBoard): Promise<IBoard> {
-    const board = await Board.findById(data.id);
+  public async update(id: string, data: IBoard): Promise<IBoard> {
+    const board = await Board.findByIdAndUpdate(id, data);
     return await board.save();
   }
 

@@ -5,8 +5,13 @@ import { Service, Inject } from "typedi";
 import Card from "./../models/card";
 
 @Service()
-export default class ListService implements ICrudService {
+export default class CardService implements ICrudService {
   constructor(private logger: Logger) {}
+
+  public async get(): Promise<ICard[]> {
+    const cards = await Card.find();
+    return cards;
+  }
 
   public async getById(id: string): Promise<ICard> {
     const board = await Card.findById(id);
@@ -18,8 +23,8 @@ export default class ListService implements ICrudService {
     return board;
   }
 
-  public async update(data: ICard): Promise<ICard> {
-    const board = await Card.findById(data.id);
+  public async update(id: string, data: ICard): Promise<ICard> {
+    const board = await Card.findByIdAndUpdate(id, data);
     return await board.save();
   }
 
