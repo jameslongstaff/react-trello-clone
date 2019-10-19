@@ -3,25 +3,23 @@ import { Router, Request, Response } from "express";
 const route = Router();
 
 export default (app: Router) => {
-  //   app.use("/users", route);
-
-  route.get("/cards", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/cards", (req: Request, res: Response) => {
+    return res.send("Get cards");
   });
 
-  route.get("/card/:cardId", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/card/:cardId", (req: Request, res: Response) => {
+    return res.send("Get card");
   });
 
-  route.post("/card/create", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.post("/card/create", (req: Request, res: Response) => {
+    return res.send("Create card");
   });
 
-  route.post("/card/:cardId/delete", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.delete("/card/:cardId/delete", (req: Request, res: Response) => {
+    return res.send("Delete card");
   });
 
-  route.post("/card/:cardId/update", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.patch("/card/:cardId/update", (req: Request, res: Response) => {
+    return res.send("Update card");
   });
 };

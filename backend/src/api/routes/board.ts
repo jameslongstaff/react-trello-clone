@@ -5,31 +5,31 @@ const route = Router();
 export default (app: Router) => {
   //   app.use("/users", route);
 
-  route.get("/boards", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/boards", (req: Request, res: Response) => {
+    return res.send("Get all boards");
   });
 
-  route.get("/board/:boardId", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/board/:boardId", (req: Request, res: Response) => {
+    return res.send("Get board by ID");
   });
 
-  route.post("/board/:boardId/create", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.post("/board/:boardId/create", (req: Request, res: Response) => {
+    return res.send("Create new board");
   });
 
-  route.post("/board/:boardId/update", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.patch("/board/:boardId/update", (req: Request, res: Response) => {
+    return res.send("Update existing board");
   });
 
-  route.post("/board/:boardId/delete", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.delete("/board/:boardId/delete", (req: Request, res: Response) => {
+    return res.send("Delete existing board");
   });
 
-  route.get("/board/:boardId/cards", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/board/:boardId/cards", (req: Request, res: Response) => {
+    return res.send("Get board cards");
   });
 
-  route.get("/board/:boardId/lists", (req: Request, res: Response) => {
-    return res.send("BOARDS");
+  app.get("/board/:boardId/lists", (req: Request, res: Response) => {
+    return res.send("get board lists");
   });
 };

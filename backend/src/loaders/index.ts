@@ -24,5 +24,6 @@ export default async ({ expressApp }) => {
   Logger.info("✌️ Dependency Injector loaded");
 
   await expressLoader({ app: expressApp });
+
   Logger.info("✌️ Express loaded");
 };
