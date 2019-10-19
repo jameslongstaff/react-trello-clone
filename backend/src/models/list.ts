@@ -1,7 +1,7 @@
 import { IList } from "../interfaces/IList";
 import mongoose from "mongoose";
 
-export const List = new mongoose.Schema(
+export const listSchema = new mongoose.Schema(
   {
     id: {
       type: String,
@@ -17,4 +17,4 @@ export const List = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<IList & mongoose.Document>("Card");
+export default mongoose.model<IList & mongoose.Document>("Card", listSchema);

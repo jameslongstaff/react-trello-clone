@@ -1,7 +1,7 @@
 import { ICard } from "../interfaces/ICard";
 import mongoose from "mongoose";
 
-export const Card = new mongoose.Schema(
+export const cardSchema = new mongoose.Schema(
   {
     id: {
       type: String,
@@ -20,4 +20,4 @@ export const Card = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<ICard & mongoose.Document>("Card");
+export default mongoose.model<ICard & mongoose.Document>("Card", cardSchema);

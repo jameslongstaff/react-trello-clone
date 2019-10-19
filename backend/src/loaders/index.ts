@@ -4,6 +4,14 @@ import mongooseLoader from "./mongoose";
 import Logger from "./logger";
 
 export default async ({ expressApp }) => {
+  // check env is set correctly
+  cleanEnv(process.env, {
+    MONGO_PASSWORD: str(),
+    MONGO_PATH: str(),
+    MONGO_USER: str(),
+    PORT: port()
+  });
+
   const mongoConnection = await mongooseLoader();
   Logger.info("✌️ DB loaded and connected!");
 

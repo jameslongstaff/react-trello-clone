@@ -1,7 +1,7 @@
 import { IBoard } from "../interfaces/IBoard";
 import mongoose from "mongoose";
 
-export const Board = new mongoose.Schema(
+const boardSchema = new mongoose.Schema(
   {
     id: {
       type: String,
@@ -17,4 +17,4 @@ export const Board = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<IBoard & mongoose.Document>("Board", Board);
+export default mongoose.model<IBoard & mongoose.Document>("Board", boardSchema);
