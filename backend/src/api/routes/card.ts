@@ -1,6 +1,5 @@
 import { Router, Request, Response } from "express";
 // import middlewares from "../middlewares";
-const route = Router();
 
 export default (app: Router) => {
   app.get("/cards", (req: Request, res: Response) => {

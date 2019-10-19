@@ -8,6 +8,11 @@ import Board from "./../models/board";
 export default class BoardService implements ICrudService {
   constructor(private logger: Logger) {}
 
+  public async get(): Promise<IBoard[]> {
+    const boards = await Board.find();
+    return boards;
+  }
+
   public async getById(id: string): Promise<IBoard> {
     const board = await Board.findById(id);
     return board;
