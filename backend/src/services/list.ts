@@ -14,22 +14,22 @@ export default class ListService implements ICrudService {
   }
 
   public async getById(id: string): Promise<IList> {
-    const board = await List.findById(id);
-    return board;
+    const list = await List.findById(id);
+    return list;
   }
 
   public async create(data: IList): Promise<IList> {
-    const board = List.create(data);
-    return board;
+    const list = List.create(data);
+    return list;
   }
 
   public async update(id: string, data: IList): Promise<IList> {
-    const board = await List.findByIdAndUpdate(id, data);
-    return await board.save();
+    const list = await List.findByIdAndUpdate(id, data);
+    return await list.save();
   }
 
   public async delete(id: string): Promise<IList> {
-    const board = await List.findByIdAndDelete(id);
-    return board;
+    const list = await List.findByIdAndDelete(id);
+    return list;
   }
 }

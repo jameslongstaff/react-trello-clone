@@ -2,6 +2,7 @@ import expressLoader from "./express";
 import dependencyInjectorLoader from "./dependencyInjector";
 import mongooseLoader from "./mongoose";
 import Logger from "./logger";
+import { cleanEnv, str, port } from "envalid";
 
 export default async ({ expressApp }) => {
   // check env is set correctly

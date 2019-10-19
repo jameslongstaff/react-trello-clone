@@ -14,4 +14,4 @@ export const listSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model<IList & mongoose.Document>("Card", listSchema);
+export default mongoose.model<IList & mongoose.Document>("List", listSchema);
