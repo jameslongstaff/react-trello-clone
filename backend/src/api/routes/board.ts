@@ -15,6 +15,7 @@ export default (app: Router) => {
 
   app.get("/board/:boardId", async (req: Request, res: Response) => {
     const boardService = Container.get(BoardService);
+
     const board = await boardService
       .getById(req.params.boardId)
       .catch(error => {
@@ -24,10 +25,10 @@ export default (app: Router) => {
     return res.status(200).json(board);
   });
 
-  app.post("/board/:boardId/create", async (req: Request, res: Response) => {
+  app.post("/board/create", async (req: Request, res: Response) => {
     const boardService = Container.get(BoardService);
 
-    const { title } = req.params;
+    const { title } = req.body;
 
     const board = await boardService
       .create({
@@ -43,7 +44,8 @@ export default (app: Router) => {
   app.patch("/board/:boardId/update", async (req: Request, res: Response) => {
     const boardService = Container.get(BoardService);
 
-    const { title, boardId } = req.params;
+    const { boardId } = req.params;
+    const { title } = req.body;
 
     const board = await boardService
       .update(boardId, {

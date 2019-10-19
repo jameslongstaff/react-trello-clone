@@ -23,10 +23,10 @@ export default (app: Router) => {
     return res.status(200).json(list);
   });
 
-  app.post("/list/:listId/", async (req: Request, res: Response) => {
+  app.post("/list/create", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
 
-    const { title } = req.params;
+    const { title } = req.body;
 
     const list = await listService
       .create({
@@ -42,7 +42,8 @@ export default (app: Router) => {
   app.patch("/list/:listId/update", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
 
-    const { title, listId } = req.params;
+    const { listId } = req.params;
+    const { title } = req.body;
 
     const list = await listService.update(listId, { title }).catch(error => {
       return res.status(500).json({ error });

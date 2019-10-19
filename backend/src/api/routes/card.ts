@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import Container from "typedi";
+import { Container } from "typedi";
 import CardService from "../../services/card";
 // import middlewares from "../middlewares";
 
@@ -25,7 +25,7 @@ export default (app: Router) => {
   app.post("/card/create", async (req: Request, res: Response) => {
     const cardService = Container.get(CardService);
 
-    const { title, content, listId } = req.params;
+    const { title, content, listId } = req.body;
 
     const card = await cardService
       .create({
@@ -43,10 +43,11 @@ export default (app: Router) => {
   app.patch("/card/:cardId/update", async (req: Request, res: Response) => {
     const cardService = Container.get(CardService);
 
-    const { title, content, listId } = req.params;
+    const { cardId } = req.params;
+    const { title, content, listId } = req.body;
 
     const card = await cardService
-      .update(listId, { title, content, listId })
+      .update(cardId, { title, content, listId })
       .catch(error => {
         return res.status(500).json({ error });
       });
