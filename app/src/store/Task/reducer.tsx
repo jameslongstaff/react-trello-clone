@@ -1,7 +1,7 @@
 import cuid from "cuid";
 import * as actions from "./actions";
 
-const initialState = {
+const initialState: any = {
   byId: {
     1: {
       id: "1",
@@ -27,7 +27,7 @@ const initialState = {
   }
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   if (action.type === actions.CLONE_TASK) {
     const tempTaskId = cuid();
 

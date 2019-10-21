@@ -1,7 +1,7 @@
 import cuid from "cuid";
 import * as actions from "./actions";
 
-const initialState = {
+const initialState: any = {
   byId: {
     1: {
       id: "1",
@@ -43,7 +43,7 @@ const initialState = {
   }
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   if (action.type === actions.CLONE_TASK) {
     const tempTaskId = cuid();
     const { taskId } = action.payload;
@@ -135,7 +135,7 @@ const reducer = (state = initialState, action) => {
     const sourceCards = getCardsByListId(state, sourceId);
 
     let orderedSourceCards = sourceCards;
-    let orderedDestinationCards = null;
+    let orderedDestinationCards = [];
 
     //if moving across lists
     if (sourceId !== destinationId) {
@@ -189,8 +189,8 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const getReorderedCards = (state, cards) => {
-  const reorderedCards = [];
+const getReorderedCards = (state: any, cards: any[]) => {
+  const reorderedCards: any = [];
 
   cards.forEach((k, v) => {
     if (k !== undefined) {
@@ -198,9 +198,11 @@ const getReorderedCards = (state, cards) => {
       reorderedCards[k.id].order = v + 1;
     }
   });
+
+  return reorderedCards;
 };
 
-const moveCard = (arr, old_index, new_index) => {
+const moveCard = (arr: any[], old_index: number, new_index: number) => {
   while (old_index < 0) {
     old_index += arr.length;
   }
@@ -217,7 +219,7 @@ const moveCard = (arr, old_index, new_index) => {
   return arr;
 };
 
-const getCardsByListId = (state, listId) => {
+const getCardsByListId = (state: any, listId: any) => {
   const cards = Object.keys({ ...state.byId })
     .map(cardId => {
       return state.byId[cardId];

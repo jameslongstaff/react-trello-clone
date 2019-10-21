@@ -1,6 +1,6 @@
 import * as actions from "./actions";
 
-const initialState = {
+const initialState: any = {
   test: "test",
   byId: {
     1: {
@@ -19,7 +19,7 @@ const initialState = {
   }
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   const { payload } = action;
 
   if (action.type === actions.SHOW_TASK_MODAL) {

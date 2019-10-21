@@ -3,7 +3,7 @@ import * as actions from "./actions";
 
 //https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
 
-const initialState = {
+const initialState: any = {
   byId: {
     "1": {
       id: "1",
@@ -31,7 +31,7 @@ const initialState = {
   allIds: ["1", "2", "3", "4"]
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   if (action.type === actions.CLONE_LIST) {
     const tempListId = cuid();
     const { listId } = action.payload;
@@ -163,8 +163,8 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export const getListById = (state, id) => {
-  state.find(list => {
+export const getListById = (state: any, id: string) => {
+  state.find((list: any) => {
     return list.id === id;
   });
 };
