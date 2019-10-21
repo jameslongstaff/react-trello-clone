@@ -10,9 +10,11 @@ const Wrapper = styled.div`
   position: fixed;
 `;
 
-interface IBackgroundProps {}
+interface IBackgroundLayerProps {}
 
-const BackgroundLayer = (props: IBackgroundProps) => {
+const BackgroundLayer: React.FC<IBackgroundLayerProps> = (
+  props: IBackgroundLayerProps
+) => {
   return <Wrapper />;
 };
 

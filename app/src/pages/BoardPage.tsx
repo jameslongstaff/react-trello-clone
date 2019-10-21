@@ -1,8 +1,8 @@
 import React from "react";
-import Board from "features/Board/containers/Board";
-import BackgroundLayer from "common/components/BackgroundLayer/BackgroundLayer";
+import BackgroundLayer from "../common/components/BackgroundLayer/BackgroundLayer";
+import Board from "../features/Board/containers/Board";
 
-const BoardPage = props => {
+const BoardPage: React.FC<any> = (props: any) => {
   const { boardId } = props.match.params;
 
   return (

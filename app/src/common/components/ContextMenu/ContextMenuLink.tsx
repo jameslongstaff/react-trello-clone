@@ -6,7 +6,9 @@ interface IContextMenuLinkProps {
   children: ReactElement<any> | null;
 }
 
-const ContextMenuLink = (props: IContextMenuLinkProps) => {
+const ContextMenuLink: React.FC<IContextMenuLinkProps> = (
+  props: IContextMenuLinkProps
+) => {
   return (
     <div className={classes.ContextMenuLink}>
       <button onClick={props.onClick}>{props.children}</button>

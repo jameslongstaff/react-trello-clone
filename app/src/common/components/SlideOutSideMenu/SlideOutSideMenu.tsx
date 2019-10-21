@@ -42,7 +42,9 @@ const StyledUser = styled(UserCircle)`
   color: #ddd;
 `;
 
-const SlideOutSideMenu = props => {
+interface SlideOutSideMenuProps {}
+
+const SlideOutSideMenu: React.FC<SlideOutSideMenuProps> = (props: any) => {
   return (
     <Wrapper>
       <FaceHolder>

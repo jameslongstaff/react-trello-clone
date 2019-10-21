@@ -25,7 +25,7 @@ const Wrapper = styled.button`
   width: 100%;
 `;
 
-const Button = (props: ButtonProps) => {
+const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
   return (
     <Wrapper
       primary={props.primary}

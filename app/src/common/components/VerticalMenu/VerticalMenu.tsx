@@ -5,7 +5,9 @@ interface IVerticalMenuProps {
   children?: ReactElement<any>;
 }
 
-const VerticalMenu = (props: IVerticalMenuProps) => {
+const VerticalMenu: React.FC<IVerticalMenuProps> = (
+  props: IVerticalMenuProps
+) => {
   return <div>{props.children}</div>;
 };
 
