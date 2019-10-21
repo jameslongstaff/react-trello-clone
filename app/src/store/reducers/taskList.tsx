@@ -1,5 +1,5 @@
 import cuid from "cuid";
-import * as actions from "./actions";
+import * as actions from "../actions/taskList";
 
 //https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
 
@@ -170,18 +170,3 @@ export const getListById = (state: any, id: string) => {
 };
 
 export default reducer;
-
-//       const destinationCards = getCardsByListId(state, destinationId);
-
-//       let cardToMove = sourceCards.splice(sourceIndex, 1)[0];
-
-//       cardToMove.listId = destinationId;
-//       sourceCards.slice(sourceIndex, 0);
-
-//       destinationCards.push(cardToMove);
-
-//       orderedDestinationCards = moveCard(
-//         [...destinationCards],
-//         destinationCards.length - 1,
-//         destinationIndex
-//       );

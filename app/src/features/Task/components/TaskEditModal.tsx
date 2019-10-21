@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 
 import styled from "styled-components";
 import Backdrop from "../../../common/components/Backdrop/Backdrop";
-import { showTaskModal } from "../../../store/Board/actionCreators";
+import { showTaskModal } from "../../../store/actionCreators/board";
+import Button from "../../../common/components/Button/Button";
 import {
   updateTaskTitle,
   cloneTask,
   deleteTask
-} from "../../../store/Users/actionCreators";
-import Button from "../../../common/components/Button/Button";
+} from "../../../store/actionCreators/task";
 
 const Modal = styled.div`
   position: absolute;

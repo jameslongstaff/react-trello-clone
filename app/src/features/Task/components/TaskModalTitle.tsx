@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditableTitle from "../../../common/components/EditableTitle/EditableTitle";
-import { updateTaskTitle } from "../../../store/Users/actionCreators";
+import { updateTaskTitle } from "../../../store/actionCreators/task";
 
 //common components
 

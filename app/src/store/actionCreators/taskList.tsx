@@ -1,4 +1,4 @@
-import * as actions from "./actions";
+import * as actions from "../actions/taskList";
 
 //testing thunk
 export const createList = (payload: any) => {

@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
-import boardReducer from "./store/Board/reducer";
-import taskListReducer from "./store/TaskList/reducer";
-import taskReducer from "./store/Task/reducer";
+import App from "./App";
+import boardReducer from "./store/reducers/board";
+import taskListReducer from "./store/reducers/taskList";
+import taskReducer from "./store/reducers/task";
 
 import * as serviceWorker from "./serviceWorker";
 

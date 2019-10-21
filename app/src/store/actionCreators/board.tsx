@@ -1,4 +1,4 @@
-import * as actions from "./actions";
+import * as actions from "../actions/board";
 
 export const showTaskModal = (payload: any) => {
   return { type: actions.SHOW_TASK_MODAL, payload };

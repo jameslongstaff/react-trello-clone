@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import EditableTitle from "../../../common/components/EditableTitle/EditableTitle";
-import { updateBoardTitle } from "../../../store/Board/actionCreators";
+import { updateBoardTitle } from "../../../store/actionCreators/board";
 
 //common components
 

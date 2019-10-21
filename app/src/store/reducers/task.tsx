@@ -1,5 +1,5 @@
 import cuid from "cuid";
-import * as actions from "./actions";
+import * as actions from "../actions/task";
 
 const initialState: any = {
   byId: {

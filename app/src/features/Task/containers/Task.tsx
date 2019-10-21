@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import { Pencil } from "styled-icons/boxicons-solid";
-import {
-  deleteTask,
-  updateTaskTitle,
-  cloneTask
-} from "../../../store/Users/actionCreators";
 import TaskEditModal from "../components/TaskEditModal";
-import { showTaskModal } from "../../../store/Board/actionCreators";
+import { showTaskModal } from "../../../store/actionCreators/board";
+import {
+  updateTaskTitle,
+  cloneTask,
+  deleteTask
+} from "../../../store/actionCreators/task";
 
 const Card = styled.div`
   border-radius: 3px;

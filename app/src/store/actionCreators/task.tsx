@@ -1,4 +1,4 @@
-import * as actions from "./actions";
+import * as actions from "../actions/task";
 
 export const createTask = (payload: any) => {
   return { type: actions.CREATE_TASK, payload };

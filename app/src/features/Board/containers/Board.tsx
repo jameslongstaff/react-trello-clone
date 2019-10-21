@@ -10,7 +10,7 @@ import styled from "styled-components";
 import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
-import { updateTaskOrder } from "../../../store/Users/actionCreators";
+import { updateTaskOrder } from "../../../store/actionCreators/taskList";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;

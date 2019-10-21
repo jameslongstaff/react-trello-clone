@@ -5,7 +5,7 @@ import styled from "styled-components";
 import TaskModalTitle from "./TaskModalTitle";
 import TaskModalDescriptionEditor from "./TaskModalDescriptionEditor";
 import TaskModalSidebar from "./TaskModalSidebar";
-import { hideTaskModal } from "../../../store/Board/actionCreators";
+import { hideTaskModal } from "../../../store/actionCreators/board";
 
 const Wrapper = styled.div`
   height: 100vh;
