@@ -25,7 +25,7 @@ class BoardTitle extends Component<any, IBoardTitleState> {
     };
   }
 
-  handleChangeTitle = (event: any) => {
+  handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ newTitle: event.target.value });
   };
 

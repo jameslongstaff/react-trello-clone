@@ -10,7 +10,7 @@ interface IModalProps {
   children?: ReactElement<any>;
 }
 
-const Modal: React.FC<IModalProps> = (props: IModalProps) => {
+const Modal: React.FC<IModalProps> = props => {
   const backdrop = props.show && <Backdrop onClick={props.hideHandler} />;
 
   return (

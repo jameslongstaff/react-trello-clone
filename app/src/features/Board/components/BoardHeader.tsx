@@ -14,7 +14,7 @@ interface IBoardHeaderProps {
   boardId: string;
 }
 
-const BoardHeader = (props: IBoardHeaderProps) => {
+const BoardHeader: React.FC<IBoardHeaderProps> = props => {
   return (
     <Wrapper>
       <BoardTitle boardId={props.boardId} />

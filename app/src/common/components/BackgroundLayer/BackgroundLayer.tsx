@@ -12,9 +12,7 @@ const Wrapper = styled.div`
 
 interface IBackgroundLayerProps {}
 
-const BackgroundLayer: React.FC<IBackgroundLayerProps> = (
-  props: IBackgroundLayerProps
-) => {
+const BackgroundLayer: React.FC<IBackgroundLayerProps> = props => {
   return <Wrapper />;
 };
 

@@ -17,7 +17,7 @@ interface IBackdropProps {
   onClick(): void;
 }
 
-const Backdrop: React.FC<IBackdropProps> = (props: IBackdropProps) => {
+const Backdrop: React.FC<IBackdropProps> = props => {
   return <Wrapper onClick={props.onClick} />;
 };
 

@@ -7,7 +7,7 @@ const Label = styled.div`
   width: 100%;
 `;
 
-const TaskLabel = (props: any) => {
+const TaskLabel: React.FC<any> = (props: any) => {
   return <Label />;
 };
 

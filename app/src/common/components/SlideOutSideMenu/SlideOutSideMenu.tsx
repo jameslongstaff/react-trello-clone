@@ -44,7 +44,7 @@ const StyledUser = styled(UserCircle)`
 
 interface SlideOutSideMenuProps {}
 
-const SlideOutSideMenu: React.FC<SlideOutSideMenuProps> = (props: any) => {
+const SlideOutSideMenu: React.FC<SlideOutSideMenuProps> = props => {
   return (
     <Wrapper>
       <FaceHolder>

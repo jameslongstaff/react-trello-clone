@@ -6,9 +6,7 @@ interface IVerticalMenuLinkProps {
   children?: ReactElement<any>;
 }
 
-const VerticalMenuLink: React.FC<IVerticalMenuLinkProps> = (
-  props: IVerticalMenuLinkProps
-) => {
+const VerticalMenuLink: React.FC<IVerticalMenuLinkProps> = props => {
   return (
     <button onClick={props.onClick} className={classes.VerticalMenuLink}>
       {props.children}

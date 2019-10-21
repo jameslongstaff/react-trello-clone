@@ -14,7 +14,7 @@ const Left = styled.div`
   padding: 0.5rem;
 `;
 
-const TaskListHeader = (props: any) => {
+const TaskListHeader: React.FC<any> = (props: any) => {
   return (
     <Wrapper>
       <Left>

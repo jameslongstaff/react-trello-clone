@@ -22,12 +22,15 @@ const ElementContainer = styled.span`
   display: block;
   width: 100%;
 `;
+
 interface IEditableTitleState {
   isEditing: boolean;
 }
 
 class EditableTitle extends Component<any, IEditableTitleState> {
   private input: React.RefObject<HTMLInputElement>;
+
+  static defaultProps = {};
 
   constructor(props: any) {
     super(props);
@@ -45,7 +48,7 @@ class EditableTitle extends Component<any, IEditableTitleState> {
     }
   };
 
-  handleKeyPress = (event: React.KeyboardEvent) => {
+  handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (this.state.isEditing) {
       if (event.key === "Enter") {
         this.handleSave();
@@ -53,13 +56,13 @@ class EditableTitle extends Component<any, IEditableTitleState> {
     }
   };
 
-  handleChange = (event: React.ChangeEvent) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (this.props.onChange !== undefined) {
       this.props.onChange(event);
     }
   };
 
-  handleClick = (event: React.MouseEvent) => {
+  handleClick = (event: React.MouseEvent<HTMLSpanElement>) => {
     this.initEditMode();
   };
 

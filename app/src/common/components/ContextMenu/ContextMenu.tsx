@@ -7,7 +7,7 @@ interface IContextMenuProps {
   children: ReactElement<any> | null;
 }
 
-const ContextMenu: React.FC<IContextMenuProps> = (props: IContextMenuProps) => {
+const ContextMenu: React.FC<IContextMenuProps> = props => {
   return (
     <ClickOutside handleClickOutside={props.onClose}>
       {/* <Backdrop show /> */}
