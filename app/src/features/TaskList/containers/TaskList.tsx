@@ -28,10 +28,18 @@ const PaddedContainer = styled.div`
   padding: 0.5rem;
 `;
 
-class TaskList extends Component {
+interface TaskListProps {
+  id: string;
+  taskList: any;
+  tasks: any[];
+}
+
+interface TaskListState {}
+
+class TaskList extends Component<TaskListProps, TaskListState> {
   render() {
     return (
-      <Droppable droppableId={this.props.id.toString()}>
+      <Droppable droppableId={this.props.id}>
         {(provided, snapshot) => (
           <Column {...provided.droppableProps}>
             <List>
@@ -65,7 +73,7 @@ class TaskList extends Component {
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     taskList: state.taskLists.byId[ownProps.id],
-    tasks: state.taskLists.byId[ownProps.id].tasks.map(taskId => {
+    tasks: state.taskLists.byId[ownProps.id].tasks.map((taskId: string) => {
       return state.tasks.byId[taskId];
     })
   };

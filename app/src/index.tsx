@@ -17,9 +17,9 @@ const rootReducer = combineReducers({
   tasks: taskReducer
 });
 
-const logger = store => {
-  return next => {
-    return action => {
+const logger = (store: any) => {
+  return (next: any) => {
+    return (action: any) => {
       console.log("[Middleware] Dispatching", action);
       const result = next(action);
       console.log("[Middleware] next state", store.getState());

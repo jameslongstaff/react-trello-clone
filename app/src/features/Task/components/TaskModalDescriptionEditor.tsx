@@ -21,18 +21,34 @@ const TextArea = styled.textarea`
   border-radius: 2px;
 `;
 
-class TaskModalDescriptionEditor extends Component {
+interface TaskModalDescriptionEditorProps {
+  content: string;
+  task: any;
+  onSaveContent(content: string): void;
+}
+
+interface TaskModalDescriptionEditorState {
+  isEditing: boolean;
+  newContent: string;
+  originalContent: string;
+  contentHeight: string;
+}
+
+class TaskModalDescriptionEditor extends Component<
+  TaskModalDescriptionEditorProps,
+  TaskModalDescriptionEditorState
+> {
   private input: React.RefObject<HTMLTextAreaElement>;
   private wrapper: React.RefObject<HTMLDivElement>;
 
-  constructor(props: any) {
+  constructor(props: TaskModalDescriptionEditorProps) {
     super(props);
 
     this.state = {
       newContent: this.props.task.content,
       originalContent: this.props.task.content,
       isEditing: false,
-      contentHeight: null
+      contentHeight: "0"
     };
 
     this.input = React.createRef();
@@ -40,9 +56,11 @@ class TaskModalDescriptionEditor extends Component {
   }
 
   handleKeyUp(event: React.KeyboardEvent) {
-    this.setState({
-      contentHeight: this.input.current.scrollHeight + "px"
-    });
+    if (!!this.input.current && !!this.input.current.scrollHeight) {
+      this.setState({
+        contentHeight: this.input.current.scrollHeight + "px"
+      });
+    }
   }
 
   handleClickOutside = () => {
@@ -65,11 +83,13 @@ class TaskModalDescriptionEditor extends Component {
           isEditing: true
         },
         () => {
-          this.input.current.focus();
-          this.input.current.select();
-          this.setState({
-            contentHeight: this.input.current.scrollHeight + "px"
-          });
+          if (!!this.input.current) {
+            this.input.current.focus();
+            this.input.current.select();
+            this.setState({
+              contentHeight: this.input.current.scrollHeight + "px"
+            });
+          }
         }
       );
     }
@@ -83,7 +103,7 @@ class TaskModalDescriptionEditor extends Component {
     this.setState({ newContent: event.target.value });
   };
 
-  handleSaveContent = (event: any) => {
+  handleSaveContent = () => {
     if (this.state.newContent !== this.state.originalContent) {
       if (this.state.newContent !== "") {
         this.props.onSaveContent(this.state.newContent);

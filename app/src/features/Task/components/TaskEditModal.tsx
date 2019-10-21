@@ -43,13 +43,6 @@ const TextArea = styled.textarea`
   resize: none;
 `;
 
-const TimingButtonText = styled.span`
-  line-height: 1.25em;
-  display: inline;
-  font-size: 0.8rem;
-  margin-left: 0.125rem;
-`;
-
 const ButtonContainer = styled.div`
   float: right;
   margin-top: 0.2rem;
@@ -138,7 +131,7 @@ class TaskEditModal extends Component<any, any> {
           />
           <ButtonContainer>
             <Button small primary onClick={() => this.handleSaveTitle()}>
-              Save
+              <span>Save</span>
             </Button>
           </ButtonContainer>
           {/* <Button color="#5aac44" onClick={() => this.handleSaveTitle()}>

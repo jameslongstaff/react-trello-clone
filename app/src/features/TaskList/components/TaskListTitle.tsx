@@ -8,8 +8,18 @@ import { updateListTitle } from "../../../store/TaskList/actionCreators";
 
 const Wrapper = styled.div``;
 
-class TaskListTitle extends Component {
-  constructor(props: any) {
+interface TaskListStateProps {
+  newTitle: string;
+  originalTitle: string;
+}
+
+interface TaskListTitleProps {
+  taskList: any;
+  onSaveTitle(newTitle: string): void;
+}
+
+class TaskListTitle extends Component<TaskListTitleProps, TaskListStateProps> {
+  constructor(props: TaskListTitleProps) {
     super(props);
     this.state = {
       newTitle: this.props.taskList.title,

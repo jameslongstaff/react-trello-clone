@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
 
-type ButtonProps = {
-  primary: boolean;
-  small: boolean;
+interface ButtonProps {
   onClick(): void;
-  children: ReactElement<any> | null;
-};
+  primary?: boolean;
+  small?: boolean;
+  children?: ReactElement<any> | null;
+}
 
 const Wrapper = styled.button`
   border-radius: 3px;
