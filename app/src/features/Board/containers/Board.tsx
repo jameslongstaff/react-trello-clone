@@ -12,7 +12,6 @@ import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateTaskOrder } from "../../../store/actionCreators/taskList";
 import { fetchBoard } from "../../../store/actionCreators/board";
-import { bindActionCreators } from "redux";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -51,17 +50,21 @@ class Board extends Component<any, any> {
   };
 
   render() {
+    console.log("loading", this.props.loading);
+
     return (
       <React.Fragment>
-        <Wrapper>
-          <BoardHeader boardId={this.props.id} />
-          <DragDropContext onDragEnd={this.handleDragEnd}>
-            {this.props.taskLists.map((taskListId: string, index: number) => {
-              return <TaskList key={taskListId} id={taskListId} />;
-            })}
-          </DragDropContext>
-        </Wrapper>
-        {this.props.modalState.taskModalIsVisible && (
+        {!this.props.loading && (
+          <Wrapper>
+            <BoardHeader boardId={this.props.id} />
+            <DragDropContext onDragEnd={this.handleDragEnd}>
+              {this.props.taskLists.map((taskListId: string, index: number) => {
+                return <TaskList key={taskListId} id={taskListId} />;
+              })}
+            </DragDropContext>
+          </Wrapper>
+        )}
+        {!this.props.loading && this.props.modalState.taskModalIsVisible && (
           <TaskModal taskId={this.props.modalState.taskModalId} />
         )}
       </React.Fragment>
@@ -70,10 +73,12 @@ class Board extends Component<any, any> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
+  console.log("msp", state.boards.loading);
   return {
     modalState: state.boards.modalState,
     board: state.boards.byId[ownProps.id],
-    taskLists: state.taskLists.allIds
+    taskLists: state.taskLists.allIds,
+    loading: state.boards.loading
   };
 };
 
