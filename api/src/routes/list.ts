@@ -1,7 +1,8 @@
 import { Container } from "typedi";
 import { Router, Request, Response } from "express";
-import ListService from "../../services/list";
-import CardService from "../../services/card";
+import ListService from "../services/list";
+import CardService from "../services/card";
+
 // import middlewares from "../middlewares";
 
 export default (app: Router) => {

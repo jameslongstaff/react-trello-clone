@@ -1,5 +1,11 @@
 import * as actions from "../actions/board";
 
+export type boardReduxState = {
+  readonly byId: {};
+  readonly activeBoardId: string;
+  readonly modalState: {};
+};
+
 const initialState: any = {
   test: "test",
   byId: {

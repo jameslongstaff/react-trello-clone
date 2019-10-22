@@ -19,3 +19,9 @@ export const deleteBoard = (payload: any) => {
 export const updateBoardTitle = (payload: any) => {
   return { type: actions.UPDATE_BOARD_TITLE, payload };
 };
+
+export const fetchBoard = (payload: any) => {
+  return async (dispatch: any, getState: any) => {
+    return { type: actions.FETCH_BOARD, payload };
+  };
+};

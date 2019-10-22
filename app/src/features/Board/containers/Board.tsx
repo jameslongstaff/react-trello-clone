@@ -11,6 +11,8 @@ import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateTaskOrder } from "../../../store/actionCreators/taskList";
+import { fetchBoard } from "../../../store/actionCreators/board";
+import { bindActionCreators } from "redux";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -19,6 +21,11 @@ const Wrapper = styled.div`
 `;
 
 class Board extends Component<any, any> {
+  componentDidMount() {
+    const { id } = this.props;
+    this.props.dispatch(fetchBoard({ boardId: id }));
+  }
+
   handleDragEnd = (result: any) => {
     const { destination, source, draggableId } = result;
 
@@ -33,11 +40,13 @@ class Board extends Component<any, any> {
       return;
     }
 
-    this.props.handleChangeTaskOrder(
-      source.droppableId,
-      destination.droppableId,
-      source.index,
-      destination.index
+    this.props.dispatch(
+      updateTaskOrder({
+        sourceId: source.droppableId,
+        destinationId: destination.droppableId,
+        sourceIndex: source.index,
+        destinationIndex: destination.index
+      })
     );
   };
 
@@ -68,27 +77,4 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any, ownProps: any) => {
-  return {
-    handleChangeTaskOrder: (
-      sourceId: string,
-      destinationId: string,
-      sourceIndex: number,
-      destinationIndex: number
-    ) => {
-      dispatch(
-        updateTaskOrder({
-          sourceId: sourceId,
-          destinationId: destinationId,
-          sourceIndex: sourceIndex,
-          destinationIndex: destinationIndex
-        })
-      );
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Board);
+export default connect(mapStateToProps)(Board);
