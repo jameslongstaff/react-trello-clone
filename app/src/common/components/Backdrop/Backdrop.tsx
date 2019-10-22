@@ -8,16 +8,19 @@ const Wrapper = styled.div`
   width: 100%;
   left: 0;
   top: 0;
-  opacity: 0.5;
+  opacity: ${(props: IBackdropProps) =>
+    props.opacity ? props.opacity : "0.9"};
   background-color: #000;
   z-index: 1;
 `;
 
 interface IBackdropProps {
-  onClick(): void;
+  opacity?: string;
+  onClick?(): void;
 }
 
 const Backdrop: React.FC<IBackdropProps> = props => {
+  console.log(props.opacity);
   return <Wrapper onClick={props.onClick} />;
 };
 

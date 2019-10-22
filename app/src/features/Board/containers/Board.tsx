@@ -12,6 +12,7 @@ import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateTaskOrder } from "../../../store/actionCreators/taskList";
 import { fetchBoard } from "../../../store/actionCreators/board";
+import Spinner from "../../../common/components/Spinner/Spinner";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -50,10 +51,9 @@ class Board extends Component<any, any> {
   };
 
   render() {
-    console.log("loading", this.props.loading);
-
     return (
       <React.Fragment>
+        {this.props.loading && <Spinner></Spinner>}
         {!this.props.loading && (
           <Wrapper>
             <BoardHeader boardId={this.props.id} />
