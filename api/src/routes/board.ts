@@ -65,15 +65,17 @@ export default (app: Router) => {
 
     const { boardId } = req.params;
 
-    const lists = await listService.get({ boardId }).catch(error => {
+    try {
+      const lists = await listService.get({ boardId });
+
+      const listIds = lists.map(l => l._id);
+
+      const cards = await cardService.get({ listId: { $in: listIds } });
+
+      return res.status(200).json(cards);
+    } catch (error) {
       return res.status(500).json({ error });
-    });
-
-    // const board = await cardService.getById(req.params.cardId).catch(error => {
-    //   return res.status(500).json({ error });
-    // });
-
-    // return res.status(200).json(board);
+    }
   });
 
   app.post("/board/create", async (req: Request, res: Response) => {

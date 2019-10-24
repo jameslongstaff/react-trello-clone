@@ -9,17 +9,17 @@ export default class BoardService implements ICrudService {
   constructor(private logger: Logger) {}
 
   public async get(queryOptions?: {}): Promise<IBoard[]> {
-    const boards = await Board.find();
+    const boards = await Board.find(queryOptions).exec();
     return boards;
   }
 
   public async getById(id: string): Promise<IBoard> {
-    const board = await Board.findById(id);
+    const board = await Board.findById(id).exec();
     return board;
   }
 
   public async create(data: {}): Promise<IBoard> {
-    const board = Board.create(data);
+    const board = await Board.create(data);
     return board;
   }
 

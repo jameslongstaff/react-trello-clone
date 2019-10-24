@@ -19,7 +19,7 @@ export default class ListService implements ICrudService {
   }
 
   public async create(data: {}): Promise<IList> {
-    const list = List.create(data);
+    const list = await List.create(data);
     return list;
   }
 
