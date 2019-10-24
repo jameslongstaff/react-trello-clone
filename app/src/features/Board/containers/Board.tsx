@@ -10,7 +10,10 @@ import styled from "styled-components";
 import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
-import { updateTaskOrder } from "../../../store/actionCreators/taskList";
+import {
+  updateTaskOrder,
+  fetchLists
+} from "../../../store/actionCreators/taskList";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 
@@ -24,6 +27,7 @@ class Board extends Component<any, any> {
   componentDidMount() {
     const { id } = this.props;
     this.props.dispatch(fetchBoard({ boardId: id }));
+    this.props.dispatch(fetchLists({ boardId: id }));
   }
 
   handleDragEnd = (result: any) => {
@@ -73,12 +77,12 @@ class Board extends Component<any, any> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  console.log("msp", state.boards.loading);
+  console.log(state.taskLists);
   return {
     modalState: state.boards.modalState,
     board: state.boards.byId[ownProps.id],
     taskLists: state.taskLists.allIds,
-    loading: state.boards.loading
+    loading: state.boards.loading || state.taskLists.loading
   };
 };
 

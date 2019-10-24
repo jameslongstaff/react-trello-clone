@@ -81,22 +81,6 @@ const reducer = (state = initialState, action: any) => {
     return tasks;
   }
 
-  if (action.type === actions.UPDATE_TASK_ESTIMATES) {
-    const { taskId } = action.payload;
-
-    const tasks = {
-      ...state,
-      byId: {
-        ...state.byId,
-        [taskId]: {
-          ...state.byId[taskId]
-        }
-      }
-    };
-
-    return tasks;
-  }
-
   if (action.type === actions.DELETE_TASK) {
     const { taskId } = action.payload;
 

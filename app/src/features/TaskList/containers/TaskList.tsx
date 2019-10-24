@@ -73,9 +73,10 @@ class TaskList extends Component<TaskListProps, TaskListState> {
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     taskList: state.taskLists.byId[ownProps.id],
-    tasks: state.taskLists.byId[ownProps.id].tasks.map((taskId: string) => {
-      return state.tasks.byId[taskId];
-    })
+    tasks: []
+    // tasks: state.taskLists.byId[ownProps.id].tasks.map((taskId: string) => {
+    //   return state.tasks.byId[taskId];
+    // })
   };
 };
 

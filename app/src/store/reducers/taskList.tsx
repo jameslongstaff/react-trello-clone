@@ -5,33 +5,34 @@ import * as actions from "../actions/taskList";
 
 const initialState: any = {
   byId: {
-    "1": {
-      id: "1",
-      title: "Backlog",
-      tasks: [1, 2, 3],
-      contingency: 10
-    },
-    "2": {
-      id: "2",
-      title: "Sprint",
-      tasks: [4],
-      contingency: 2
-    },
-    "3": {
-      id: "3",
-      title: "Doing",
-      tasks: []
-    },
-    "4": {
-      id: "4",
-      title: "Done",
-      tasks: []
-    }
+    // "1": {
+    //   id: "1",
+    //   title: "Backlog",
+    //   tasks: [1, 2, 3]
+    // },
+    // "2": {
+    //   id: "2",
+    //   title: "Sprint",
+    //   tasks: [4]
+    // },
+    // "3": {
+    //   id: "3",
+    //   title: "Doing",
+    //   tasks: []
+    // },
+    // "4": {
+    //   id: "4",
+    //   title: "Done",
+    //   tasks: []
+    // }
   },
-  allIds: ["1", "2", "3", "4"]
+  // allIds: ["1", "2", "3", "4"],
+  loading: false
 };
 
 const reducer = (state = initialState, action: any) => {
+  const { payload } = action;
+
   if (action.type === actions.CLONE_LIST) {
     const tempListId = cuid();
     const { listId } = action.payload;
@@ -112,6 +113,39 @@ const reducer = (state = initialState, action: any) => {
     };
 
     return lists;
+  }
+
+  if (action.type === actions.FETCH_LISTS_SUCCESS) {
+    const { lists } = payload;
+
+    console.log("SUCCESS");
+
+    const newState = {
+      ...state,
+      byId: {
+        ...state.byId
+      },
+      loading: false,
+      allIds: lists.map((l: any) => l._id)
+    };
+
+    lists.forEach((list: any) => {
+      newState.byId[list._id] = {
+        id: list._id,
+        title: list.title
+      };
+    });
+
+    console.log(newState);
+
+    return newState;
+  }
+
+  if (action.type === actions.FETCH_LISTS_BEGIN) {
+    return {
+      ...state,
+      loading: true
+    };
   }
 
   if (action.type === actions.UPDATE_TASK_ORDER) {

@@ -20,10 +20,6 @@ export const updateTaskContent = (payload: any) => {
   return { type: actions.UPDATE_TASK_CONTENT, payload };
 };
 
-export const updateTaskEstimates = (payload: any) => {
-  return { type: actions.UPDATE_TASK_ESTIMATES, payload };
-};
-
 // export function updateTaskOrder(payload) {
 //   return { type: actions.UPDATE_TASK_ORDER, payload };
 // }
