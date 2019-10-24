@@ -74,8 +74,6 @@ const reducer = (state = initialState, action: any) => {
   if (action.type === actions.FETCH_BOARD_SUCCESS) {
     const { id, title } = payload;
 
-    console.log("fetch success");
-
     return {
       ...state,
       byId: {
@@ -90,8 +88,6 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === actions.FETCH_BOARD_BEGIN) {
-    console.log("fetch begin");
-
     return {
       ...state,
       loading: true

@@ -24,22 +24,6 @@ export default (app: Router) => {
     return res.status(200).json(list);
   });
 
-  app.post("/list/create", async (req: Request, res: Response) => {
-    const listService = Container.get(ListService);
-
-    const { title } = req.body;
-
-    const list = await listService
-      .create({
-        title
-      })
-      .catch(error => {
-        return res.status(500).json({ error });
-      });
-
-    return res.status(201).json(list);
-  });
-
   app.patch("/list/:listId/update", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
 

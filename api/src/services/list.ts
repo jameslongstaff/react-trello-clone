@@ -8,22 +8,22 @@ import List from "./../models/list";
 export default class ListService implements ICrudService {
   constructor(private logger: Logger) {}
 
-  public async get(): Promise<IList[]> {
-    const lists = await List.find();
+  public async get(queryOptions?: {}): Promise<IList[]> {
+    const lists = await List.find(queryOptions).exec();
     return lists;
   }
 
   public async getById(id: string): Promise<IList> {
-    const list = await List.findById(id);
+    const list = await List.findById(id).exec();
     return list;
   }
 
-  public async create(data: IList): Promise<IList> {
+  public async create(data: {}): Promise<IList> {
     const list = List.create(data);
     return list;
   }
 
-  public async update(id: string, data: IList): Promise<IList> {
+  public async update(id: string, data: {}): Promise<IList> {
     const list = await List.findByIdAndUpdate(id, data);
     return await list.save();
   }

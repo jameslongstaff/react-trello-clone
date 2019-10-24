@@ -1,9 +1,3 @@
-import {
-  fetchListsError,
-  fetchListsPending,
-  fetchListsSuccess
-} from "../actionCreators/taskList";
-
 const apiUrl = "https://exampleapi.com/products";
 
 function fetchProducts() {

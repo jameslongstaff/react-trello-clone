@@ -9,6 +9,10 @@ export const cardSchema = new mongoose.Schema({
   },
   content: {
     type: String
+  },
+  listId: {
+    type: String,
+    required: [true]
   }
 });
 

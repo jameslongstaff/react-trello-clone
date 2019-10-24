@@ -8,7 +8,7 @@ import Board from "./../models/board";
 export default class BoardService implements ICrudService {
   constructor(private logger: Logger) {}
 
-  public async get(): Promise<IBoard[]> {
+  public async get(queryOptions?: {}): Promise<IBoard[]> {
     const boards = await Board.find();
     return boards;
   }
@@ -18,12 +18,12 @@ export default class BoardService implements ICrudService {
     return board;
   }
 
-  public async create(data: IBoard): Promise<IBoard> {
+  public async create(data: {}): Promise<IBoard> {
     const board = Board.create(data);
     return board;
   }
 
-  public async update(id: string, data: IBoard): Promise<IBoard> {
+  public async update(id: string, data: {}): Promise<IBoard> {
     const board = await Board.findByIdAndUpdate(id, data);
     return await board.save();
   }

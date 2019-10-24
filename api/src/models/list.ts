@@ -6,6 +6,11 @@ export const listSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter a title"],
     index: true
+  },
+  boardId: {
+    type: String,
+    required: [true],
+    index: true
   }
 });
 

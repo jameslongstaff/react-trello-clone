@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import { Container } from "typedi";
 import BoardService from "../services/board";
+import ListService from "../services/list";
+import CardService from "../services/card";
 // import middlewares from "../middlewares";
 
 export default (app: Router) => {
@@ -23,6 +25,55 @@ export default (app: Router) => {
       });
 
     return res.status(200).json(board);
+  });
+
+  app.get("/board/:boardId/lists", async (req: Request, res: Response) => {
+    const listService = Container.get(ListService);
+    const { boardId } = req.params;
+
+    const lists = await listService.get({ boardId }).catch(error => {
+      return res.status(500).json({ error });
+    });
+
+    return res.status(200).json(lists);
+  });
+
+  app.post(
+    "/board/:boardId/list/create",
+    async (req: Request, res: Response) => {
+      const listService = Container.get(ListService);
+
+      const { boardId } = req.params;
+      const { title } = req.body;
+
+      const list = await listService
+        .create({
+          boardId,
+          title
+        })
+        .catch(error => {
+          return res.status(500).json({ error });
+        });
+
+      return res.status(201).json(list);
+    }
+  );
+
+  app.get("/board/:boardId/cards", async (req: Request, res: Response) => {
+    const cardService = Container.get(CardService);
+    const listService = Container.get(ListService);
+
+    const { boardId } = req.params;
+
+    const lists = await listService.get({ boardId }).catch(error => {
+      return res.status(500).json({ error });
+    });
+
+    // const board = await cardService.getById(req.params.cardId).catch(error => {
+    //   return res.status(500).json({ error });
+    // });
+
+    // return res.status(200).json(board);
   });
 
   app.post("/board/create", async (req: Request, res: Response) => {
