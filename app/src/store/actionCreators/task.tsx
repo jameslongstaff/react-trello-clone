@@ -1,4 +1,7 @@
-import * as actions from "../actions/task";
+import * as cardActions from "../actions/task";
+import * as listActions from "../actions/taskList";
+import _ from "lodash";
+
 import axios from "axios";
 
 export const createTask = (payload: any) => {
@@ -14,12 +17,12 @@ export const createTask = (payload: any) => {
 
     const id = response.data._id;
 
-    return { type: actions.CREATE_TASK, payload: { ...payload, id } };
+    return { type: cardActions.CREATE_TASK, payload: { ...payload, id } };
   };
 };
 
 export const fetchCardsBegin = () => {
-  return { type: actions.FETCH_CARDS_BEGIN };
+  return { type: cardActions.FETCH_CARDS_BEGIN };
 };
 
 export const fetchCards = (payload: any) => {
@@ -43,26 +46,26 @@ export const fetchCards = (payload: any) => {
     });
 
     dispatch({
-      type: actions.FETCH_CARDS_SUCCESS,
+      type: cardActions.FETCH_CARDS_SUCCESS,
       payload: { cards }
     });
   };
 };
 
 export const deleteTask = (payload: any) => {
-  return { type: actions.DELETE_TASK, payload };
+  return { type: cardActions.DELETE_TASK, payload };
 };
 
 export const cloneTask = (payload: any) => {
-  return { type: actions.CLONE_TASK, payload };
+  return { type: cardActions.CLONE_TASK, payload };
 };
 
 export const updateTaskTitle = (payload: any) => {
-  return { type: actions.UPDATE_TASK_TITLE, payload };
+  return { type: cardActions.UPDATE_TASK_TITLE, payload };
 };
 
 export const updateTaskContent = (payload: any) => {
-  return { type: actions.UPDATE_TASK_CONTENT, payload };
+  return { type: cardActions.UPDATE_TASK_CONTENT, payload };
 };
 
 // export function updateTaskOrder(payload) {

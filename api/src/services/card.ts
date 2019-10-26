@@ -9,13 +9,13 @@ export default class CardService implements ICrudService {
   constructor(private logger: Logger) {}
 
   public async get(queryOptions?: {}): Promise<ICard[]> {
-    const cards = await Card.find(queryOptions).exec();
-    return cards;
+    const cards = Card.find(queryOptions);
+    return await cards.exec();
   }
 
   public async getById(id: string): Promise<ICard> {
-    const board = await Card.findById(id).exec();
-    return board;
+    const board = Card.findById(id);
+    return await board.exec();
   }
 
   public async create(data: {}): Promise<ICard> {

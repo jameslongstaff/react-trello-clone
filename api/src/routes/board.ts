@@ -17,14 +17,33 @@ export default (app: Router) => {
 
   app.get("/board/:boardId", async (req: Request, res: Response) => {
     const boardService = Container.get(BoardService);
+    const cardService = Container.get(CardService);
+    const listService = Container.get(ListService);
 
-    const board = await boardService
-      .getById(req.params.boardId)
-      .catch(error => {
-        return res.status(500).json({ error });
-      });
+    const { boardId } = req.params;
 
-    return res.status(200).json(board);
+    const board = await boardService.getById(boardId);
+    const lists = await listService.get({ boardId });
+    const cards = await cardService.get({
+      listId: { $in: lists.map(l => l._id) }
+    });
+
+    const listsWithCards = { ...lists }.map(l => {
+      return {
+        cards: {
+          ...cards.filter(c => c.listId === l._id)
+        }
+      };
+    });
+
+    const response = {
+      board: {
+        ...board,
+        lists: listsWithCards
+      }
+    };
+
+    return res.status(200).json(response);
   });
 
   app.get("/board/:boardId/lists", async (req: Request, res: Response) => {
