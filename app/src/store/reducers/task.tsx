@@ -2,32 +2,13 @@ import cuid from "cuid";
 import * as actions from "../actions/task";
 
 const initialState: any = {
-  byId: {
-    1: {
-      id: "1",
-      boardID: "1",
-      title: "This is the first card"
-    },
-    2: {
-      id: "2",
-      boardID: "1",
-      title:
-        "This is the second card. Adding a slightly larger title for testing purposes. Even longer now."
-    },
-    3: {
-      id: "3",
-      boardID: "1",
-      title: "This is the second card"
-    },
-    4: {
-      id: "4",
-      boardID: "1",
-      title: "This is the second card"
-    }
-  }
+  byId: {},
+  loading: false
 };
 
 const reducer = (state = initialState, action: any) => {
+  const { payload } = action;
+
   if (action.type === actions.CLONE_TASK) {
     const tempTaskId = cuid();
 
@@ -105,6 +86,34 @@ const reducer = (state = initialState, action: any) => {
     };
 
     return tasks;
+  }
+
+  if (action.type === actions.FETCH_CARDS_SUCCESS) {
+    const { cards } = payload;
+
+    const newState = {
+      ...state,
+      byId: {
+        ...state.byId
+      },
+      loading: false
+    };
+
+    cards.forEach((card: any) => {
+      newState.byId[card._id] = {
+        id: card._id,
+        title: card.title
+      };
+    });
+
+    return newState;
+  }
+
+  if (action.type === actions.FETCH_CARDS_BEGIN) {
+    return {
+      ...state,
+      loading: true
+    };
   }
 
   return state;

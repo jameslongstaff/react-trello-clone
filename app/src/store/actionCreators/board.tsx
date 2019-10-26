@@ -32,9 +32,7 @@ export const fetchBoard = (payload: any) => {
 
     const apiUrl = `http://localhost:4000/api/board/${boardId}`;
 
-    const response = (await fetch(apiUrl).catch(error => {
-      console.log(error);
-    })) as Response;
+    const response = (await fetch(apiUrl).catch(error => {})) as Response;
 
     const { title, _id } = await response.json();
 

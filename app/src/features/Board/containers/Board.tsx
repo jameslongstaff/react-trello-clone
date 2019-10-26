@@ -16,6 +16,7 @@ import {
 } from "../../../store/actionCreators/taskList";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
+import { fetchCards } from "../../../store/actionCreators/task";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -28,6 +29,7 @@ class Board extends Component<any, any> {
     const { id } = this.props;
     this.props.dispatch(fetchBoard({ boardId: id }));
     this.props.dispatch(fetchLists({ boardId: id }));
+    this.props.dispatch(fetchCards({ boardId: id }));
   }
 
   handleDragEnd = (result: any) => {
@@ -77,7 +79,6 @@ class Board extends Component<any, any> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
-  console.log(state.taskLists);
   return {
     modalState: state.boards.modalState,
     board: state.boards.byId[ownProps.id],

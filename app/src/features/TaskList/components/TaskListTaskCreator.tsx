@@ -6,6 +6,7 @@ import cuid from "cuid";
 import { PlusSquare } from "styled-icons/boxicons-solid/";
 import ClickOutside from "../../../common/components/ClickOutside/ClickOutside";
 import Button from "../../../common/components/Button/Button";
+import { createTask } from "../../../store/actionCreators/task";
 
 const Wrapper = styled.div`
   text-align: right;
@@ -69,23 +70,13 @@ class TaskListTaskCreator extends Component<any, any> {
   };
 
   saveTask = () => {
-    const taskId = cuid();
-
     if (this.state.title !== "") {
-      this.props.dispatch({
-        type: "CREATE_TASK",
-        payload: {
+      this.props.dispatch(
+        createTask({
           title: this.state.title,
-          taskId: taskId
-        }
-      });
-      this.props.dispatch({
-        type: "CREATE_LIST_TASK",
-        payload: {
-          taskListId: this.props.taskListId,
-          taskId: taskId
-        }
-      });
+          listId: this.props.taskListId
+        })
+      );
     }
 
     this.closeEditor();

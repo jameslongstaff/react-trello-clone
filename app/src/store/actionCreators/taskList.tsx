@@ -16,6 +16,10 @@ export const updateTaskOrder = (payload: any) => {
   return { type: actions.UPDATE_TASK_ORDER, payload };
 };
 
+export const populateListCards = (payload: any) => {
+  return { type: actions.POPULATE_LIST_CARDS, payload };
+};
+
 export const fetchListsBegin = () => {
   return { type: actions.FETCH_LISTS_BEGIN };
 };

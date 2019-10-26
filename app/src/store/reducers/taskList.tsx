@@ -118,8 +118,6 @@ const reducer = (state = initialState, action: any) => {
   if (action.type === actions.FETCH_LISTS_SUCCESS) {
     const { lists } = payload;
 
-    console.log("SUCCESS");
-
     const newState = {
       ...state,
       byId: {
@@ -135,8 +133,6 @@ const reducer = (state = initialState, action: any) => {
         title: list.title
       };
     });
-
-    console.log(newState);
 
     return newState;
   }
