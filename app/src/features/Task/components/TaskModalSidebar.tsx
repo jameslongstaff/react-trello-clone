@@ -27,29 +27,29 @@ class TaskModalSidebar extends Component<any> {
   }
 
   handleDeleteTask = () => {
-    this.props.handleDeleteTask(this.props.task.id);
+    this.props.handleDeleteTask(this.props.card.id);
     this.props.handleHideTaskModal();
   };
 
   handleCloneTask = () => {
-    this.props.handleCloneTask(this.props.task.id);
+    this.props.handleCloneTask(this.props.card.id);
     this.props.handleHideTaskModal();
   };
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    task: state.tasks.byId[ownProps.taskId]
+    card: state.cards.byId[ownProps.cardId]
   };
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     handleCloneTask: (id: string) => {
-      dispatch(cloneTask({ taskId: id }));
+      dispatch(cloneTask({ cardId: id }));
     },
     handleDeleteTask: (id: string) => {
-      dispatch(deleteTask({ taskId: id }));
+      dispatch(deleteTask({ cardId: id }));
     }
   };
 };

@@ -153,7 +153,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     handleShowTaskModal: (id: string) => {
-      dispatch(showTaskModal({ taskId: id }));
+      dispatch(showTaskModal({ cardId: id }));
     },
     handleSaveTitle: (title: string, id: string) => {
       dispatch(updateTaskTitle({ taskId: id, title: title }));

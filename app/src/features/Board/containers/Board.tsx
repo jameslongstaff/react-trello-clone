@@ -67,7 +67,7 @@ class Board extends Component<any, any> {
           </Wrapper>
         )}
         {!this.props.loading && this.props.modalState.taskModalIsVisible && (
-          <TaskModal taskId={this.props.modalState.taskModalId} />
+          <TaskModal cardId={this.props.modalState.taskModalId} />
         )}
       </React.Fragment>
     );

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col, Modal } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import styled from "styled-components";
 import TaskModalTitle from "./TaskModalTitle";
 import TaskModalDescriptionEditor from "./TaskModalDescriptionEditor";
 import TaskModalSidebar from "./TaskModalSidebar";
 import { hideTaskModal } from "../../../store/actionCreators/board";
+import Modal from "../../../common/components/Modal/Modal";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -43,10 +44,10 @@ class TaskModal extends Component<any, TaskModalState> {
     super(props);
 
     this.state = {
-      newTitle: this.props.task.title,
-      originalTitle: this.props.task.title,
-      newContent: this.props.task.content,
-      originalContent: this.props.task.content
+      newTitle: this.props.card.title,
+      originalTitle: this.props.card.title,
+      newContent: this.props.card.content,
+      originalContent: this.props.card.content
     };
 
     this.wrapper = React.createRef();
@@ -61,18 +62,18 @@ class TaskModal extends Component<any, TaskModalState> {
               <Row>
                 <Col>
                   <ModalHeader>
-                    <TaskModalTitle taskId={this.props.taskId} />
+                    <TaskModalTitle cardId={this.props.cardId} />
                   </ModalHeader>
                 </Col>
               </Row>
               <Row>
                 <Col xs="9">
                   <SectionHeader>Description</SectionHeader>
-                  <TaskModalDescriptionEditor taskId={this.props.taskId} />
+                  <TaskModalDescriptionEditor cardId={this.props.cardId} />
                 </Col>
                 <Col xs="3">
                   <SectionHeader>Actions</SectionHeader>
-                  <TaskModalSidebar taskId={this.props.taskId} />
+                  <TaskModalSidebar cardId={this.props.cardId} />
                 </Col>
               </Row>
             </Container>
@@ -85,7 +86,7 @@ class TaskModal extends Component<any, TaskModalState> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    task: state.cards.byId[ownProps.cardId]
+    card: state.cards.byId[ownProps.cardId]
   };
 };
 

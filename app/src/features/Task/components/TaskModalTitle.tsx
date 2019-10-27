@@ -8,9 +8,10 @@ import { updateTaskTitle } from "../../../store/actionCreators/card";
 class TaskModalTitle extends Component<any, any> {
   constructor(props: any) {
     super(props);
+
     this.state = {
-      newTitle: this.props.task.title,
-      originalTitle: this.props.task.title
+      newTitle: this.props.card.title,
+      originalTitle: this.props.card.title
     };
   }
 
@@ -43,14 +44,14 @@ class TaskModalTitle extends Component<any, any> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    task: state.tasks.byId[ownProps.taskId]
+    card: state.cards.byId[ownProps.cardId]
   };
 };
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onSaveTitle: (title: string) => {
-      dispatch(updateTaskTitle({ taskId: ownProps.taskId, title: title }));
+      dispatch(updateTaskTitle({ cardId: ownProps.cardId, title: title }));
     }
   };
 };

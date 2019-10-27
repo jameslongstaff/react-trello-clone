@@ -23,7 +23,7 @@ const TextArea = styled.textarea`
 
 interface TaskModalDescriptionEditorProps {
   content: string;
-  task: any;
+  card: any;
   onSaveContent(content: string): void;
 }
 
@@ -45,8 +45,8 @@ class TaskModalDescriptionEditor extends Component<
     super(props);
 
     this.state = {
-      newContent: this.props.task.content,
-      originalContent: this.props.task.content,
+      newContent: this.props.card.content,
+      originalContent: this.props.card.content,
       isEditing: false,
       contentHeight: "0"
     };
@@ -142,7 +142,7 @@ class TaskModalDescriptionEditor extends Component<
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    task: state.tasks.byId[ownProps.taskId]
+    card: state.cards.byId[ownProps.cardId]
   };
 };
 
@@ -151,7 +151,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
     onSaveContent: (content: any) => {
       dispatch(
         updateTaskContent({
-          cardId: ownProps.taskId,
+          cardId: ownProps.cardId,
           content: content
         })
       );

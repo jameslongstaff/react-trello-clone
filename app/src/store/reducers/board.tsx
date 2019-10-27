@@ -27,7 +27,7 @@ const reducer = (state = initialState, action: any) => {
       modalState: {
         ...state.modalState,
         taskModalIsVisible: true,
-        taskModalId: payload.taskId
+        taskModalId: payload.cardId
       }
     };
   }
