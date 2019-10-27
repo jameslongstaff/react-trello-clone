@@ -18,46 +18,22 @@ export const createTask = (payload: any) => {
 
     const id = response.data._id;
 
-    dispatch({
-      type: cardActions.CREATE_TASK,
-      payload: { ...payload, id, listId }
-    });
-
-    dispatch({
-      type: listActions.ADD_CARD_TO_LIST,
-      payload: { id, listId }
-    });
+    dispatch(createCard({ ...payload, id, listId }));
+    dispatch(addCardToList({ id, listId }));
   };
 };
 
-export const fetchCardsBegin = () => {
-  return { type: cardActions.FETCH_CARDS_BEGIN };
+export const addCardToList = (payload: any) => {
+  return {
+    type: listActions.ADD_CARD_TO_LIST,
+    payload: payload
+  };
 };
 
-export const fetchCards = (payload: any) => {
-  return async (dispatch: any) => {
-    dispatch(fetchCardsBegin());
-
-    const { boardId } = payload;
-
-    const apiUrl = `http://localhost:4000/api/board/${boardId}/cards`;
-
-    const response = await axios.get(apiUrl);
-
-    const cards = response.data.map((c: any) => {
-      const { content, title, _id, listId } = c;
-      return {
-        content,
-        title,
-        listId,
-        id: _id
-      };
-    });
-
-    dispatch({
-      type: cardActions.FETCH_CARDS_SUCCESS,
-      payload: { cards }
-    });
+export const createCard = (payload: any) => {
+  return {
+    type: cardActions.CREATE_TASK,
+    payload
   };
 };
 

@@ -16,8 +16,16 @@ export const updateTaskOrder = (payload: any) => {
   return { type: actions.UPDATE_TASK_ORDER, payload };
 };
 
+export const fetchListsSuccess = (payload: any) => {
+  return { type: actions.FETCH_LISTS_SUCCESS, payload };
+};
+
 export const fetchListsBegin = () => {
   return { type: actions.FETCH_LISTS_BEGIN };
+};
+
+export const loadLists = (payload: any) => {
+  return { type: actions.LOAD_LISTS, payload };
 };
 
 export const fetchLists = (payload: any) => {
@@ -32,13 +40,6 @@ export const fetchLists = (payload: any) => {
 
     const lists = await response.json();
 
-    dispatch({
-      type: actions.FETCH_LISTS_SUCCESS,
-      payload: { lists }
-    });
+    dispatch(fetchListsSuccess(lists));
   };
-};
-
-export const loadLists = (payload: any) => {
-  return { type: actions.LOAD_LISTS, payload };
 };
