@@ -97,7 +97,9 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === listActions.LOAD_LISTS) {
-    const { lists } = payload;
+    let lists = payload.lists.map((l: any) => {
+      return { ...l, cards: l.cards.map((c: any) => c._id) };
+    });
 
     return {
       ...state,

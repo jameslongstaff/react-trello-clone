@@ -156,21 +156,15 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.LOAD_CARDS) {
-    // const { cards } = payload;
-    // const newState = {
-    //   ...state,
-    //   byId: {
-    //     ...state.byId
-    //   },
-    //   loading: false
-    // };
-    // cards.forEach((card: any) => {
-    //   newState.byId[card._id] = {
-    //     id: card._id,
-    //     title: card.title
-    //   };
-    // });
-    // return newState;
+    const { lists } = payload;
+    const cards = lists.map((l: any) => l.cards).flat();
+
+    const newState = {
+      ...state,
+      byId: arrayToObject(cards)
+    };
+
+    return newState;
   }
 
   if (action.type === cardActions.FETCH_CARDS_BEGIN) {
@@ -191,7 +185,7 @@ export const getListById = (state: any, id: string) => {
 
 const arrayToObject = (array: []) =>
   array.reduce((obj: any, item: any) => {
-    obj[item.id] = item;
+    obj[item._id] = item;
     return obj;
   }, {});
 

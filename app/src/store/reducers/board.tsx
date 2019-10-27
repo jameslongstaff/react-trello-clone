@@ -96,7 +96,7 @@ const reducer = (state = initialState, action: any) => {
 
 const arrayToObject = (array: []) =>
   array.reduce((obj: any, item: any) => {
-    obj[item.id] = item;
+    obj[item._id] = item;
     return obj;
   }, {});
 

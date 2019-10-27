@@ -31,7 +31,7 @@ const PaddedContainer = styled.div`
 interface TaskListProps {
   id: string;
   taskList: any;
-  tasks: any[];
+  cards: any[];
 }
 
 interface TaskListState {}
@@ -46,13 +46,13 @@ class TaskList extends Component<TaskListProps, TaskListState> {
               <TaskListHeader taskListId={this.props.id} />
               <PaddedContainer>
                 <div ref={provided.innerRef}>
-                  {this.props.tasks.map((task, index) => {
+                  {this.props.cards.map((card, index) => {
                     return (
                       <Task
-                        id={task.id}
-                        key={task.id}
+                        id={card._id}
+                        key={card._id}
                         index={index}
-                        title={task.title}
+                        title={card.title}
                       />
                     );
                   })}
@@ -73,10 +73,9 @@ class TaskList extends Component<TaskListProps, TaskListState> {
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     list: state.lists.byId[ownProps.id],
-    tasks: []
-    // tasks: state.taskLists.byId[ownProps.id].tasks.map((taskId: string) => {
-    //   return state.tasks.byId[taskId];
-    // })
+    cards: state.lists.byId[ownProps.id].cards.map(
+      (cardId: string) => state.cards.byId[cardId]
+    )
   };
 };
 
