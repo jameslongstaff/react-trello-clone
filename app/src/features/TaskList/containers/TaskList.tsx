@@ -43,7 +43,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
         {(provided, snapshot) => (
           <Column {...provided.droppableProps}>
             <List>
-              <TaskListHeader taskListId={this.props.taskList.id} />
+              <TaskListHeader taskListId={this.props.id} />
               <PaddedContainer>
                 <div ref={provided.innerRef}>
                   {this.props.tasks.map((task, index) => {
@@ -58,7 +58,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
                   })}
                   {provided.placeholder}
                 </div>
-                <TaskListTaskCreator taskListId={this.props.taskList.id}>
+                <TaskListTaskCreator taskListId={this.props.id}>
                   Add a task
                 </TaskListTaskCreator>
               </PaddedContainer>
@@ -72,7 +72,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    taskList: state.taskLists.byId[ownProps.id],
+    list: state.lists.byId[ownProps.id],
     tasks: []
     // tasks: state.taskLists.byId[ownProps.id].tasks.map((taskId: string) => {
     //   return state.tasks.byId[taskId];

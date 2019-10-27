@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import EditableTitle from "../../../common/components/EditableTitle/EditableTitle";
-import { updateListTitle } from "../../../store/actionCreators/taskList";
+import { updateListTitle } from "../../../store/actionCreators/list";
 
 //common components
 
@@ -58,7 +58,7 @@ class TaskListTitle extends Component<TaskListTitleProps, TaskListStateProps> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    taskList: state.taskLists.byId[ownProps.taskListId]
+    taskList: state.lists.byId[ownProps.taskListId]
   };
 };
 

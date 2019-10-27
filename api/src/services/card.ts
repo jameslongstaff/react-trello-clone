@@ -8,27 +8,27 @@ import Card from "./../models/card";
 export default class CardService implements ICrudService {
   constructor(private logger: Logger) {}
 
-  public async get(queryOptions?: {}): Promise<ICard[]> {
+  public async get(queryOptions?: {}): Promise<any[]> {
     const cards = Card.find(queryOptions);
     return await cards.exec();
   }
 
-  public async getById(id: string): Promise<ICard> {
+  public async getById(id: string): Promise<any> {
     const board = Card.findById(id);
     return await board.exec();
   }
 
-  public async create(data: {}): Promise<ICard> {
+  public async create(data: {}): Promise<any> {
     const board = await Card.create(data);
     return board;
   }
 
-  public async update(id: string, data: {}): Promise<ICard> {
+  public async update(id: string, data: {}): Promise<any> {
     const board = await Card.findByIdAndUpdate(id, data);
     return await board.save();
   }
 
-  public async delete(id: string): Promise<ICard> {
+  public async delete(id: string): Promise<any> {
     const board = await Card.findByIdAndDelete(id);
     return board;
   }

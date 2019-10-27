@@ -8,12 +8,8 @@ export type boardReduxState = {
 
 const initialState: any = {
   test: "test",
-  byId: {
-    2: {
-      id: 2,
-      title: "The is another long board title"
-    }
-  },
+  board: {},
+  byId: {},
   activeBoardId: 1,
   modalState: {
     taskModalIsVisible: false,
@@ -71,18 +67,19 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-  if (action.type === actions.FETCH_BOARD_SUCCESS) {
-    const { id, title } = payload;
-
+  if (action.type === actions.LOAD_BOARD) {
     return {
       ...state,
-      byId: {
-        ...state.byId,
-        [id]: {
-          id,
-          title
-        }
-      },
+      board: {
+        ...state.board,
+        title: payload.title
+      }
+    };
+  }
+
+  if (action.type === actions.FETCH_BOARD_SUCCESS) {
+    return {
+      ...state,
       loading: false
     };
   }
@@ -96,5 +93,11 @@ const reducer = (state = initialState, action: any) => {
 
   return state;
 };
+
+const arrayToObject = (array: []) =>
+  array.reduce((obj: any, item: any) => {
+    obj[item.id] = item;
+    return obj;
+  }, {});
 
 export default reducer;

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import ClickOutside from "../../../common/components/ClickOutside/ClickOutside";
-import { updateTaskContent } from "../../../store/actionCreators/task";
+import { updateTaskContent } from "../../../store/actionCreators/card";
 
 const TextArea = styled.textarea`
   box-sizing: border-box;

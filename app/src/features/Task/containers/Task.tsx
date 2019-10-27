@@ -10,7 +10,7 @@ import {
   updateTaskTitle,
   cloneTask,
   deleteTask
-} from "../../../store/actionCreators/task";
+} from "../../../store/actionCreators/card";
 
 const Card = styled.div`
   border-radius: 3px;

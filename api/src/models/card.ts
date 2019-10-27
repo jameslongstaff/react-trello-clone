@@ -13,6 +13,9 @@ export const cardSchema = new mongoose.Schema({
   listId: {
     type: String,
     required: [true]
+  },
+  sortOrder: {
+    type: Number
   }
 });
 

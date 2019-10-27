@@ -23,24 +23,23 @@ export default (app: Router) => {
     const { boardId } = req.params;
 
     const board = await boardService.getById(boardId);
-    const lists = await listService.get({ boardId });
+    const list = await listService.get({ boardId });
     const cards = await cardService.get({
-      listId: { $in: lists.map(l => l._id) }
+      listId: { $in: list.map(l => l._id) }
     });
 
-    const listsWithCards = { ...lists }.map(l => {
+    const listsWithCards = list.map(list => {
       return {
-        cards: {
-          ...cards.filter(c => c.listId === l._id)
-        }
+        ...list.toObject(),
+        cards: [...cards].filter(c => {
+          return c.listId === list._id.toString();
+        })
       };
     });
 
     const response = {
-      board: {
-        ...board,
-        lists: listsWithCards
-      }
+      ...board.toObject(),
+      lists: listsWithCards
     };
 
     return res.status(200).json(response);

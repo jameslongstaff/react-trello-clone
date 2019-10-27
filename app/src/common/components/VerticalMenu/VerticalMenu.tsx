@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import classes from "./VerticalMenu.module.css";
 
 interface IVerticalMenuProps {
   children?: ReactElement<any>;

@@ -10,13 +10,9 @@ import styled from "styled-components";
 import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
-import {
-  updateTaskOrder,
-  fetchLists
-} from "../../../store/actionCreators/taskList";
-import { fetchBoard } from "../../../store/actionCreators/board";
+import { updateTaskOrder } from "../../../store/actionCreators/list";
+import { fetchBoardData } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
-import { fetchCards } from "../../../store/actionCreators/task";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -25,11 +21,9 @@ const Wrapper = styled.div`
 `;
 
 class Board extends Component<any, any> {
-  componentDidMount() {
+  async componentDidMount() {
     const { id } = this.props;
-    this.props.dispatch(fetchBoard({ boardId: id }));
-    this.props.dispatch(fetchLists({ boardId: id }));
-    this.props.dispatch(fetchCards({ boardId: id }));
+    this.props.dispatch(fetchBoardData({ boardId: id }));
   }
 
   handleDragEnd = (result: any) => {
@@ -63,11 +57,13 @@ class Board extends Component<any, any> {
         {!this.props.loading && (
           <Wrapper>
             <BoardHeader boardId={this.props.id} />
-            <DragDropContext onDragEnd={this.handleDragEnd}>
-              {this.props.taskLists.map((taskListId: string, index: number) => {
-                return <TaskList key={taskListId} id={taskListId} />;
-              })}
-            </DragDropContext>
+            {this.props.lists.length && (
+              <DragDropContext onDragEnd={this.handleDragEnd}>
+                {this.props.lists.map((taskListId: string, index: number) => {
+                  return <TaskList key={taskListId} id={taskListId} />;
+                })}
+              </DragDropContext>
+            )}
           </Wrapper>
         )}
         {!this.props.loading && this.props.modalState.taskModalIsVisible && (
@@ -81,9 +77,9 @@ class Board extends Component<any, any> {
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     modalState: state.boards.modalState,
-    board: state.boards.byId[ownProps.id],
-    taskLists: state.taskLists.allIds,
-    loading: state.boards.loading || state.taskLists.loading
+    board: state.boards.board,
+    lists: state.lists.allIds,
+    loading: state.boards.loading
   };
 };
 

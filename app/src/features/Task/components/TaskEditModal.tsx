@@ -9,7 +9,7 @@ import {
   updateTaskTitle,
   cloneTask,
   deleteTask
-} from "../../../store/actionCreators/task";
+} from "../../../store/actionCreators/card";
 
 const Modal = styled.div`
   position: absolute;
@@ -71,10 +71,10 @@ class TaskEditModal extends Component<any, any> {
   handleKeyPress = (event: React.KeyboardEvent) => {
     if (this.state.isEditing) {
       if (event.key === "Enter") {
-        let title =
-          this.state.newTitle === ""
-            ? this.state.originalTitle
-            : this.state.newTitle;
+        // let title =
+        //   this.state.newTitle === ""
+        //     ? this.state.originalTitle
+        //     : this.state.newTitle;
 
         this.handleSaveTitle();
         this.props.onHide();

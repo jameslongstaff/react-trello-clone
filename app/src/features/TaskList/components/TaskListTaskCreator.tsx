@@ -6,7 +6,7 @@ import cuid from "cuid";
 import { PlusSquare } from "styled-icons/boxicons-solid/";
 import ClickOutside from "../../../common/components/ClickOutside/ClickOutside";
 import Button from "../../../common/components/Button/Button";
-import { createTask } from "../../../store/actionCreators/task";
+import { createTask } from "../../../store/actionCreators/card";
 
 const Wrapper = styled.div`
   text-align: right;

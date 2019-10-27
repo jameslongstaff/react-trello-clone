@@ -11,6 +11,9 @@ export const listSchema = new mongoose.Schema({
     type: String,
     required: [true],
     index: true
+  },
+  sortOrder: {
+    type: Number
   }
 });
 

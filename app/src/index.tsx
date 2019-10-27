@@ -6,15 +6,15 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import boardReducer from "./store/reducers/board";
-import taskListReducer from "./store/reducers/taskList";
-import taskReducer from "./store/reducers/task";
+import taskListReducer from "./store/reducers/list";
+import taskReducer from "./store/reducers/card";
 
 import * as serviceWorker from "./serviceWorker";
 
 const rootReducer = combineReducers({
   boards: boardReducer,
-  taskLists: taskListReducer,
-  tasks: taskReducer
+  lists: taskListReducer,
+  cards: taskReducer
 });
 
 const logger = (store: any) => {

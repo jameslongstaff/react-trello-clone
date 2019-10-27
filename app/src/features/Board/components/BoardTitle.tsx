@@ -56,7 +56,7 @@ class BoardTitle extends Component<any, IBoardTitleState> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    board: state.boards.byId[ownProps.boardId]
+    board: state.boards.board
   };
 };
 

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import VerticalMenu from "../../../common/components/VerticalMenu/VerticalMenu";
 import Button from "../../../common/components/Button/Button";
-import { cloneTask, deleteTask } from "../../../store/actionCreators/task";
+import { cloneTask, deleteTask } from "../../../store/actionCreators/card";
 
 const ButtonContainer = styled.div`
   margin-bottom: 0.25rem;

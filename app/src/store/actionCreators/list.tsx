@@ -1,4 +1,4 @@
-import * as actions from "../actions/taskList";
+import * as actions from "../actions/list";
 
 export const deleteList = (payload: any) => {
   return { type: actions.DELETE_LIST, payload };
@@ -14,10 +14,6 @@ export const updateListTitle = (payload: any) => {
 
 export const updateTaskOrder = (payload: any) => {
   return { type: actions.UPDATE_TASK_ORDER, payload };
-};
-
-export const populateListCards = (payload: any) => {
-  return { type: actions.POPULATE_LIST_CARDS, payload };
 };
 
 export const fetchListsBegin = () => {
@@ -41,4 +37,8 @@ export const fetchLists = (payload: any) => {
       payload: { lists }
     });
   };
+};
+
+export const loadLists = (payload: any) => {
+  return { type: actions.LOAD_LISTS, payload };
 };

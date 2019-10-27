@@ -1,5 +1,4 @@
-import * as cardActions from "../actions/task";
-import * as listActions from "../actions/taskList";
+import * as cardActions from "../actions/card";
 import _ from "lodash";
 
 import axios from "axios";
@@ -50,6 +49,10 @@ export const fetchCards = (payload: any) => {
       payload: { cards }
     });
   };
+};
+
+export const loadCards = (payload: any) => {
+  return { type: cardActions.LOAD_CARDS, payload };
 };
 
 export const deleteTask = (payload: any) => {
