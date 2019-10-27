@@ -96,6 +96,38 @@ const reducer = (state = initialState, action: any) => {
     return lists;
   }
 
+  if (action.type === listActions.CLEAR_LIST) {
+    const { id, listId } = payload;
+
+    const s = {
+      ...state,
+      byId: {
+        ...state.byId,
+        [listId]: {
+          ...state.byId[listId],
+          cards: [...state.byId[listId].cards, id]
+        }
+      }
+    };
+
+    return s;
+  }
+
+  if (action.type === listActions.ADD_CARD_TO_LIST) {
+    const { id, listId } = payload;
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        [listId]: {
+          ...state.byId[listId],
+          cards: [...state.byId[listId].cards.concat([id])]
+        }
+      }
+    };
+  }
+
   if (action.type === listActions.LOAD_LISTS) {
     let lists = payload.lists.map((l: any) => {
       return { ...l, cards: l.cards.map((c: any) => c._id) };

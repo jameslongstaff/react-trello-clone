@@ -139,15 +139,16 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.CREATE_TASK) {
-    const { title, taskId } = action.payload;
+    const { listId, title, id } = action.payload;
 
     const tasks = {
       ...state,
       byId: {
         ...state.byId,
-        [taskId]: {
+        [id]: {
           title: title,
-          id: taskId
+          _id: id,
+          listId
         }
       }
     };

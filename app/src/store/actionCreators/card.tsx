@@ -1,4 +1,6 @@
 import * as cardActions from "../actions/card";
+import * as listActions from "../actions/list";
+
 import _ from "lodash";
 
 import axios from "axios";
@@ -16,7 +18,15 @@ export const createTask = (payload: any) => {
 
     const id = response.data._id;
 
-    return { type: cardActions.CREATE_TASK, payload: { ...payload, id } };
+    dispatch({
+      type: cardActions.CREATE_TASK,
+      payload: { ...payload, id, listId }
+    });
+
+    dispatch({
+      type: listActions.ADD_CARD_TO_LIST,
+      payload: { id, listId }
+    });
   };
 };
 

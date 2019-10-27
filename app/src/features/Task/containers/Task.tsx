@@ -133,7 +133,7 @@ class Task extends Component<any, TaskState> {
             {this.state.isEditing ? (
               <TaskEditModal
                 title={this.props.title}
-                taskId={this.props.id}
+                cardId={this.props.id}
                 onHide={this.cancelEditMode}
               />
             ) : null}
@@ -146,7 +146,7 @@ class Task extends Component<any, TaskState> {
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
     modal: state.boards.modalState,
-    task: state.cards.byId[ownProps.id]
+    card: state.cards.byId[ownProps.id]
   };
 };
 

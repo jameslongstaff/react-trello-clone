@@ -85,7 +85,7 @@ class TaskModal extends Component<any, TaskModalState> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    task: state.tasks.byId[ownProps.taskId]
+    task: state.cards.byId[ownProps.cardId]
   };
 };
 

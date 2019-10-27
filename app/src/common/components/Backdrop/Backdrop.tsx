@@ -20,7 +20,6 @@ interface IBackdropProps {
 }
 
 const Backdrop: React.FC<IBackdropProps> = props => {
-  console.log(props.opacity);
   return <Wrapper onClick={props.onClick} />;
 };
 
