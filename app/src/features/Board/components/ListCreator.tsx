@@ -1,14 +1,41 @@
 import React, { Component } from "react";
+
+//thirdparty
 import { connect } from "react-redux";
 import styled from "styled-components";
-
-import { PlusSquare } from "styled-icons/boxicons-solid/";
 import ClickOutside from "../../../common/components/ClickOutside/ClickOutside";
 import Button from "../../../common/components/Button/Button";
-import { createTask } from "../../../store/actionCreators/card";
+import { createList } from "../../../store/actionCreators/list";
+import { rgba } from 'polished'
+
+//components
 
 const Wrapper = styled.div`
-  text-align: right;
+  float: left;
+  margin: 0 0.5rem 0 0;
+  width: 16rem;
+  border-radius: 3px;
+  position: relative;
+  background: ${rgba('#fff', 0.3)};
+  padding: 0.4rem;
+
+  &.editing {
+    background: #ebecf0;
+  }
+
+  input {
+    box-shadow: none;
+    border-radius: 3px;
+    border: none;
+    padding: 0.3rem 0.4rem;
+    margin-bottom: 0.25rem;
+    width: 100%;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  float: right;
+  margin-top: 0.2rem;
 `;
 
 const TextArea = styled.textarea`
@@ -30,9 +57,12 @@ const TextArea = styled.textarea`
     outline: none;
   }
 `;
+interface ListCreatorProps { }
 
-class TaskListTaskCreator extends Component<any, any> {
-  private input: React.RefObject<HTMLTextAreaElement>;
+interface ListCreatorState { }
+
+class ListCreator extends Component<any, any> {
+  private input: React.RefObject<HTMLInputElement>;
 
   constructor(props: any) {
     super(props);
@@ -46,7 +76,7 @@ class TaskListTaskCreator extends Component<any, any> {
 
   handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
-      this.saveTask();
+      this.saveList();
     }
   };
 
@@ -64,55 +94,71 @@ class TaskListTaskCreator extends Component<any, any> {
 
   handleClickOutside = () => {
     if (this.state.editorIsOpen) {
-      this.saveTask();
+      this.saveList();
     }
-  };
-
-  saveTask = () => {
-    if (this.state.title !== "") {
-      this.props.dispatch(
-        createTask({
-          title: this.state.title,
-          listId: this.props.taskListId
-        })
-      );
-    }
-
-    this.closeEditor();
   };
 
   handleChange = (event: any) => {
     this.setState({ title: event.target.value });
   };
 
+  saveList = () => {
+    if (this.state.title !== "") {
+      this.props.dispatch(
+        createList({
+          title: this.state.title,
+          boardId: this.props.boardId
+        })
+      );
+    }
+
+    this.closeEditor();
+  };
   render() {
     let editor = this.state.editorIsOpen ? (
       <div onClick={this.props.onClick}>
         <div>
-          <TextArea
+          <input
             placeholder="Title.."
             onChange={event => this.handleChange(event)}
             onKeyPress={event => this.handleKeyPress(event)}
             ref={this.input}
           />
+          <ButtonContainer>
+            <Button small primary onClick={() => this.saveList()}>
+              <span>add list</span>
+            </Button>
+          </ButtonContainer>
         </div>
       </div>
     ) : null;
 
     return (
       <ClickOutside handleClickOutside={this.handleClickOutside}>
-        <Wrapper>
+        <Wrapper className={this.state.editorIsOpen ? 'editing' : ''}>
           {editor}
-          <Button
-            primary={this.state.title !== "" && this.state.editorIsOpen}
-            onClick={this.state.editorIsOpen ? this.saveTask : this.openEditor}
-          >
-            <PlusSquare size="20" />
-          </Button>
+
+          {!this.state.editorIsOpen && (
+            <Button
+              primary={this.state.title !== "" && this.state.editorIsOpen}
+              onClick={this.state.editorIsOpen ? this.saveList : this.openEditor}
+            >
+              <span>add another list</span>
+            </Button>
+          )}
         </Wrapper>
       </ClickOutside>
     );
   }
 }
 
-export default connect()(TaskListTaskCreator);
+const mapStateToProps = (state: any, ownProps: any) => {
+  return {
+    list: state.lists.byId[ownProps.id]
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(ListCreator);

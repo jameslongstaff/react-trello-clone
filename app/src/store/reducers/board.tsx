@@ -67,6 +67,21 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+  if (action.type === actions.ADD_LIST_TO_BOARD) {
+    // const { id, listId } = payload;
+
+    // return {
+    //   ...state,
+    //   byId: {
+    //     ...state.byId,
+    //     [listId]: {
+    //       ...state.byId[listId],
+    //       cards: [...state.byId[listId].cards.concat([id])]
+    //     }
+    //   }
+    // };
+  }
+
   if (action.type === actions.LOAD_BOARD) {
     return {
       ...state,

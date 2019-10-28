@@ -15,6 +15,18 @@ export default (app: Router) => {
     return res.status(200).json(lists);
   });
 
+  app.post("/list/create", async (req: Request, res: Response) => {
+    const listService = Container.get(ListService);
+
+    const { boardId, title } = req.body;
+
+    const list = await listService.create({ boardId, title }).catch(error => {
+      return res.status(500).json({ error });
+    });
+
+    return res.status(200).json(list);
+  });
+
   app.get("/list/:listId/", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
     const list = await listService.getById(req.params.listId).catch(error => {

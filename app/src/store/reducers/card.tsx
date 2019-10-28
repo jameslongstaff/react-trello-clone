@@ -6,24 +6,7 @@ import * as cardActions from "../actions/card";
 //https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
 
 const initialState: any = {
-  byId: {
-    // "1": {
-    //   id: "1",
-    //   title: "Backlog",
-    // },
-    // "2": {
-    //   id: "2",
-    //   title: "Sprint",
-    // },
-    // "3": {
-    //   id: "3",
-    //   title: "Doing",
-    // },
-    // "4": {
-    //   id: "4",
-    //   title: "Done",
-    // }
-  },
+  byId: {},
   loading: false
 };
 
@@ -162,7 +145,7 @@ const reducer = (state = initialState, action: any) => {
 
     const newState = {
       ...state,
-      byId: arrayToObject(cards)
+      byId: arrayToObject(cards, "_id")
     };
 
     return newState;
@@ -184,9 +167,9 @@ export const getListById = (state: any, id: string) => {
   });
 };
 
-const arrayToObject = (array: []) =>
+const arrayToObject = (array: [], param: string) =>
   array.reduce((obj: any, item: any) => {
-    obj[item._id] = item;
+    obj[item[param]] = item;
     return obj;
   }, {});
 

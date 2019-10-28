@@ -43,27 +43,26 @@ const reducer = (state = initialState, action: any) => {
           ...state.byId[taskListId],
           tasks: [...state.byId[taskListId].tasks, taskId]
         }
-      }
+      },
     };
 
     return lists;
   }
 
   if (action.type === listActions.CREATE_LIST) {
-    const tempListId = cuid();
-    const { boardId, title } = action.payload;
+    const { boardId, title, id } = action.payload;
 
     if (title !== "") {
       const lists = {
         ...state,
         byId: {
           ...state.byId,
-          [tempListId]: {
-            title: title,
-            id: tempListId,
-            boardId: boardId
+          [id]: {
+            ...action.payload,
+            cards: []
           }
-        }
+        },
+        allIds: [...state.allIds, id]
       };
 
       return lists;

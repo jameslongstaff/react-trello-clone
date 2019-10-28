@@ -8,18 +8,18 @@ import { updateListTitle } from "../../../store/actionCreators/list";
 
 const Wrapper = styled.div``;
 
-interface TaskListStateProps {
+interface ListStateProps {
   newTitle: string;
   originalTitle: string;
 }
 
-interface TaskListTitleProps {
+interface ListTitleProps {
   taskList: any;
   onSaveTitle(newTitle: string): void;
 }
 
-class TaskListTitle extends Component<TaskListTitleProps, TaskListStateProps> {
-  constructor(props: TaskListTitleProps) {
+class ListTitle extends Component<ListTitleProps, ListStateProps> {
+  constructor(props: ListTitleProps) {
     super(props);
     this.state = {
       newTitle: this.props.taskList.title,
@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskListTitle);
+)(ListTitle);

@@ -6,13 +6,13 @@ import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 //components
-
 import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateTaskOrder } from "../../../store/actionCreators/list";
 import { fetchBoardData } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
+import ListCreator from "../components/ListCreator";
 
 const Wrapper = styled.div`
   padding: 2rem 0.5rem 0.5rem 0.5rem;
@@ -64,6 +64,7 @@ class Board extends Component<any, any> {
                 })}
               </DragDropContext>
             )}
+            <ListCreator boardId={this.props.id}></ListCreator>
           </Wrapper>
         )}
         {!this.props.loading && this.props.modalState.taskModalIsVisible && (

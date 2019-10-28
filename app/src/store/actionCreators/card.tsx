@@ -18,7 +18,11 @@ export const createTask = (payload: any) => {
 
     const id = response.data._id;
 
-    dispatch(createCard({ ...payload, id, listId }));
+    dispatch({
+      type: cardActions.CREATE_TASK,
+      payload
+    });
+
     dispatch(addCardToList({ id, listId }));
   };
 };
@@ -30,12 +34,7 @@ export const addCardToList = (payload: any) => {
   };
 };
 
-export const createCard = (payload: any) => {
-  return {
-    type: cardActions.CREATE_TASK,
-    payload
-  };
-};
+export const createCard = (payload: any) => {};
 
 export const loadCards = (payload: any) => {
   return { type: cardActions.LOAD_CARDS, payload };

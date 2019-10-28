@@ -17,7 +17,7 @@ const Column = styled.div`
 `;
 
 const List = styled.div`
-  background: #efefef;
+  background: #ebecf0;
   border-radius: 3px;
   border: solid 1px #ccc;
   width: 100%;
@@ -28,13 +28,14 @@ const PaddedContainer = styled.div`
   padding: 0.5rem;
 `;
 
+
 interface TaskListProps {
   id: string;
   taskList: any;
   cards: any[];
 }
 
-interface TaskListState {}
+interface TaskListState { }
 
 class TaskList extends Component<TaskListProps, TaskListState> {
   render() {

@@ -1,31 +1,41 @@
-import * as actions from "../actions/list";
+import * as listActions from "../actions/list";
+import * as boardActions from "../actions/board";
+
+import axios from "axios";
 
 export const deleteList = (payload: any) => {
-  return { type: actions.DELETE_LIST, payload };
+  return { type: listActions.DELETE_LIST, payload };
 };
 
 export const cloneList = (payload: any) => {
-  return { type: actions.CLONE_LIST, payload };
+  return { type: listActions.CLONE_LIST, payload };
 };
 
 export const updateListTitle = (payload: any) => {
-  return { type: actions.UPDATE_LIST_TITLE, payload };
+  return { type: listActions.UPDATE_LIST_TITLE, payload };
 };
 
 export const updateTaskOrder = (payload: any) => {
-  return { type: actions.UPDATE_TASK_ORDER, payload };
+  return { type: listActions.UPDATE_TASK_ORDER, payload };
 };
 
 export const fetchListsSuccess = (payload: any) => {
-  return { type: actions.FETCH_LISTS_SUCCESS, payload };
+  return { type: listActions.FETCH_LISTS_SUCCESS, payload };
 };
 
 export const fetchListsBegin = () => {
-  return { type: actions.FETCH_LISTS_BEGIN };
+  return { type: listActions.FETCH_LISTS_BEGIN };
 };
 
 export const loadLists = (payload: any) => {
-  return { type: actions.LOAD_LISTS, payload };
+  return { type: listActions.LOAD_LISTS, payload };
+};
+
+export const addListToBoard = (payload: any) => {
+  return {
+    type: boardActions.ADD_LIST_TO_BOARD,
+    payload: payload
+  };
 };
 
 export const fetchLists = (payload: any) => {
@@ -41,5 +51,27 @@ export const fetchLists = (payload: any) => {
     const lists = await response.json();
 
     dispatch(fetchListsSuccess(lists));
+  };
+};
+
+export const createList = (payload: any) => {
+  return async (dispatch: any) => {
+    const apiUrl = `http://localhost:4000/api/list/create`;
+
+    const { title, boardId } = payload;
+
+    const response = await axios.post(apiUrl, {
+      title,
+      boardId
+    });
+
+    const id = response.data._id;
+
+    dispatch({
+      type: listActions.CREATE_LIST,
+      payload: { ...payload, id }
+    });
+
+    dispatch(addListToBoard({ id, boardId }));
   };
 };

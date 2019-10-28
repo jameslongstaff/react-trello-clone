@@ -9,6 +9,7 @@
     "connected-react-router": "^6.5.2",
     "cuid": "^2.1.6",
     "lodash": "^4.17.15",
+    "polished": "^3.4.1",
     "react": "^16.10.2",
     "react-beautiful-dnd": "^10.1.1",
     "react-dom": "^16.10.2",

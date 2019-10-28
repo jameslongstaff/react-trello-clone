@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import TaskListTitle from "./TaskListTitle";
+import ListTitle from "./ListTitle";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const TaskListHeader: React.FC<any> = (props: any) => {
   return (
     <Wrapper>
       <Left>
-        <TaskListTitle taskListId={props.taskListId} />
+        <ListTitle taskListId={props.taskListId} />
       </Left>
     </Wrapper>
   );
