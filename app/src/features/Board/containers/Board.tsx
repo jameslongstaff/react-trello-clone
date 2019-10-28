@@ -57,7 +57,7 @@ class Board extends Component<any, any> {
         {!this.props.loading && (
           <Wrapper>
             <BoardHeader boardId={this.props.id} />
-            {this.props.lists.length && (
+            {this.props.lists.length > 0 && (
               <DragDropContext onDragEnd={this.handleDragEnd}>
                 {this.props.lists.map((taskListId: string, index: number) => {
                   return <TaskList key={taskListId} id={taskListId} />;

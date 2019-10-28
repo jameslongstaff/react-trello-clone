@@ -57,12 +57,9 @@ const reducer = (state = initialState, action: any) => {
 
     return {
       ...state,
-      byId: {
-        ...state.byId,
-        [boardId]: {
-          id: boardId,
-          title: title
-        }
+      board: {
+        id: boardId,
+        title: title
       }
     };
   }

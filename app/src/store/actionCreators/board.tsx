@@ -22,10 +22,6 @@ export const deleteBoard = (payload: any) => {
   return { type: boardActions.DELETE_BOARD, payload };
 };
 
-export const updateBoardTitle = (payload: any) => {
-  return { type: boardActions.UPDATE_BOARD_TITLE, payload };
-};
-
 export const loadBoard = (payload: any) => {
   return { type: boardActions.LOAD_BOARD, payload };
 };
@@ -36,6 +32,19 @@ export const fetchBoardBegin = () => {
 
 export const fetchBoardSuccess = () => {
   return { type: boardActions.FETCH_BOARD_SUCCESS };
+}
+
+export const updateBoardTitle = (payload: any) => {
+  return async (dispatch: any) => {
+
+    const { boardId, title } = payload;
+
+    const apiUrl = `http://localhost:4000/api/board/${boardId}/update`;
+
+    const response = await axios.patch(apiUrl, { title });
+
+    dispatch({ type: boardActions.UPDATE_BOARD_TITLE, payload });
+  }
 };
 
 export const fetchBoardData = (payload: any) => {

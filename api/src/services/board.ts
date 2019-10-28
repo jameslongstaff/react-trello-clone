@@ -6,7 +6,7 @@ import Board from "./../models/board";
 
 @Service()
 export default class BoardService implements ICrudService {
-  constructor(private logger: Logger) {}
+  constructor(private logger: Logger) { }
 
   public async get(queryOptions?: {}): Promise<any[]> {
     const boards = await Board.find(queryOptions).exec();
