@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onSaveTitle: (title: string) => {
       dispatch(
-        updateListTitle({ taskListId: ownProps.taskListId, title: title })
+        updateListTitle({ listId: ownProps.taskListId, title: title })
       );
     }
   };

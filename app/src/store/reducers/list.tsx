@@ -79,14 +79,14 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === listActions.UPDATE_LIST_TITLE) {
-    const { title, taskListId } = action.payload;
+    const { title, listId } = action.payload;
 
     const lists = {
       ...state,
       byId: {
         ...state.byId,
-        [action.payload.taskListId]: {
-          ...state.byId[taskListId],
+        [action.payload.listId]: {
+          ...state.byId[listId],
           title: title
         }
       }

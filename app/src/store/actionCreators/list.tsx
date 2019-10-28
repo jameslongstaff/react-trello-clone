@@ -11,10 +11,6 @@ export const cloneList = (payload: any) => {
   return { type: listActions.CLONE_LIST, payload };
 };
 
-export const updateListTitle = (payload: any) => {
-  return { type: listActions.UPDATE_LIST_TITLE, payload };
-};
-
 export const updateTaskOrder = (payload: any) => {
   return { type: listActions.UPDATE_TASK_ORDER, payload };
 };
@@ -36,6 +32,19 @@ export const addListToBoard = (payload: any) => {
     type: boardActions.ADD_LIST_TO_BOARD,
     payload: payload
   };
+};
+
+export const updateListTitle = (payload: any) => {
+  return async (dispatch: any) => {
+
+    const { listId, title } = payload;
+
+    const apiUrl = `http://localhost:4000/api/list/${listId}/update`;
+
+    const response = await axios.patch(apiUrl, { title });
+
+    dispatch({ type: listActions.UPDATE_LIST_TITLE, payload });
+  }
 };
 
 export const fetchLists = (payload: any) => {
