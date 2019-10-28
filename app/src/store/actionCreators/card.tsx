@@ -20,7 +20,7 @@ export const createTask = (payload: any) => {
 
     dispatch({
       type: cardActions.CREATE_TASK,
-      payload
+      payload: { ...payload, id }
     });
 
     dispatch(addCardToList({ id, listId }));
@@ -34,7 +34,7 @@ export const addCardToList = (payload: any) => {
   };
 };
 
-export const createCard = (payload: any) => {};
+export const createCard = (payload: any) => { };
 
 export const loadCards = (payload: any) => {
   return { type: cardActions.LOAD_CARDS, payload };

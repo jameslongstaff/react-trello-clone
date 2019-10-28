@@ -19,7 +19,7 @@ const reducer = (state = initialState, action: any) => {
       destinationId,
       sourceIndex,
       destinationIndex
-    } = action.payload;
+    } = payload;
 
     if (sourceId !== destinationId) {
       const sourceTasks = [...state.byId[sourceId].tasks];
@@ -62,7 +62,7 @@ const reducer = (state = initialState, action: any) => {
   if (action.type === cardActions.CLONE_TASK) {
     const tempTaskId = cuid();
 
-    const { taskId } = action.payload;
+    const { taskId } = payload;
 
     const lists = {
       ...state,
@@ -79,7 +79,7 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.UPDATE_TASK_CONTENT) {
-    const { content, taskId } = action.payload;
+    const { content, taskId } = payload;
 
     const cards = {
       ...state,
@@ -96,7 +96,7 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.UPDATE_TASK_TITLE) {
-    const { title, taskId } = action.payload;
+    const { title, taskId } = payload;
 
     const tasks = {
       ...state,
@@ -113,7 +113,7 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.DELETE_TASK) {
-    const { taskId } = action.payload;
+    const { taskId } = payload;
 
     let tasks = { ...state };
     delete tasks.byId[taskId];
@@ -122,7 +122,7 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === cardActions.CREATE_TASK) {
-    const { listId, title, id } = action.payload;
+    const { listId, title, id } = payload;
 
     const tasks = {
       ...state,

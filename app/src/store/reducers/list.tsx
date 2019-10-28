@@ -115,7 +115,7 @@ const reducer = (state = initialState, action: any) => {
   if (action.type === listActions.ADD_CARD_TO_LIST) {
     const { id, listId } = payload;
 
-    return {
+    const state1 = {
       ...state,
       byId: {
         ...state.byId,
@@ -125,6 +125,8 @@ const reducer = (state = initialState, action: any) => {
         }
       }
     };
+
+    return state1;
   }
 
   if (action.type === listActions.LOAD_LISTS) {
