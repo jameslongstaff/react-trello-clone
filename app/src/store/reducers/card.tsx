@@ -95,15 +95,15 @@ const reducer = (state = initialState, action: any) => {
     return cards;
   }
 
-  if (action.type === cardActions.UPDATE_TASK_TITLE) {
-    const { title, taskId } = payload;
+  if (action.type === cardActions.UPDATE_CARD) {
+    const { title, cardId } = payload;
 
     const tasks = {
       ...state,
       byId: {
         ...state.byId,
-        [taskId]: {
-          ...state.byId[taskId],
+        [cardId]: {
+          ...state.byId[cardId],
           title: title
         }
       }

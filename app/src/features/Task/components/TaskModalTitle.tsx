@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import EditableTitle from "../../../common/components/EditableTitle/EditableTitle";
-import { updateTaskTitle } from "../../../store/actionCreators/card";
+import { updateCard } from "../../../store/actionCreators/card";
 
 //common components
 
@@ -51,7 +51,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
     onSaveTitle: (title: string) => {
-      dispatch(updateTaskTitle({ cardId: ownProps.cardId, title: title }));
+      dispatch(updateCard({ cardId: ownProps.cardId, title: title }));
     }
   };
 };

@@ -2,7 +2,7 @@ export const CREATE_TASK = "CREATE_TASK";
 export const DELETE_TASK = "UPDATE_TASK";
 export const CLONE_TASK = "CLONE_TASK";
 export const UPDATE_TASK_CONTENT = "UPDATE_TASK_CONTENT";
-export const UPDATE_TASK_TITLE = "UPDATE_TASK_TITLE";
+export const UPDATE_CARD = "UPDATE_TASK_TITLE";
 
 export const FETCH_CARDS = "FETCH_CARDS";
 export const FETCH_CARDS_BEGIN = "FETCH_CARDS_BEGIN";

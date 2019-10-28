@@ -44,10 +44,9 @@ export default (app: Router) => {
     const cardService = Container.get(CardService);
 
     const { cardId } = req.params;
-    const { title, content, listId } = req.body;
 
     const card = await cardService
-      .update(cardId, { title, content, listId })
+      .update(cardId, req.body)
       .catch(error => {
         return res.status(500).json({ error });
       });

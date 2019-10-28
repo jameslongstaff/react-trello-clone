@@ -7,7 +7,7 @@ import { Pencil } from "styled-icons/boxicons-solid";
 import TaskEditModal from "../components/TaskEditModal";
 import { showTaskModal } from "../../../store/actionCreators/board";
 import {
-  updateTaskTitle,
+  updateCard,
   cloneTask,
   deleteTask
 } from "../../../store/actionCreators/card";
@@ -98,9 +98,14 @@ class Task extends Component<any, TaskState> {
     this.initEditMode();
   };
 
+  handleQuickEditClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    this.initEditMode();
+  }
+
   initEditMode = () => {
     if (!this.state.isEditing) {
-      this.setState({ isEditing: true }, () => {});
+      this.setState({ isEditing: true }, () => { });
     }
   };
 
@@ -125,7 +130,7 @@ class Task extends Component<any, TaskState> {
             <Card onClick={() => this.props.handleShowTaskModal(this.props.id)}>
               <CardContent>
                 <CardTitle>{this.props.title}</CardTitle>
-                <QuickEditButton onClick={this.initEditMode}>
+                <QuickEditButton onClick={(event) => this.handleQuickEditClick(event)}>
                   <StyledPencil size="18" title="" />
                 </QuickEditButton>
               </CardContent>
@@ -156,7 +161,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(showTaskModal({ cardId: id }));
     },
     handleSaveTitle: (title: string, id: string) => {
-      dispatch(updateTaskTitle({ taskId: id, title: title }));
+      dispatch(updateCard({ cardId: id, title: title }));
     },
     handleCloneTask: (id: string) => {
       dispatch(cloneTask({ taskId: id }));

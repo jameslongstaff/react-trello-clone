@@ -6,7 +6,7 @@ import Backdrop from "../../../common/components/Backdrop/Backdrop";
 import { showTaskModal } from "../../../store/actionCreators/board";
 import Button from "../../../common/components/Button/Button";
 import {
-  updateTaskTitle,
+  updateCard,
   cloneTask,
   deleteTask
 } from "../../../store/actionCreators/card";
@@ -89,7 +89,7 @@ class TaskEditModal extends Component<any, any> {
   handleSaveTitle = () => {
     if (this.state.newTitle !== this.state.originalTitle) {
       if (this.state.newTitle !== "") {
-        this.props.handleSaveTitle(this.state.newTitle, this.props.taskId);
+        this.props.updateCardTitle(this.state.newTitle, this.props.cardId);
         this.setState({ originalTitle: this.state.newTitle });
       } else {
         this.setState({ newTitle: this.state.originalTitle });
@@ -170,8 +170,8 @@ const mapDispatchToProps = (dispatch: any) => {
     handleShowTaskModal: (id: string) => {
       dispatch(showTaskModal({ taskId: id }));
     },
-    handleSaveTitle: (title: string, id: string) => {
-      dispatch(updateTaskTitle({ taskId: id, title: title }));
+    updateCardTitle: (title: string, id: string) => {
+      dispatch(updateCard({ cardId: id, title: title }));
     },
     handleCloneTask: (id: string) => {
       dispatch(cloneTask({ taskId: id }));

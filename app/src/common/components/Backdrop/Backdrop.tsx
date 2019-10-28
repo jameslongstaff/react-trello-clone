@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   left: 0;
   top: 0;
   opacity: ${(props: IBackdropProps) =>
-    props.opacity ? props.opacity : "0.9"};
+    props.opacity ? props.opacity : "0.5"};
   background-color: #000;
   z-index: 1;
 `;

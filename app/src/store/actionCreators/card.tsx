@@ -48,8 +48,17 @@ export const cloneTask = (payload: any) => {
   return { type: cardActions.CLONE_TASK, payload };
 };
 
-export const updateTaskTitle = (payload: any) => {
-  return { type: cardActions.UPDATE_TASK_TITLE, payload };
+export const updateCard = (payload: any) => {
+  return async (dispatch: any) => {
+
+    const { cardId, title } = payload;
+
+    const apiUrl = `http://localhost:4000/api/card/${cardId}/update`;
+
+    const response = await axios.patch(apiUrl, { title });
+
+    dispatch({ type: cardActions.UPDATE_CARD, payload });
+  }
 };
 
 export const updateTaskContent = (payload: any) => {
