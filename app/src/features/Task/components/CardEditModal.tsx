@@ -48,7 +48,7 @@ const ButtonContainer = styled.div`
   margin-top: 0.2rem;
 `;
 
-class TaskEditModal extends Component<any, any> {
+class CardEditModal extends Component<any, any> {
   private input: React.RefObject<HTMLTextAreaElement>;
 
   constructor(props: any) {
@@ -185,4 +185,4 @@ const mapDispatchToProps = (dispatch: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskEditModal);
+)(CardEditModal);

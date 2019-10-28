@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import { Pencil } from "styled-icons/boxicons-solid";
-import TaskEditModal from "../components/TaskEditModal";
+import CardEditModal from "../components/CardEditModal";
 import { showTaskModal } from "../../../store/actionCreators/board";
 import {
   updateCard,
@@ -136,7 +136,7 @@ class Task extends Component<any, TaskState> {
               </CardContent>
             </Card>
             {this.state.isEditing ? (
-              <TaskEditModal
+              <CardEditModal
                 title={this.props.title}
                 cardId={this.props.id}
                 onHide={this.cancelEditMode}
