@@ -93,9 +93,12 @@ class EditableTitle extends Component<any, IEditableTitleState> {
   //theme provider - styled components
 
   render() {
+
+    const Tag = `${this.props.tag}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+
     return (
       <ClickOutside handleClickOutside={this.handleClickOutside}>
-        <p>
+        <Tag>
           <ElementContainer
             onClick={event => {
               this.handleClick(event);
@@ -117,7 +120,7 @@ class EditableTitle extends Component<any, IEditableTitleState> {
                 this.props.title
               )}
           </ElementContainer>
-        </p>
+        </Tag>
       </ClickOutside>
     );
   }

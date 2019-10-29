@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import TaskListHeader from "../components/TaskListHeader";
+import ListHeader from "../components/ListHeader";
 import Task from "../../Task/containers/Task";
 import TaskListTaskCreator from "../components/TaskListTaskCreator";
 
@@ -44,7 +44,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
         {(provided, snapshot) => (
           <Column {...provided.droppableProps}>
             <List>
-              <TaskListHeader taskListId={this.props.id} />
+              <ListHeader taskListId={this.props.id} />
               <PaddedContainer>
                 <div ref={provided.innerRef}>
                   {this.props.cards.map((card, index) => {
