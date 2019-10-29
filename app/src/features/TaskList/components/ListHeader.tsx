@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 
 import styled from "styled-components";
 import ListTitle from "./ListTitle";
 import { DotsHorizontalRounded } from "styled-icons/boxicons-regular/";
+import PopoutMenu from "../../../common/components/PopoutMenu/PopoutMenu";
+import PopoutMenuLink from "../../../common/components/PopoutMenu/PopoutMenuLink";
 
 const Wrapper = styled.div`
   display: flex;
@@ -34,17 +36,46 @@ const DotsIcon = styled(DotsHorizontalRounded)`
   right: 0;
 `;
 
-const ListHeader: React.FC<any> = (props: any) => {
-  return (
-    <Wrapper>
-      <Left>
-        <ListTitle taskListId={props.taskListId} />
-        <ListMenuToggle>
-          <DotsIcon></DotsIcon>
-        </ListMenuToggle>
-      </Left>
-    </Wrapper>
-  );
+interface IListTitleProps {
+  taskListId: string;
+}
+
+interface IListTitleState {
+  listMenuOpen: boolean;
+}
+
+class ListHeader extends Component<IListTitleProps, IListTitleState> {
+
+  constructor(props: IListTitleProps) {
+    super(props);
+    this.state = {
+      listMenuOpen: false,
+    };
+  }
+
+  handleCloseListMenu = () => {
+    this.setState({ listMenuOpen: false });
+  };
+
+  handleMenuToggleClick = () => {
+    this.setState({ listMenuOpen: !this.state.listMenuOpen });
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <Left>
+          <ListTitle taskListId={this.props.taskListId} />
+          <ListMenuToggle onClick={() => this.handleMenuToggleClick()}>
+            <DotsIcon></DotsIcon>
+            <PopoutMenu onClose={() => this.handleCloseListMenu()}>
+              <PopoutMenuLink>Test</PopoutMenuLink>
+            </PopoutMenu>
+          </ListMenuToggle>
+        </Left>
+      </Wrapper >
+    );
+  }
 };
 
 export default ListHeader;
