@@ -18,6 +18,6 @@ const PopoutMenuLink: React.FC<IPopoutMenuLinkProps> = (props => {
 			</Button>
 		</Wrapper>
 	);
-};
+});
 
 export default PopoutMenuLink;
