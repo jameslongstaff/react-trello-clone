@@ -68,11 +68,13 @@ class ListHeader extends Component<IListTitleProps, IListTitleState> {
           <ListTitle taskListId={this.props.taskListId} />
           <ListMenuToggle onClick={() => this.handleMenuToggleClick()}>
             <DotsIcon></DotsIcon>
-            <PopoutMenu onClose={() => this.handleCloseListMenu()}>
-              <PopoutMenuLink onClick={() => { console.log('test') }}>
-                <span>Text</span>
-              </PopoutMenuLink>
-            </PopoutMenu>
+            {this.state.listMenuOpen && (
+              <PopoutMenu onClose={() => this.handleCloseListMenu()}>
+                <PopoutMenuLink onClick={() => { console.log('test') }}>
+                  <span>Text</span>
+                </PopoutMenuLink>
+              </PopoutMenu>
+            )}
           </ListMenuToggle>
         </Left>
       </Wrapper >
