@@ -40,8 +40,19 @@ export const loadCards = (payload: any) => {
   return { type: cardActions.LOAD_CARDS, payload };
 };
 
-export const deleteTask = (payload: any) => {
-  return { type: cardActions.DELETE_TASK, payload };
+export const deleteCard = (payload: any) => {
+
+  return async (dispatch: any) => {
+
+    const { cardId, listId } = payload;
+
+    const apiUrl = `http://localhost:4000/api/card/${cardId}/delete`;
+
+    const response = await axios.delete(apiUrl);
+
+    dispatch({ type: listActions.REMOVE_CARD_FROM_LIST, payload });
+    dispatch({ type: cardActions.DELETE_CARD, payload });
+  }
 };
 
 export const cloneTask = (payload: any) => {

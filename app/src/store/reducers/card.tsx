@@ -112,19 +112,19 @@ const reducer = (state = initialState, action: any) => {
     return tasks;
   }
 
-  if (action.type === cardActions.DELETE_TASK) {
-    const { taskId } = payload;
+  if (action.type === cardActions.DELETE_CARD) {
+    const { cardId } = payload;
 
-    let tasks = { ...state };
-    delete tasks.byId[taskId];
+    let cards = { ...state };
+    delete cards.byId[cardId];
 
-    return tasks;
+    return cards;
   }
 
   if (action.type === cardActions.CREATE_TASK) {
     const { listId, title, id } = payload;
 
-    const tasks = {
+    return {
       ...state,
       byId: {
         ...state.byId,
@@ -135,8 +135,6 @@ const reducer = (state = initialState, action: any) => {
         }
       }
     };
-
-    return tasks;
   }
 
   if (action.type === cardActions.LOAD_CARDS) {

@@ -9,7 +9,7 @@ import { showTaskModal } from "../../../store/actionCreators/board";
 import {
   updateCard,
   cloneTask,
-  deleteTask
+  deleteCard,
 } from "../../../store/actionCreators/card";
 
 const Card = styled.div`
@@ -167,7 +167,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(cloneTask({ taskId: id }));
     },
     handleDeleteTask: (id: string) => {
-      dispatch(deleteTask({ taskId: id }));
+      dispatch(deleteCard({ taskId: id }));
     }
   };
 };

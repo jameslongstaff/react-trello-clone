@@ -114,8 +114,8 @@ class EditableTitle extends Component<any, IEditableTitleState> {
                 ref={this.input}
               />
             ) : (
-              this.props.title
-            )}
+                this.props.title
+              )}
           </ElementContainer>
         </p>
       </ClickOutside>

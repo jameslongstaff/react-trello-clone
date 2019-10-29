@@ -1,5 +1,5 @@
 export const CREATE_TASK = "CREATE_TASK";
-export const DELETE_TASK = "UPDATE_TASK";
+export const DELETE_CARD = "UPDATE_TASK";
 export const CLONE_TASK = "CLONE_TASK";
 export const UPDATE_TASK_CONTENT = "UPDATE_TASK_CONTENT";
 export const UPDATE_CARD = "UPDATE_TASK_TITLE";

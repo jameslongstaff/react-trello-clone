@@ -112,10 +112,25 @@ const reducer = (state = initialState, action: any) => {
     return s;
   }
 
+  if (action.type === listActions.REMOVE_CARD_FROM_LIST) {
+    const { cardId, listId } = payload;
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        [listId]: {
+          ...state.byId[listId],
+          cards: [...state.byId[listId].cards.filter((c: string) => c !== cardId)],
+        }
+      }
+    }
+  }
+
   if (action.type === listActions.ADD_CARD_TO_LIST) {
     const { id, listId } = payload;
 
-    const state1 = {
+    return {
       ...state,
       byId: {
         ...state.byId,
@@ -125,8 +140,6 @@ const reducer = (state = initialState, action: any) => {
         }
       }
     };
-
-    return state1;
   }
 
   if (action.type === listActions.LOAD_LISTS) {

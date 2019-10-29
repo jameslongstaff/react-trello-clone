@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import VerticalMenu from "../../../common/components/VerticalMenu/VerticalMenu";
 import Button from "../../../common/components/Button/Button";
-import { cloneTask, deleteTask } from "../../../store/actionCreators/card";
+import { cloneTask, deleteCard } from "../../../store/actionCreators/card";
 
 const ButtonContainer = styled.div`
   margin-bottom: 0.25rem;
@@ -49,7 +49,7 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
       dispatch(cloneTask({ cardId: id }));
     },
     handleDeleteTask: (id: string) => {
-      dispatch(deleteTask({ cardId: id }));
+      dispatch(deleteCard({ cardId: id }));
     }
   };
 };
