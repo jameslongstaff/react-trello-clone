@@ -14,6 +14,20 @@ This is a work in progress clone version of trello that I am producing in my own
 
 ## Future work
 
+1. Install concurrently to start app and api simultaneously
+1. Draggable cards and lists
+1. Board creation
+1. Board listing
+1. Card search
+1. Card clone
+1. List clone
+1. `reselect` integration
+1. Unit tests with jasmine and jest
+1. Delete board, clone board
+1. Authentication and login
+1. General style improvements and ui
+1. More improvements not listed 
+
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
