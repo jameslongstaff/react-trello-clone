@@ -22,6 +22,24 @@ export default (app: Router) => {
     return res.status(200).json(card);
   });
 
+  app.post("/list/:cardId/copy", async (req: Request, res: Response) => {
+    const cardService = Container.get(CardService);
+
+    const { cardId } = req.body;
+
+    const card = await cardService.getById(cardId);
+
+    const { title, listId } = card;
+
+    const cards = await cardService.get({ listId })
+
+    const cardCopy = await cardService.create({ title, listId, sortOrder: cards.length }).catch(error => {
+      return res.status(500).json({ error });
+    });
+
+    return res.status(200).json(cardCopy);
+  });
+
   app.post("/card/create", async (req: Request, res: Response) => {
     const cardService = Container.get(CardService);
 
