@@ -4,13 +4,8 @@ import * as cardActions from "../actions/card";
 
 import axios from "axios";
 
-
 export const cloneList = (payload: any) => {
   return { type: listActions.CLONE_LIST, payload };
-};
-
-export const updateTaskOrder = (payload: any) => {
-  return { type: listActions.UPDATE_TASK_ORDER, payload };
 };
 
 export const fetchListsSuccess = (payload: any) => {
@@ -94,3 +89,7 @@ export const createList = (payload: any) => {
     dispatch(addListToBoard({ id, boardId }));
   };
 };
+
+export function updateListOrder(payload: any) {
+  return { type: listActions.UPDATE_LIST_ORDER, payload };
+}

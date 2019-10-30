@@ -1,6 +1,5 @@
 import cuid from "cuid";
 
-import * as listActions from "../actions/list";
 import * as cardActions from "../actions/card";
 
 //https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
@@ -12,52 +11,6 @@ const initialState: any = {
 
 const reducer = (state = initialState, action: any) => {
   const { payload } = action;
-
-  if (action.type === cardActions.UPDATE_TASK_ORDER) {
-    const {
-      sourceId,
-      destinationId,
-      sourceIndex,
-      destinationIndex
-    } = payload;
-
-    if (sourceId !== destinationId) {
-      const sourceTasks = [...state.byId[sourceId].tasks];
-      const destinationTasks = [...state.byId[destinationId].tasks];
-      const task = sourceTasks.splice(sourceIndex, 1);
-      destinationTasks.splice(destinationIndex, 0, task);
-
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [destinationId]: {
-            ...state.byId[destinationId],
-            tasks: destinationTasks
-          },
-          [sourceId]: {
-            ...state.byId[sourceId],
-            tasks: sourceTasks
-          }
-        }
-      };
-    } else {
-      const tasks = [...state.byId[sourceId].tasks];
-      const [task] = tasks.splice(sourceIndex, 1);
-      tasks.splice(destinationIndex, 0, task);
-
-      return {
-        ...state,
-        byId: {
-          ...state.byId,
-          [destinationId]: {
-            ...state.byId[destinationId],
-            tasks: tasks
-          }
-        }
-      };
-    }
-  }
 
   if (action.type === cardActions.CLONE_TASK) {
     const tempTaskId = cuid();

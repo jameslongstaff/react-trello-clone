@@ -158,6 +158,53 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+
+  if (action.type === listActions.UPDATE_LIST_ORDER) {
+    const {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    } = payload;
+
+    if (sourceId !== destinationId) {
+      const sourceCards = [...state.byId[sourceId].cards];
+      const destinationCards = [...state.byId[destinationId].cards];
+      const card = sourceCards.splice(sourceIndex, 1);
+      destinationCards.splice(destinationIndex, 0, card);
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [destinationId]: {
+            ...state.byId[destinationId],
+            cards: destinationCards
+          },
+          [sourceId]: {
+            ...state.byId[sourceId],
+            cards: sourceCards
+          }
+        }
+      };
+    } else {
+      const cards = [...state.byId[sourceId].cards];
+      const [card] = cards.splice(sourceIndex, 1);
+      cards.splice(destinationIndex, 0, card);
+
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [destinationId]: {
+            ...state.byId[destinationId],
+            cards: cards
+          }
+        }
+      };
+    }
+  }
+
   return state;
 };
 

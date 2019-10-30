@@ -9,7 +9,7 @@ import styled from "styled-components";
 import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
-import { updateTaskOrder } from "../../../store/actionCreators/list";
+import { updateListOrder } from "../../../store/actionCreators/list";
 import { fetchBoardData } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
@@ -41,7 +41,7 @@ class Board extends Component<any, any> {
     }
 
     this.props.dispatch(
-      updateTaskOrder({
+      updateListOrder({
         sourceId: source.droppableId,
         destinationId: destination.droppableId,
         sourceIndex: source.index,

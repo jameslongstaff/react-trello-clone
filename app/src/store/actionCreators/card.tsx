@@ -75,7 +75,3 @@ export const updateCard = (payload: any) => {
 export const updateTaskContent = (payload: any) => {
   return { type: cardActions.UPDATE_TASK_CONTENT, payload };
 };
-
-// export function updateTaskOrder(payload) {
-//   return { type: actions.UPDATE_TASK_ORDER, payload };
-// }
