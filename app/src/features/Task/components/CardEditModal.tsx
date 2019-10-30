@@ -7,7 +7,7 @@ import { showTaskModal } from "../../../store/actionCreators/board";
 import Button from "../../../common/components/Button/Button";
 import {
   updateCard,
-  cloneTask,
+  cloneCard,
   deleteCard,
 } from "../../../store/actionCreators/card";
 import { rgba } from 'polished'
@@ -122,9 +122,9 @@ class CardEditModal extends Component<any, any> {
     this.props.onHide();
   };
 
-  handleCloneTask = () => {
+  handleCloneCard = () => {
     const { cardId } = this.props;
-    this.props.dispatch(cloneTask({ cardId }));
+    this.props.dispatch(cloneCard({ cardId }));
     this.props.onHide();
   };
 
@@ -162,7 +162,7 @@ class CardEditModal extends Component<any, any> {
             </ButtonContainer>
           </div>
           <QuickLinks>
-            <Button small onClick={() => { this.handleCloneTask(); }}>
+            <Button small onClick={() => { this.handleCloneCard(); }}>
               <span>Clone card</span>
             </Button>
             <Button small onClick={() => { this.handleDeleteCard(); }}>

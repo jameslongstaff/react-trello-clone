@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import VerticalMenu from "../../../common/components/VerticalMenu/VerticalMenu";
 import Button from "../../../common/components/Button/Button";
-import { cloneTask, deleteCard } from "../../../store/actionCreators/card";
+import { cloneCard, deleteCard } from "../../../store/actionCreators/card";
 
 const ButtonContainer = styled.div`
   margin-bottom: 0.25rem;
@@ -15,7 +15,7 @@ class TaskModalSidebar extends Component<any> {
     return (
       <VerticalMenu>
         <ButtonContainer>
-          <Button onClick={() => this.handleCloneTask()}>
+          <Button onClick={() => this.handleCloneCard()}>
             <span>Clone task</span>
           </Button>
           <Button onClick={() => this.handleDeleteTask()}>
@@ -31,8 +31,8 @@ class TaskModalSidebar extends Component<any> {
     this.props.handleHideTaskModal();
   };
 
-  handleCloneTask = () => {
-    this.props.handleCloneTask(this.props.card.id);
+  handleCloneCard = () => {
+    this.props.handleCloneCard(this.props.card.id);
     this.props.handleHideTaskModal();
   };
 }
@@ -45,8 +45,8 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {
-    handleCloneTask: (id: string) => {
-      dispatch(cloneTask({ cardId: id }));
+    handleCloneCard: (id: string) => {
+      dispatch(cloneCard({ cardId: id }));
     },
     handleDeleteTask: (id: string) => {
       dispatch(deleteCard({ cardId: id }));

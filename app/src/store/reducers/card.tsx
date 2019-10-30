@@ -119,13 +119,6 @@ const reducer = (state = initialState, action: any) => {
     return newState;
   }
 
-  if (action.type === cardActions.FETCH_CARDS_BEGIN) {
-    return {
-      ...state,
-      loading: true
-    };
-  }
-
   return state;
 };
 

@@ -8,7 +8,7 @@ import CardEditModal from "../components/CardEditModal";
 import { showTaskModal } from "../../../store/actionCreators/board";
 import {
   updateCard,
-  cloneTask,
+  cloneCard,
   deleteCard,
 } from "../../../store/actionCreators/card";
 
@@ -164,7 +164,7 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch(updateCard({ cardId: id, title: title }));
     },
     handleCloneTask: (id: string) => {
-      dispatch(cloneTask({ taskId: id }));
+      dispatch(cloneCard({ taskId: id }));
     },
     handleDeleteTask: (id: string) => {
       dispatch(deleteCard({ taskId: id }));
