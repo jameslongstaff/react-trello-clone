@@ -1,8 +1,17 @@
 import React, { ReactElement } from "react";
 import styled from "styled-components";
-import Button from "../Button/Button";
 
-const Wrapper = styled.div`
+const Link = styled.a`
+	color: #000;
+	display: block;
+	font-size: 0.85rem;
+	padding: 0.35rem 1rem;
+	width: 100%;
+
+	&:hover {
+		background-color: #ebecf0;
+		cursor: pointer;
+	}
 `;
 
 interface IPopoutMenuLinkProps {
@@ -12,11 +21,9 @@ interface IPopoutMenuLinkProps {
 
 const PopoutMenuLink: React.FC<IPopoutMenuLinkProps> = (props => {
 	return (
-		<Wrapper>
-			<Button onClick={() => props.onClick()}>
-				{props.children}
-			</Button>
-		</Wrapper>
+		<Link onClick={() => props.onClick()}>
+			{props.children}
+		</Link>
 	);
 });
 

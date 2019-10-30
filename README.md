@@ -1,6 +1,6 @@
 # React Redux Trello clone with NodeJS, Mongo API
 
-This is a work in progress clone version of trello that I am producing in my own time in order to get some practical experience and further develop my knowledge and understanding of JavaScript. 
+This is a work in progress basic clone version of trello. I am using this project to get some practical experience and further develop my knowledge and understanding of JavaScript applications using Front End frameworks, in conjunction with Javascript based API's.
 
 ## Getting Started
 

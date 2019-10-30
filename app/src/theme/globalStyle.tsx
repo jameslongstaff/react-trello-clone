@@ -3,6 +3,10 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto+Slab:400,700');
 
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     padding: 0;
     margin: 0;

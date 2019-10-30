@@ -3,8 +3,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import ListTitle from "./ListTitle";
 import { DotsHorizontalRounded } from "styled-icons/boxicons-regular/";
-import PopoutMenu from "../../../common/components/PopoutMenu/PopoutMenu";
-import PopoutMenuLink from "../../../common/components/PopoutMenu/PopoutMenuLink";
+import Popout from "../../../common/components/Popout/Popout";
+import PopoutLink from "../../../common/components/Popout/PopoutLink";
+import PopoutHeader from "../../../common/components/Popout/PopoutHeader";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,6 +19,8 @@ const Left = styled.div`
 `;
 
 const ListMenuToggle = styled.a`
+  border-radius: 3px;
+  cursor: pointer;
   height: 1.25rem;
   position: absolute;
   top: 0;
@@ -26,6 +29,10 @@ const ListMenuToggle = styled.a`
   display: block;
   width: 1.25rem;
   right: 0.5rem;
+
+  &:hover {
+    background-color: #ddd;
+  }
 `;
 
 const DotsIcon = styled(DotsHorizontalRounded)`
@@ -69,11 +76,17 @@ class ListHeader extends Component<IListTitleProps, IListTitleState> {
           <ListMenuToggle onClick={() => this.handleMenuToggleClick()}>
             <DotsIcon></DotsIcon>
             {this.state.listMenuOpen && (
-              <PopoutMenu onClose={() => this.handleCloseListMenu()}>
-                <PopoutMenuLink onClick={() => { console.log('test') }}>
-                  <span>Text</span>
-                </PopoutMenuLink>
-              </PopoutMenu>
+              <Popout onClose={() => this.handleCloseListMenu()}>
+                <PopoutHeader>
+                  <span>List Actions</span>
+                </PopoutHeader>
+                <PopoutLink onClick={() => { console.log('test') }}>
+                  <span>Clone list..</span>
+                </PopoutLink>
+                <PopoutLink onClick={() => { console.log('test') }}>
+                  <span>Delete list..</span>
+                </PopoutLink>
+              </Popout>
             )}
           </ListMenuToggle>
         </Left>
