@@ -50,7 +50,7 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === listActions.CREATE_LIST) {
-    const { boardId, title, id } = action.payload;
+    const { title, id } = action.payload;
 
     if (title !== "") {
       const lists = {
@@ -72,7 +72,11 @@ const reducer = (state = initialState, action: any) => {
   if (action.type === listActions.DELETE_LIST) {
     const { listId } = action.payload;
 
-    let lists = { ...state };
+    let lists = {
+      ...state,
+      allIds: [...state.allIds].filter(id => id !== listId),
+    };
+
     delete lists.byId[listId];
 
     return lists;

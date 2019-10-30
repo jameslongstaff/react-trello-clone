@@ -44,7 +44,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
         {(provided, snapshot) => (
           <Column {...provided.droppableProps}>
             <List>
-              <ListHeader taskListId={this.props.id} />
+              <ListHeader listId={this.props.id} />
               <PaddedContainer>
                 <div ref={provided.innerRef}>
                   {this.props.cards.map((card, index) => {

@@ -52,9 +52,9 @@ export default (app: Router) => {
   app.delete("/list/:listId", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
 
-    const { boardId } = req.params;
+    const { listId } = req.params;
 
-    const list = await listService.delete(boardId).catch(error => {
+    const list = await listService.delete(listId).catch(error => {
       return res.status(500).json({ error });
     });
 

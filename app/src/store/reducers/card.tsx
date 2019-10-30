@@ -112,6 +112,26 @@ const reducer = (state = initialState, action: any) => {
     return tasks;
   }
 
+  if (action.type === cardActions.DELETE_LIST_CARDS) {
+    const { listId } = payload;
+
+    const cardsById = { ...state.byId }
+
+    Object.keys({ ...state.byId }).filter(
+      id => state.byId[id].listId === listId
+    ).forEach(c => {
+      delete cardsById[c];
+    });
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        cardsById
+      }
+    };
+  }
+
   if (action.type === cardActions.DELETE_CARD) {
     const { cardId } = payload;
 

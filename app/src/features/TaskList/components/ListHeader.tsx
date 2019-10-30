@@ -6,6 +6,8 @@ import { DotsHorizontalRounded } from "styled-icons/boxicons-regular/";
 import Popout from "../../../common/components/Popout/Popout";
 import PopoutLink from "../../../common/components/Popout/PopoutLink";
 import PopoutHeader from "../../../common/components/Popout/PopoutHeader";
+import { connect } from "react-redux";
+import { deleteList } from "../../../store/actionCreators/list";
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,7 +20,7 @@ const Left = styled.div`
   padding: 0.5rem;
 `;
 
-const ListMenuToggle = styled.a`
+const ListMenuToggle = styled.span`
   border-radius: 3px;
   cursor: pointer;
   height: 1.25rem;
@@ -43,22 +45,26 @@ const DotsIcon = styled(DotsHorizontalRounded)`
   right: 0;
 `;
 
-interface IListTitleProps {
-  taskListId: string;
+interface IListHeaderProps {
+  listId: string;
 }
 
-interface IListTitleState {
+interface IListHeaderProps {
   listMenuOpen: boolean;
 }
 
-class ListHeader extends Component<IListTitleProps, IListTitleState> {
+class ListHeader extends Component<any, any> {
 
-  constructor(props: IListTitleProps) {
+  constructor(props: any) {
     super(props);
     this.state = {
       listMenuOpen: false,
     };
   }
+
+  handleDeleteList = () => {
+    this.props.dispatch(deleteList({ listId: this.props.listId }))
+  };
 
   handleCloseListMenu = () => {
     this.setState({ listMenuOpen: false });
@@ -72,7 +78,7 @@ class ListHeader extends Component<IListTitleProps, IListTitleState> {
     return (
       <Wrapper>
         <Left>
-          <ListTitle taskListId={this.props.taskListId} />
+          <ListTitle taskListId={this.props.listId} />
           <ListMenuToggle onClick={() => this.handleMenuToggleClick()}>
             <DotsIcon></DotsIcon>
             {this.state.listMenuOpen && (
@@ -83,7 +89,7 @@ class ListHeader extends Component<IListTitleProps, IListTitleState> {
                 <PopoutLink onClick={() => { console.log('test') }}>
                   <span>Clone list..</span>
                 </PopoutLink>
-                <PopoutLink onClick={() => { console.log('test') }}>
+                <PopoutLink onClick={() => { this.handleDeleteList() }}>
                   <span>Delete list..</span>
                 </PopoutLink>
               </Popout>
@@ -95,4 +101,7 @@ class ListHeader extends Component<IListTitleProps, IListTitleState> {
   }
 };
 
-export default ListHeader;
+export default connect(
+  null,
+  null,
+)(ListHeader);

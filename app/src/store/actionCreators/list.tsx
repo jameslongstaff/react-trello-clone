@@ -1,11 +1,9 @@
 import * as listActions from "../actions/list";
 import * as boardActions from "../actions/board";
+import * as cardActions from "../actions/card";
 
 import axios from "axios";
 
-export const deleteList = (payload: any) => {
-  return { type: listActions.DELETE_LIST, payload };
-};
 
 export const cloneList = (payload: any) => {
   return { type: listActions.CLONE_LIST, payload };
@@ -34,9 +32,21 @@ export const addListToBoard = (payload: any) => {
   };
 };
 
+export const deleteList = (payload: any) => {
+  return async (dispatch: any) => {
+    const { listId } = payload;
+
+    const apiUrl = `http://localhost:4000/api/list/${listId}`;
+
+    const response = await axios.delete(apiUrl);
+
+    dispatch({ type: listActions.DELETE_LIST, payload });
+    dispatch({ type: cardActions.DELETE_LIST_CARDS, payload: { listId } });
+  }
+};
+
 export const updateListTitle = (payload: any) => {
   return async (dispatch: any) => {
-
     const { listId, title } = payload;
 
     const apiUrl = `http://localhost:4000/api/list/${listId}/update`;
