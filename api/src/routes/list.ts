@@ -49,6 +49,50 @@ export default (app: Router) => {
     return res.status(200).json(list);
   });
 
+  app.patch("/list/:listId/copy", async (req: Request, res: Response) => {
+    const listService = Container.get(ListService);
+    const cardService = Container.get(CardService);
+
+    const { listId } = req.body;
+
+    const list = await listService.getById(listId);
+
+    const { boardId, title } = list;
+
+    const cards = (await cardService.get({ listId }));
+
+    const listCopy = await listService.create({ boardId, title }).catch(error => {
+      return res.status(500).json({ error });
+    });
+
+    const card = await cardService.create(
+      cards.map(c => {
+        const { title, sortOrder, content } = c;
+        return { title, listId: listCopy.id, sortOrder, content }
+      })
+    );
+    return res.status(200).json(list);
+  });
+
+  app.patch("/list/:listId/update-order", async (req: Request, res: Response) => {
+    // const listService = Container.get(ListService);
+
+    // const { listId } = req.params;
+
+    // const {
+    //   sourceId,
+    //   destinationId,
+    //   sourceIndex,
+    //   destinationIndex,
+    // } = req.body;
+
+    // // const list = await listService.update(listId, { title }).catch(error => {
+    // //   return res.status(500).json({ error });
+    // // });
+
+    // return res.status(200).json(list);
+  });
+
   app.delete("/list/:listId", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
 

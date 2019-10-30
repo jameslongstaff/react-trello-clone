@@ -40,6 +40,21 @@ export default (app: Router) => {
     return res.status(201).json(card);
   });
 
+  app.patch("/card/update", async (req: Request, res: Response) => {
+    const cardService = Container.get(CardService);
+
+    const { cardId } = req.params;
+
+    const card = await cardService
+      .update(cardId, req.body)
+      .catch(error => {
+        return res.status(500).json({ error });
+      });
+
+    return res.status(200).json(card);
+  });
+
+
   app.patch("/card/:cardId/update", async (req: Request, res: Response) => {
     const cardService = Container.get(CardService);
 

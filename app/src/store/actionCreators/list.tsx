@@ -91,5 +91,23 @@ export const createList = (payload: any) => {
 };
 
 export function updateListOrder(payload: any) {
-  return { type: listActions.UPDATE_LIST_ORDER, payload };
+  return async (dispatch: any) => {
+
+    const {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    } = payload;
+
+    const apiUrl = `http://localhost:4000/api/list/update-order`;
+
+    const response = await axios.patch(apiUrl, {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    });
+    return { type: listActions.UPDATE_LIST_ORDER, payload };
+  }
 }
