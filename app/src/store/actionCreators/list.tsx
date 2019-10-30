@@ -102,12 +102,13 @@ export function updateListOrder(payload: any) {
 
     const apiUrl = `http://localhost:4000/api/list/update-order`;
 
-    const response = await axios.patch(apiUrl, {
-      sourceId,
-      destinationId,
-      sourceIndex,
-      destinationIndex
-    });
-    return { type: listActions.UPDATE_LIST_ORDER, payload };
+    // const response = await axios.patch(apiUrl, {
+    //   sourceId,
+    //   destinationId,
+    //   sourceIndex,
+    //   destinationIndex
+    // });
+
+    dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
   }
 }
