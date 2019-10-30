@@ -55,8 +55,16 @@ export const deleteCard = (payload: any) => {
   }
 };
 
-export const cloneTask = (payload: any) => {
-  return { type: cardActions.CLONE_TASK, payload };
+export const cloneCard = (payload: any) => {
+  return async (dispatch: any) => {
+    const { cardId } = payload;
+
+    const apiUrl = `http://localhost:4000/api/card/${cardId}/clone`;
+
+    const response = await axios.post(apiUrl, { cardId });
+
+    dispatch({ type: cardActions.CLONE_CARD, payload });
+  }
 };
 
 export const updateCard = (payload: any) => {

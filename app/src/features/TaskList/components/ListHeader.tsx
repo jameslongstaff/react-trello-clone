@@ -63,7 +63,7 @@ class ListHeader extends Component<any, any> {
   }
 
   handleDeleteList = () => {
-    this.props.dispatch(deleteList({ listId: this.props.listId }))
+    deleteList({ listId: this.props.listId })
   };
 
   handleCloseListMenu = () => {

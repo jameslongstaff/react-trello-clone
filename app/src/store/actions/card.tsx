@@ -1,14 +1,8 @@
 export const CREATE_TASK = "CREATE_TASK";
 export const DELETE_CARD = "UPDATE_TASK";
-export const CLONE_TASK = "CLONE_TASK";
+export const CLONE_CARD = "CLONE_CARD";
 export const UPDATE_TASK_CONTENT = "UPDATE_TASK_CONTENT";
 export const UPDATE_CARD = "UPDATE_TASK_TITLE";
 export const DELETE_LIST_CARDS = "DELETE_LIST_CARDS";
-
-export const FETCH_CARDS = "FETCH_CARDS";
-export const FETCH_CARDS_BEGIN = "FETCH_CARDS_BEGIN";
-export const FETCH_CARDS_SUCCESS = "FETCH_CARDS_SUCCESS";
-
 export const UPDATE_CARD_ORDER = "UPDATE_CARD_ORDER";
-
 export const LOAD_CARDS = "LOAD_CARDS";

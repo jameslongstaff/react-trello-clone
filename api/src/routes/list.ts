@@ -49,7 +49,7 @@ export default (app: Router) => {
     return res.status(200).json(list);
   });
 
-  app.patch("/list/:listId/copy", async (req: Request, res: Response) => {
+  app.patch("/list/:listId/clone", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
     const cardService = Container.get(CardService);
 
@@ -75,6 +75,28 @@ export default (app: Router) => {
   });
 
   app.patch("/list/:listId/update-order", async (req: Request, res: Response) => {
+
+    // check if same list
+
+    // get cards by list id, sorted by sort order.
+    // Map to array of Ids
+    // splice at source index
+    // splice at destination index
+
+    // perform update with new sort order
+
+    // other list
+
+    // get src cards
+    // Map to array of Ids
+    // splice at source index frm src cards
+    // get dest cards
+    // Map to array of Ids
+    // splice at destination index dest cards
+
+
+
+
     // const listService = Container.get(ListService);
 
     // const { listId } = req.params;

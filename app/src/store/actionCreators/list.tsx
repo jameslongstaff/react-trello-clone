@@ -4,16 +4,16 @@ import * as cardActions from "../actions/card";
 
 import axios from "axios";
 
-export const cloneList = (payload: any) => {
-  return { type: listActions.CLONE_LIST, payload };
-};
+export const cloneCard = (payload: any) => {
+  return async (dispatch: any) => {
+    const { listId } = payload;
 
-export const fetchListsSuccess = (payload: any) => {
-  return { type: listActions.FETCH_LISTS_SUCCESS, payload };
-};
+    const apiUrl = `http://localhost:4000/api/list/${listId}/clone`;
 
-export const fetchListsBegin = () => {
-  return { type: listActions.FETCH_LISTS_BEGIN };
+    const response = await axios.post(apiUrl, { listId });
+
+    dispatch({ type: listActions.CLONE_LIST, payload });
+  }
 };
 
 export const loadLists = (payload: any) => {
@@ -50,22 +50,6 @@ export const updateListTitle = (payload: any) => {
 
     dispatch({ type: listActions.UPDATE_LIST_TITLE, payload });
   }
-};
-
-export const fetchLists = (payload: any) => {
-  return async (dispatch: any) => {
-    dispatch(fetchListsBegin());
-
-    const apiUrl = `http://localhost:4000/api/board/${payload.boardId}/lists`;
-
-    const response = (await fetch(apiUrl).catch(error => {
-      console.log(error);
-    })) as Response;
-
-    const lists = await response.json();
-
-    dispatch(fetchListsSuccess(lists));
-  };
 };
 
 export const createList = (payload: any) => {
