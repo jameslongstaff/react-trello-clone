@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import BoardListingItem from "../components/BoardListingItem";
+import { Spinner } from "reactstrap";
 import styled from "styled-components";
 import { fetchBoards } from "../../../store/actionCreators/board";
-import { Spinner } from "reactstrap";
+import BoardListingItem from "../components/BoardListingItem";
+import BoardCreator from "../components/BoardCreator";
 
 const Wrapper = styled.div`
+  display: flex;
   max-width: 50rem;
   margin: 0 auto;
   position: relative;
@@ -30,6 +32,7 @@ class BoardListing extends Component<any, any> {
                 return <BoardListingItem key={board.id} board={board} />;
               })
             )}
+            <BoardCreator />
           </Wrapper>
         )}
       </React.Fragment>

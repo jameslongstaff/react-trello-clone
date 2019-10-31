@@ -8,7 +8,8 @@ const Wrapper = styled.div`
 	background: rgb(0, 121, 191);
 	border-radius: 4px;
 	cursor: pointer;
-	display:block;
+  display: inline-flex;
+  margin-right: 1rem;
 	width: 15rem;
 
 	&:hover {
@@ -28,20 +29,20 @@ const Inner = styled.div`
 
 
 class BoardListingItem extends Component<any, any> {
-	render = () => {
-		return <Wrapper>
-			<Link
-				to={{
-					pathname: '/board/' + this.props.board.id,
-				}}
-			>
-				<Inner>
-					<h2>{this.props.board.title}</h2>
+  render = () => {
+    return <Wrapper>
+      <Link
+        to={{
+          pathname: '/board/' + this.props.board.id,
+        }}
+      >
+        <Inner>
+          <h2>{this.props.board.title}</h2>
 
-				</Inner>
-			</Link>
-		</Wrapper>;
-	};
+        </Inner>
+      </Link>
+    </Wrapper>;
+  };
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
