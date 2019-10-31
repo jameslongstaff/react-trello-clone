@@ -6,7 +6,7 @@ import BoardListing from "../features/BoardListing/containers/BoardListing";
 const BoardPage: React.FC<any> = (props: any) => {
 	return (
 		<React.Fragment>
-			<BackgroundLayer />
+			<BackgroundLayer colour="#f9f9f9" />
 			<TopBar />
 			<BoardListing />
 		</React.Fragment>

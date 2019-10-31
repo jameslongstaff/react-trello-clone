@@ -3,17 +3,19 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  background: #b04632;
+  background: ${(props: IBackgroundLayerProps) => props.colour || '#b04632'};
   background-size: cover;
   height: 100vh;
   width: 100%;
   position: fixed;
 `;
 
-interface IBackgroundLayerProps {}
+interface IBackgroundLayerProps {
+  colour?: string;
+}
 
-const BackgroundLayer: React.FC<IBackgroundLayerProps> = props => {
-  return <Wrapper />;
+const BackgroundLayer: React.FC<IBackgroundLayerProps> = (props: IBackgroundLayerProps) => {
+  return <Wrapper colour={props.colour} />;
 };
 
 export default BackgroundLayer;
