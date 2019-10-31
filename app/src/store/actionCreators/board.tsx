@@ -26,6 +26,18 @@ export const loadBoard = (payload: any) => {
   return { type: boardActions.LOAD_BOARD, payload };
 };
 
+export const loadBoards = (payload: any) => {
+  return { type: boardActions.LOAD_BOARDS, payload };
+};
+
+export const fetchBoardsBegin = () => {
+  return { type: boardActions.FETCH_BOARDS_BEGIN };
+};
+
+export const fetchBoardsSuccess = () => {
+  return { type: boardActions.FETCH_BOARDS_SUCCESS };
+}
+
 export const fetchBoardBegin = () => {
   return { type: boardActions.FETCH_BOARD_BEGIN };
 };
@@ -47,7 +59,24 @@ export const updateBoardTitle = (payload: any) => {
   }
 };
 
-export const fetchBoardData = (payload: any) => {
+export const fetchBoards = (payload: any) => {
+  return async (dispatch: any) => {
+    dispatch(fetchBoardsBegin());
+
+    const { boardId } = payload;
+
+    const apiUrl = `http://localhost:4000/api/boards`;
+
+    const response = await axios.get(apiUrl);
+
+    dispatch(boardActionCreators.loadBoards(response.data));
+
+    dispatch(fetchBoardsSuccess());
+  };
+};
+
+
+export const fetchBoard = (payload: any) => {
   return async (dispatch: any) => {
     dispatch(fetchBoardBegin());
 

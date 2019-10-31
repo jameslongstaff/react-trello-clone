@@ -10,7 +10,7 @@ import BoardHeader from "../components/BoardHeader";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateListOrder } from "../../../store/actionCreators/list";
-import { fetchBoardData } from "../../../store/actionCreators/board";
+import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
 class Board extends Component<any, any> {
   async componentDidMount() {
     const { id } = this.props;
-    this.props.dispatch(fetchBoardData({ boardId: id }));
+    this.props.dispatch(fetchBoard({ boardId: id }));
   }
 
   handleDragEnd = (result: any) => {

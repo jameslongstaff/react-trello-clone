@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { GlobalStyle } from "./theme/globalStyle";
 
 import BoardPage from "./pages/BoardPage";
-import BoardListingPage from "./pages/BoardPage";
+import BoardListingPage from "./pages/BoardListingPage";
 
 const theme = {
   secondaryColor: "white",
@@ -29,7 +29,8 @@ class App extends Component {
           <Router>
             <Switch>
               <Route
-                path="/boards"
+                exact
+                path="/"
                 render={props => <BoardListingPage {...props} />}
               />
               <Route

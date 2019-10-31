@@ -7,10 +7,8 @@ export type boardReduxState = {
 };
 
 const initialState: any = {
-  test: "test",
   board: {},
   byId: {},
-  activeBoardId: 1,
   modalState: {
     taskModalIsVisible: false,
     taskModalId: null
@@ -64,22 +62,29 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-  if (action.type === actions.ADD_LIST_TO_BOARD) {
-    // const { id, listId } = payload;
+  if (action.type === actions.LOAD_BOARDS) {
+    //reset state
+    state = undefined;
 
-    // return {
-    //   ...state,
-    //   byId: {
-    //     ...state.byId,
-    //     [listId]: {
-    //       ...state.byId[listId],
-    //       cards: [...state.byId[listId].cards.concat([id])]
-    //     }
-    //   }
-    // };
+    const boards = payload.map((b: any) => {
+      const { title, _id } = b;
+      return {
+        id: b._id,
+        title,
+      }
+    })
+
+    return {
+      ...state,
+      byId: arrayToObject(boards, 'id')
+    };
   }
 
+
   if (action.type === actions.LOAD_BOARD) {
+    //reset state
+    state = undefined;
+
     return {
       ...state,
       board: {
@@ -103,12 +108,26 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+  if (action.type === actions.FETCH_BOARDS_SUCCESS) {
+    return {
+      ...state,
+      loading: false
+    };
+  }
+
+  if (action.type === actions.FETCH_BOARDS_BEGIN) {
+    return {
+      ...state,
+      loading: true
+    };
+  }
+
   return state;
 };
 
-const arrayToObject = (array: []) =>
+const arrayToObject = (array: [], param: string) =>
   array.reduce((obj: any, item: any) => {
-    obj[item.id] = item;
+    obj[item[param]] = item;
     return obj;
   }, {});
 
