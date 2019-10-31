@@ -9,7 +9,7 @@ const BoardPage: React.FC<any> = (props: any) => {
   return (
     <React.Fragment>
       <BackgroundLayer />
-      <TopBar colour="#b04632"></TopBar>
+      <TopBar colour="#fff"></TopBar>
       <Board id={boardId} />;
     </React.Fragment>
   );

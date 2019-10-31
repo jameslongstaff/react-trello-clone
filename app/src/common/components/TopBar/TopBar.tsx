@@ -17,7 +17,7 @@ interface ITopBarProps {
 }
 
 const TopBar: React.FC<ITopBarProps> = props => {
-  return <Wrapper color={props.colour} />;
+  return <Wrapper colour={props.colour} />;
 };
 
 export default TopBar;
