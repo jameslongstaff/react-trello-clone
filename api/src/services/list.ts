@@ -6,7 +6,7 @@ import List from "./../models/list";
 
 @Service()
 export default class ListService implements ICrudService {
-  constructor(private logger: Logger) {}
+  constructor(private logger: Logger) { }
 
   public async get(queryOptions?: {}): Promise<any[]> {
     const lists = await List.find(queryOptions).exec();
@@ -18,7 +18,7 @@ export default class ListService implements ICrudService {
     return list;
   }
 
-  public async create(data: {}): Promise<any> {
+  public async create(data: [] | {}): Promise<any> {
     const list = await List.create(data);
     return list;
   }

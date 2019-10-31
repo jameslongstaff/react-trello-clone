@@ -68,12 +68,14 @@ export default (app: Router) => {
     let clonedCards = [];
 
     if (cards.length) {
-      clonedCards = await cardService.create(cards.map((c: any) => {
+      const cardsToClone = cards.map((c: any) => {
         const { title, content, sortOrder } = c;
         return {
-          title, content, sortOrder, listId: clonedList.id,
+          title, content, sortOrder, listId: clonedList._id,
         }
-      }));
+      });
+
+      clonedCards = await cardService.create(cardsToClone);
     }
 
     const response = {

@@ -6,7 +6,7 @@ import Card from "./../models/card";
 
 @Service()
 export default class CardService implements ICrudService {
-  constructor(private logger: Logger) {}
+  constructor(private logger: Logger) { }
 
   public async get(queryOptions?: {}): Promise<any[]> {
     const cards = Card.find(queryOptions);
@@ -18,7 +18,7 @@ export default class CardService implements ICrudService {
     return await board.exec();
   }
 
-  public async create(data: {}): Promise<any> {
+  public async create(data: [] | {}): Promise<any> {
     const board = await Card.create(data);
     return board;
   }
