@@ -12,20 +12,26 @@ const reducer = (state = initialState, action: any) => {
 
   if (action.type === cardActions.CLONE_CARD) {
 
-    // const { taskId } = payload;
+    const { id, title, content, listId, sortOrder } = payload;
 
-    // const lists = {
-    //   ...state,
-    //   byId: {
-    //     ...state.byId,
-    //     [tempTaskId]: {
-    //       ...state.byId[taskId],
-    //       id: tempTaskId
-    //     }
-    //   }
-    // };
+    const newCard = {
+      id, title, content, listId, sortOrder
+    }
 
-    // return lists;
+    const cards = {
+      ...state,
+      byId: {
+        ...state.byId,
+        [id]: {
+          ...state.byId[id],
+          ...newCard
+        }
+      }
+    };
+
+    console.log(cards);
+
+    return cards;
   }
 
   if (action.type === cardActions.UPDATE_TASK_CONTENT) {
@@ -99,8 +105,8 @@ const reducer = (state = initialState, action: any) => {
       byId: {
         ...state.byId,
         [id]: {
-          title: title,
-          _id: id,
+          title,
+          id,
           listId
         }
       }
@@ -109,11 +115,13 @@ const reducer = (state = initialState, action: any) => {
 
   if (action.type === cardActions.LOAD_CARDS) {
     const { lists } = payload;
-    const cards = lists.map((l: any) => l.cards).flat();
+    const cards = lists.map((l: any) => l.cards).flat().map((c: any) => {
+      return { ...c, id: c._id }
+    });
 
     const newState = {
       ...state,
-      byId: arrayToObject(cards, "_id")
+      byId: arrayToObject(cards, "id")
     };
 
     return newState;

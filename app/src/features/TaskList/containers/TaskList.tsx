@@ -50,8 +50,8 @@ class TaskList extends Component<TaskListProps, TaskListState> {
                   {this.props.cards.map((card, index) => {
                     return (
                       <Task
-                        id={card._id}
-                        key={card._id}
+                        id={card.id}
+                        key={card.id}
                         index={index}
                         title={card.title}
                       />

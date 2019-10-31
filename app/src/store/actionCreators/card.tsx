@@ -63,7 +63,19 @@ export const cloneCard = (payload: any) => {
 
     const response = await axios.post(apiUrl, { cardId });
 
-    dispatch({ type: cardActions.CLONE_CARD, payload });
+    const { title, content, sortOrder, listId } = response.data;
+
+    const card = {
+      id: response.data._id,
+      title,
+      content,
+      sortOrder,
+      listId,
+    }
+
+    dispatch({ type: cardActions.CLONE_CARD, payload: card });
+    dispatch({ type: listActions.ADD_CARD_TO_LIST, payload: card });
+
   }
 };
 

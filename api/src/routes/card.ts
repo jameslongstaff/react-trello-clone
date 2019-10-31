@@ -22,7 +22,7 @@ export default (app: Router) => {
     return res.status(200).json(card);
   });
 
-  app.post("/list/:cardId/clone", async (req: Request, res: Response) => {
+  app.post("/card/:cardId/clone", async (req: Request, res: Response) => {
     const cardService = Container.get(CardService);
 
     const { cardId } = req.body;
