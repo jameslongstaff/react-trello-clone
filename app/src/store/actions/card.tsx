@@ -1,4 +1,6 @@
 export const CREATE_TASK = "CREATE_TASK";
+export const CREATE_CLONED_CARDS = "CREATE_CLONED_CARDS";
+
 export const DELETE_CARD = "UPDATE_TASK";
 export const CLONE_CARD = "CLONE_CARD";
 export const UPDATE_TASK_CONTENT = "UPDATE_TASK_CONTENT";

@@ -68,6 +68,7 @@ export default (app: Router) => {
     let clonedCards = [];
 
     if (cards.length) {
+
       const cardsToClone = cards.map((c: any) => {
         const { title, content, sortOrder } = c;
         return {
@@ -80,9 +81,7 @@ export default (app: Router) => {
 
     const response = {
       ...clonedList.toObject(),
-      cards: [...clonedCards].filter(c => {
-        return c.listId === list._id.toString();
-      })
+      cards: clonedCards
     };
 
     return res.status(200).json(response);

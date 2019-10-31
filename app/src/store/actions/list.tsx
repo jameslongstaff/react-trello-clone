@@ -1,5 +1,6 @@
 export const CREATE_LIST_TASK = "CREATE_LIST_TASK";
 export const CREATE_LIST = "CREATE_LIST";
+export const CREATE_CLONED_LIST = "CREATE_CLONED_LIST";
 export const DELETE_LIST = "DELETE_LIST";
 export const CLONE_LIST = "CLONE_LIST";
 export const UPDATE_LIST_TITLE = "UPDATE_LIST_TITLE";

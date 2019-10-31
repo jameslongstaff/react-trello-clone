@@ -111,18 +111,40 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+  if (action.type === cardActions.CREATE_CLONED_CARDS) {
+    const cards = payload.map((c: any) => {
+      const { title, listId, content, _id } = c;
+      return {
+        title,
+        listId,
+        content,
+        id: _id,
+      }
+    });
+
+    const cardsObject = arrayToObject(cards, 'id');
+
+    console.log(arrayToObject(cards, "id"));
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        ...cardsObject
+      }
+    }
+  }
+
   if (action.type === cardActions.LOAD_CARDS) {
     const { lists } = payload;
     const cards = lists.map((l: any) => l.cards).flat().map((c: any) => {
       return { ...c, id: c._id }
     });
 
-    const newState = {
+    return {
       ...state,
       byId: arrayToObject(cards, "id")
     };
-
-    return newState;
   }
 
   return state;

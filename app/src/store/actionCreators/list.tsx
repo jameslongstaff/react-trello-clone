@@ -11,12 +11,11 @@ export const cloneList = (payload: any) => {
     const apiUrl = `http://localhost:4000/api/list/${listId}/clone`;
 
     const response = await axios.post(apiUrl, { listId });
-    const { title } = response.data;
 
-    console.log(response);
+    console.log(response.data);
 
-    // dispatch({ type: listActions.CLONE_LIST, payload: list });
-    // dispatch({ type: listActions.ADD_CARD_TO_LIST, payload: cards });
+    dispatch({ type: cardActions.CREATE_CLONED_CARDS, payload: response.data.cards });
+    dispatch({ type: listActions.CREATE_CLONED_LIST, payload: response.data });
   }
 };
 

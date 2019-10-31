@@ -1,9 +1,4 @@
-import cuid from "cuid";
-
 import * as listActions from "../actions/list";
-import * as cardActions from "../actions/card";
-
-//https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
 
 const initialState: any = {
   byId: {},
@@ -14,40 +9,25 @@ const initialState: any = {
 const reducer = (state = initialState, action: any) => {
   const { payload } = action;
 
-  if (action.type === listActions.CLONE_LIST) {
-    const { id, title } = payload;
+  if (action.type === listActions.CREATE_CLONED_LIST) {
+    const { title, _id, cards } = action.payload;
 
-    const newCard = {
-      id, title
+    const newList = {
+      id: _id,
+      title,
+      cards: cards.map((c: any) => c._id)
     }
 
-    const cards = {
+    const list = {
       ...state,
       byId: {
         ...state.byId,
-        [id]: {
-          ...state.byId[id],
-          ...newCard
-        }
-      }
-    };
-  }
-
-  if (action.type === listActions.CREATE_LIST_TASK) {
-    const { taskListId, taskId } = action.payload;
-
-    const lists = {
-      ...state,
-      byId: {
-        ...state.byId,
-        [taskListId]: {
-          ...state.byId[taskListId],
-          tasks: [...state.byId[taskListId].tasks, taskId]
-        }
+        [_id]: newList
       },
+      allIds: [...state.allIds, _id]
     };
 
-    return lists;
+    return list;
   }
 
   if (action.type === listActions.CREATE_LIST) {
