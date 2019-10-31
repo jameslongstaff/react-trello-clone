@@ -63,9 +63,6 @@ const reducer = (state = initialState, action: any) => {
   }
 
   if (action.type === actions.LOAD_BOARDS) {
-    //reset state
-    state = undefined;
-
     const boards = payload.map((b: any) => {
       const { title, _id } = b;
       return {
@@ -82,9 +79,6 @@ const reducer = (state = initialState, action: any) => {
 
 
   if (action.type === actions.LOAD_BOARD) {
-    //reset state
-    state = undefined;
-
     return {
       ...state,
       board: {
