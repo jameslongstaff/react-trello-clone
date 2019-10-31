@@ -15,7 +15,16 @@ export const hideTaskModal = () => {
 };
 
 export const createBoard = (payload: any) => {
-  return { type: boardActions.CREATE_BOARD, payload };
+  return async (dispatch: any) => {
+
+    const { title } = payload;
+
+    const apiUrl = `http://localhost:4000/api/board/create`;
+
+    const response = await axios.post(apiUrl, { title });
+
+    dispatch({ type: boardActions.CREATE_BOARD, payload: response.data });
+  }
 };
 
 export const deleteBoard = (payload: any) => {
@@ -59,11 +68,9 @@ export const updateBoardTitle = (payload: any) => {
   }
 };
 
-export const fetchBoards = (payload: any) => {
+export const fetchBoards = () => {
   return async (dispatch: any) => {
     dispatch(fetchBoardsBegin());
-
-    const { boardId } = payload;
 
     const apiUrl = `http://localhost:4000/api/boards`;
 
