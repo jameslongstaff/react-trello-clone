@@ -15,7 +15,8 @@ interface IBackgroundLayerProps {
 }
 
 const BackgroundLayer: React.FC<IBackgroundLayerProps> = (props: IBackgroundLayerProps) => {
-  return <Wrapper colour={props.colour} />;
+  return <Wrapper colour={props.colour}>
+  </Wrapper>;
 };
 
 export default BackgroundLayer;

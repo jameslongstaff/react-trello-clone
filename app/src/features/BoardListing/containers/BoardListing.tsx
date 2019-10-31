@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   max-width: 50rem;
   margin: 0 auto;
   position: relative;
-  padding: 1rem 0;
+  padding: 2rem 0;
 `;
 
 class BoardListing extends Component {

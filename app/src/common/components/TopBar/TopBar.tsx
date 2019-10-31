@@ -7,17 +7,17 @@ const Wrapper = styled.div`
   height: 2.5rem;
   left: 0;
   top: 0;
-  background: ${rgba('#fff', 0.1)};
+  background: ${(props: ITopBarProps) => props.colour ? rgba(props.colour, 0.1) : '#026aa7'};
   position: relative;
   z-index: 1;
 `;
 
 interface ITopBarProps {
-
+  colour?: string;
 }
 
 const TopBar: React.FC<ITopBarProps> = props => {
-  return <Wrapper />;
+  return <Wrapper color={props.colour} />;
 };
 
 export default TopBar;
