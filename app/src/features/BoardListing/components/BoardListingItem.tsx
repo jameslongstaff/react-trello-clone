@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { darken, transitions } from "polished";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-const Wrapper = styled.a`
+const Wrapper = styled.div`
 	background: rgb(0, 121, 191);
+	border-radius: 4px;
 	cursor: pointer;
 	display:block;
-	border-radius: 4px;
-	height: 7rem;
-	padding: 0.75rem;
 	width: 15rem;
-	
+
 	&:hover {
 		background: ${darken(0.01, 'rgb(0, 121, 191)')};
 	}
@@ -22,11 +21,25 @@ const Wrapper = styled.a`
 	}
 `;
 
+const Inner = styled.div`
+	height: 7rem;
+	padding: 0.75rem;
+`;
+
+
 class BoardListingItem extends Component<any, any> {
 	render = () => {
-		const boardUrl = `/board/${this.props.board.id}`;
-		return <Wrapper href={boardUrl}>
-			<h2>{this.props.board.title}</h2>
+		return <Wrapper>
+			<Link
+				to={{
+					pathname: '/board/' + this.props.board.id,
+				}}
+			>
+				<Inner>
+					<h2>{this.props.board.title}</h2>
+
+				</Inner>
+			</Link>
 		</Wrapper>;
 	};
 }
