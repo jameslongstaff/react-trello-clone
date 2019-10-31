@@ -15,21 +15,22 @@ const reducer = (state = initialState, action: any) => {
   const { payload } = action;
 
   if (action.type === listActions.CLONE_LIST) {
-    const tempListId = cuid();
-    const { listId } = action.payload;
+    const { id, title } = payload;
 
-    const lists = {
+    const newCard = {
+      id, title
+    }
+
+    const cards = {
       ...state,
       byId: {
         ...state.byId,
-        [tempListId]: {
-          ...state.byId[listId],
-          id: tempListId
+        [id]: {
+          ...state.byId[id],
+          ...newCard
         }
       }
     };
-
-    return lists;
   }
 
   if (action.type === listActions.CREATE_LIST_TASK) {

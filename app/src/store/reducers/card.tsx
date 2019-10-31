@@ -29,8 +29,6 @@ const reducer = (state = initialState, action: any) => {
       }
     };
 
-    console.log(cards);
-
     return cards;
   }
 

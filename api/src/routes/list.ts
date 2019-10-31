@@ -49,29 +49,41 @@ export default (app: Router) => {
     return res.status(200).json(list);
   });
 
-  app.patch("/list/:listId/clone", async (req: Request, res: Response) => {
+  app.post("/list/:listId/clone", async (req: Request, res: Response) => {
     const listService = Container.get(ListService);
     const cardService = Container.get(CardService);
 
-    const { listId } = req.body;
+    const { listId } = req.params;
 
-    const list = await listService.getById(listId);
-
-    const { boardId, title } = list;
-
-    const cards = (await cardService.get({ listId }));
-
-    const listCopy = await listService.create({ boardId, title }).catch(error => {
+    const list = await listService.getById(listId).catch(error => {
       return res.status(500).json({ error });
     });
 
-    const card = await cardService.create(
-      cards.map(c => {
-        const { title, sortOrder, content } = c;
-        return { title, listId: listCopy.id, sortOrder, content }
+    const { boardId, title } = list;
+
+    const cards = await cardService.get({ listId });
+
+    const clonedList = await listService.create({ boardId: list.boardId, title: list.title });
+
+    let clonedCards = [];
+
+    if (cards.length) {
+      clonedCards = await cardService.create(cards.map((c: any) => {
+        const { title, content, sortOrder } = c;
+        return {
+          title, content, sortOrder, listId: clonedList.id,
+        }
+      }));
+    }
+
+    const response = {
+      ...clonedList.toObject(),
+      cards: [...clonedCards].filter(c => {
+        return c.listId === list._id.toString();
       })
-    );
-    return res.status(200).json(list);
+    };
+
+    return res.status(200).json(response);
   });
 
   app.patch("/list/:listId/update-order", async (req: Request, res: Response) => {

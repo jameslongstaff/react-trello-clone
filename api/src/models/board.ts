@@ -9,4 +9,6 @@ const boardSchema = new mongoose.Schema({
   }
 });
 
+boardSchema.virtual('id').get(() => this._id);
+
 export default mongoose.model<IBoard & mongoose.Document>("Board", boardSchema);

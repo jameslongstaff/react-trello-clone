@@ -4,15 +4,27 @@ import * as cardActions from "../actions/card";
 
 import axios from "axios";
 
-export const cloneCard = (payload: any) => {
+export const cloneList = (payload: any) => {
   return async (dispatch: any) => {
     const { listId } = payload;
 
     const apiUrl = `http://localhost:4000/api/list/${listId}/clone`;
 
-    const response = await axios.post(apiUrl, { listId });
+    console.log(apiUrl);
 
-    dispatch({ type: listActions.CLONE_LIST, payload });
+    try {
+      const response = await axios.post(apiUrl, { listId });
+      const { title } = response.data;
+
+      console.log(response);
+
+      // dispatch({ type: listActions.CLONE_LIST, payload: list });
+
+      // dispatch({ type: listActions.ADD_CARD_TO_LIST, payload: cards });
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 };
 

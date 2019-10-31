@@ -17,4 +17,6 @@ export const listSchema = new mongoose.Schema({
   }
 });
 
+listSchema.virtual('id').get(() => { return this._id; });
+
 export default mongoose.model<IList & mongoose.Document>("List", listSchema);

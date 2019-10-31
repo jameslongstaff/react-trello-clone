@@ -7,7 +7,7 @@ import Popout from "../../../common/components/Popout/Popout";
 import PopoutLink from "../../../common/components/Popout/PopoutLink";
 import PopoutHeader from "../../../common/components/Popout/PopoutHeader";
 import { connect } from "react-redux";
-import { deleteList } from "../../../store/actionCreators/list";
+import { deleteList, cloneList } from "../../../store/actionCreators/list";
 
 const Wrapper = styled.div`
   display: flex;
@@ -66,6 +66,10 @@ class ListHeader extends Component<any, any> {
     this.props.dispatch(deleteList({ listId: this.props.listId }));
   };
 
+  handleCloneList = () => {
+    this.props.dispatch(cloneList({ listId: this.props.listId }));
+  };
+
   handleCloseListMenu = () => {
     this.setState({ listMenuOpen: false });
   };
@@ -86,7 +90,7 @@ class ListHeader extends Component<any, any> {
                 <PopoutHeader>
                   <span>List Actions</span>
                 </PopoutHeader>
-                <PopoutLink onClick={() => { console.log('test') }}>
+                <PopoutLink onClick={() => { this.handleCloneList() }}>
                   <span>Clone list..</span>
                 </PopoutLink>
                 <PopoutLink onClick={() => { this.handleDeleteList() }}>

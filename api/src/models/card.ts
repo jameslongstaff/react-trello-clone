@@ -19,4 +19,6 @@ export const cardSchema = new mongoose.Schema({
   }
 });
 
+cardSchema.virtual('id').get(function () { return this._id; });
+
 export default mongoose.model<ICard & mongoose.Document>("Card", cardSchema);
