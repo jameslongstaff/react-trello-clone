@@ -22,7 +22,7 @@ This is a work in progress basic clone version of trello. I am using this projec
 1. ~Card clone~
 1. ~List clone~
 1. `reselect` integration
-1. Unit tests with jasmine and jest
+1. Unit tests with jest
 1. Delete board, clone board
 1. Authentication and login
 1. General style improvements and ui
