@@ -39,7 +39,6 @@ class BoardListingItem extends Component<any, any> {
       >
         <Inner>
           <h2>{this.props.board.title}</h2>
-
         </Inner>
       </Link>
     </Wrapper>;
