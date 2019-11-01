@@ -23,6 +23,8 @@ export default {
   databasePassword: process.env.MONGO_PASSWORD,
   databasePath: process.env.MONGO_PATH,
 
+  jwtSecret: process.env.JWT_SECRET,
+
   /**
    * Used by winston logger
    */
