@@ -6,7 +6,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 //components
-import BoardHeader from "../components/BoardHeader";
+import BoardTitleBar from "../components/BoardTitleBar";
 import TaskList from "../../TaskList/containers/TaskList";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateListOrder } from "../../../store/actionCreators/list";
@@ -15,9 +15,11 @@ import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 
 const Wrapper = styled.div`
-  padding: 2rem 0.5rem 0.5rem 0.5rem;
-  position: relative;
-  z-index: 1;
+
+`;
+
+const ListsHolder = styled.div`
+  margin: 0.5rem;
 `;
 
 class Board extends Component<any, any> {
@@ -56,15 +58,17 @@ class Board extends Component<any, any> {
         {this.props.loading && <Spinner></Spinner>}
         {!this.props.loading && (
           <Wrapper>
-            <BoardHeader boardId={this.props.id} />
-            {this.props.lists.length > 0 && (
-              <DragDropContext onDragEnd={this.handleDragEnd}>
-                {this.props.lists.map((taskListId: string, index: number) => {
-                  return <TaskList key={taskListId} id={taskListId} />;
-                })}
-              </DragDropContext>
-            )}
-            <ListCreator boardId={this.props.id}></ListCreator>
+            <BoardTitleBar boardId={this.props.id} />
+            <ListsHolder>
+              {this.props.lists.length > 0 && (
+                <DragDropContext onDragEnd={this.handleDragEnd}>
+                  {this.props.lists.map((taskListId: string, index: number) => {
+                    return <TaskList key={taskListId} id={taskListId} />;
+                  })}
+                </DragDropContext>
+              )}
+              <ListCreator boardId={this.props.id}></ListCreator>
+            </ListsHolder>
           </Wrapper>
         )}
         {!this.props.loading && this.props.modalState.taskModalIsVisible && (

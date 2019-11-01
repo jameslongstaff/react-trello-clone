@@ -25,14 +25,18 @@ const Wrapper = styled.div`
 
 const Inner = styled.div`
 	height: 7rem;
-	padding: 0.75rem;
+  padding: 0.75rem;
+  width 100%;
 `;
 
+const BoardLink = styled(Link)`
+  Width: 100%;
+`;
 
 class BoardListingItem extends Component<any, any> {
   render = () => {
     return <Wrapper>
-      <Link
+      <BoardLink
         to={{
           pathname: '/board/' + this.props.board.id,
         }}
@@ -40,7 +44,7 @@ class BoardListingItem extends Component<any, any> {
         <Inner>
           <h2>{this.props.board.title}</h2>
         </Inner>
-      </Link>
+      </BoardLink>
     </Wrapper>;
   };
 }

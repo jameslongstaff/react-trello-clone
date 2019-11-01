@@ -4,6 +4,13 @@ import styled from "styled-components";
 
 //rename to editable text element
 
+type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+
+const Wrapper = styled.div`
+  display: block;
+  width: 100%;
+`;
+
 const Input = styled.input`
   background: none;
   border: none;
@@ -94,34 +101,36 @@ class EditableTitle extends Component<any, IEditableTitleState> {
 
   render() {
 
-    const Tag = `${this.props.tag}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
+    const Tag = `${this.props.tag}` as TagType;
 
     return (
-      <ClickOutside handleClickOutside={this.handleClickOutside}>
-        <Tag>
-          <ElementContainer
-            onClick={event => {
-              this.handleClick(event);
-            }}
-          >
-            {this.state.isEditing ? (
-              <Input
-                type={this.props.type ? this.props.type : "text"}
-                value={this.props.title}
-                onChange={event => {
-                  this.handleChange(event);
-                }}
-                onKeyPress={event => {
-                  this.handleKeyPress(event);
-                }}
-                ref={this.input}
-              />
-            ) : (
-                this.props.title
-              )}
-          </ElementContainer>
-        </Tag>
-      </ClickOutside>
+      <Wrapper>
+        <ClickOutside handleClickOutside={this.handleClickOutside}>
+          <Tag>
+            <ElementContainer
+              onClick={event => {
+                this.handleClick(event);
+              }}
+            >
+              {this.state.isEditing ? (
+                <Input
+                  type={this.props.type ? this.props.type : "text"}
+                  value={this.props.title}
+                  onChange={event => {
+                    this.handleChange(event);
+                  }}
+                  onKeyPress={event => {
+                    this.handleKeyPress(event);
+                  }}
+                  ref={this.input}
+                />
+              ) : (
+                  this.props.title
+                )}
+            </ElementContainer>
+          </Tag>
+        </ClickOutside>
+      </Wrapper>
     );
   }
 }

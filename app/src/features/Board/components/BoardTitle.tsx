@@ -7,7 +7,7 @@ import { updateBoardTitle } from "../../../store/actionCreators/board";
 //common components
 
 const Wrapper = styled.div`
-  display: inline-block;
+  display: inline-flex;
   width: 100%;
 `;
 

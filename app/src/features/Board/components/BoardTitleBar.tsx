@@ -5,7 +5,7 @@ import BoardTitle from "./BoardTitle";
 const Wrapper = styled.div`
   background: none;
   border: none;
-  margin-bottom: 0.25rem;
+  margin: 0.5rem;
   position: relative;
   display: flex;
   width: 100%;
@@ -19,6 +19,7 @@ const BoardHeader: React.FC<IBoardHeaderProps> = props => {
   return (
     <Wrapper>
       <BoardTitle boardId={props.boardId} />
+
     </Wrapper>
   );
 };
