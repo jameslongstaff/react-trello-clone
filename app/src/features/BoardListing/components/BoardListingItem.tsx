@@ -10,7 +10,8 @@ const Wrapper = styled.div`
 	cursor: pointer;
   display: inline-flex;
   margin-right: 1rem;
-	width: 15rem;
+  margin-bottom: 1rem;
+	width: calc(33% - 1rem);
 
 	&:hover {
 		background: ${darken(0.01, 'rgb(0, 121, 191)')};
@@ -45,8 +46,5 @@ class BoardListingItem extends Component<any, any> {
   };
 }
 
-const mapStateToProps = (state: any, ownProps: any) => {
-};
-
-export default connect(mapStateToProps)(BoardListingItem);
+export default connect()(BoardListingItem);
 

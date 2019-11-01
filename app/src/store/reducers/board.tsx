@@ -80,9 +80,7 @@ const reducer = (state = initialState, action: any) => {
         ...state.byId,
         [board.id]: board,
       },
-      allIds: [
-        [...state.allIds.concat([board.id])]
-      ],
+      allIds: [...state.allIds.concat([board.id])]
     };
   }
 

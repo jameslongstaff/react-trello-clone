@@ -8,6 +8,7 @@ import BoardCreator from "../components/BoardCreator";
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   max-width: 50rem;
   margin: 0 auto;
   position: relative;

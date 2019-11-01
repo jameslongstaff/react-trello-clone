@@ -6,18 +6,19 @@ import { PlusSquare } from "styled-icons/boxicons-solid/";
 import ClickOutside from "../../../common/components/ClickOutside/ClickOutside";
 import Button from "../../../common/components/Button/Button";
 import { createTask } from "../../../store/actionCreators/card";
+import { createBoard } from "../../../store/actionCreators/board";
 
 const Wrapper = styled.div`
-	background: rgb(0, 121, 191);
+	background: #eee;
 	border-radius: 4px;
 	cursor: pointer;
 	display: inline-flex;
 	height: 7rem;
-	width: 15rem;
+	width: calc(33% - 1rem);
 `;
 
 const TextAreaContainer = styled.div`
-	padding: 0.5rem;
+	padding: 0.25rem;
 	height: 100%;
 	width: 100%;
 `;
@@ -29,7 +30,7 @@ const TextArea = styled.textarea`
   width: 100%;
   box-sizing: border-box;
   box-shadow: 0 1px 0 0 #ddd;
-  height: 100%;
+  height: 4.125rem;
   border: none;
   padding: 0.5rem 0.5rem;
   box-sizing: border-box;
@@ -57,7 +58,7 @@ class BoardCreator extends Component<any, any> {
 
 	handleKeyPress = (event: any) => {
 		if (event.key === "Enter") {
-			this.saveTask();
+			this.handleCreateBoard();
 		}
 	};
 
@@ -75,14 +76,14 @@ class BoardCreator extends Component<any, any> {
 
 	handleClickOutside = () => {
 		if (this.state.editorIsOpen) {
-			this.saveTask();
+			this.closeEditor();
 		}
 	};
 
-	saveTask = () => {
+	handleCreateBoard = () => {
 		if (this.state.title !== "") {
 			this.props.dispatch(
-				createTask({
+				createBoard({
 					title: this.state.title,
 					listId: this.props.taskListId
 				})
@@ -105,6 +106,9 @@ class BoardCreator extends Component<any, any> {
 					onKeyPress={event => this.handleKeyPress(event)}
 					ref={this.input}
 				/>
+				<Button primary onClick={() => this.handleCreateBoard()}>
+					<span>Create Board</span>
+				</Button>
 			</TextAreaContainer>
 		) : null;
 
@@ -114,8 +118,7 @@ class BoardCreator extends Component<any, any> {
 					{editor}
 					{!this.state.editorIsOpen && (
 						<Button
-							primary={this.state.title !== "" && this.state.editorIsOpen}
-							onClick={this.state.editorIsOpen ? this.saveTask : this.openEditor}
+							onClick={this.openEditor}
 						>
 							<PlusSquare size="20" />
 						</Button>
