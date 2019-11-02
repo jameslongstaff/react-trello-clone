@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import ListHeader from "../components/ListHeader";
-import Task from "../../Task/containers/Task";
+import Card from "../../Task/containers/Card";
 import CardCreator from "../components/CardCreator";
 
 //components
@@ -17,7 +17,7 @@ const Column = styled.div`
   min-width: 16rem;
 `;
 
-const List = styled.div`
+const ListContainer = styled.div`
   align-self: flex-start;
   background: #ebecf0;
   border-radius: 3px;
@@ -30,27 +30,27 @@ const PaddedContainer = styled.div`
   padding: 0.5rem;
 `;
 
-interface TaskListProps {
+interface ListProps {
   id: string;
   taskList: any;
   cards: any[];
 }
 
-interface TaskListState { }
+interface ListState { }
 
-class TaskList extends Component<TaskListProps, TaskListState> {
+class List extends Component<ListProps, ListState> {
   render() {
     return (
       <Droppable droppableId={this.props.id}>
         {(provided, snapshot) => (
           <Column {...provided.droppableProps}>
-            <List>
+            <ListContainer>
               <ListHeader listId={this.props.id} />
               <PaddedContainer>
                 <div ref={provided.innerRef}>
                   {this.props.cards.map((card, index) => {
                     return (
-                      <Task
+                      <Card
                         id={card.id}
                         key={card.id}
                         index={index}
@@ -64,7 +64,7 @@ class TaskList extends Component<TaskListProps, TaskListState> {
                   Add a task
                 </CardCreator>
               </PaddedContainer>
-            </List>
+            </ListContainer>
           </Column>
         )}
       </Droppable>
@@ -73,7 +73,6 @@ class TaskList extends Component<TaskListProps, TaskListState> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
-
   return {
     list: state.lists.byId[ownProps.id],
     cards: state.lists.byId[ownProps.id].cards.map(
@@ -89,4 +88,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskList);
+)(List);

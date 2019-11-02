@@ -19,7 +19,6 @@ const ScrollContainer = styled.div`
   margin: 0.5rem;
   display: inline-flex;
 	position: absolute;
-	height: 100%;
 `;
 
 export class ListScroller extends React.Component<any, any> {

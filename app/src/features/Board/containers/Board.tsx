@@ -2,12 +2,12 @@ import React, { Component } from "react";
 
 //thirdparty
 import { connect } from "react-redux";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 //components
 import BoardTitleBar from "../components/BoardTitleBar";
-import TaskList from "../../TaskList/containers/TaskList";
+import List from "../../TaskList/containers/List";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateListOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
@@ -64,7 +64,7 @@ class Board extends Component<any, any> {
               {this.props.lists.length > 0 && (
                 <DragDropContext onDragEnd={this.handleDragEnd}>
                   {this.props.lists.map((taskListId: string, index: number) => {
-                    return <TaskList key={taskListId} id={taskListId} />;
+                    return <List key={taskListId} id={taskListId} index={index} />;
                   })}
                 </DragDropContext>
               )}

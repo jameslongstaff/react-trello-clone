@@ -12,7 +12,7 @@ import {
   deleteCard,
 } from "../../../store/actionCreators/card";
 
-const Card = styled.div`
+const Wrapper = styled.div`
   border-radius: 3px;
   cursor: pointer;
   background-color: #fff;
@@ -81,11 +81,11 @@ const CardContent = styled.div`
   position: relative;
 `;
 
-interface TaskState {
+interface CardState {
   isEditing: boolean;
 }
 
-class Task extends Component<any, TaskState> {
+class Card extends Component<any, CardState> {
   constructor(props: any) {
     super(props);
 
@@ -127,14 +127,14 @@ class Task extends Component<any, TaskState> {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
           >
-            <Card onClick={() => this.props.handleShowTaskModal(this.props.id)}>
+            <Wrapper onClick={() => this.props.handleShowTaskModal(this.props.id)}>
               <CardContent>
                 <CardTitle>{this.props.title}</CardTitle>
                 <QuickEditButton onClick={(event) => this.handleQuickEditClick(event)}>
                   <StyledPencil size="18" title="" />
                 </QuickEditButton>
               </CardContent>
-            </Card>
+            </Wrapper>
             {this.state.isEditing ? (
               <CardEditModal
                 title={this.props.title}
@@ -175,4 +175,4 @@ const mapDispatchToProps = (dispatch: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Task);
+)(Card);
