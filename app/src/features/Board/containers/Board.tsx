@@ -13,6 +13,8 @@ import { updateListOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
+import ScrollDrag from "../../../common/components/ScrollDrag/ScrollDrag";
+import ListScroller from "../components/ListScroller";
 
 const Wrapper = styled.div`
   position: relative;
@@ -21,24 +23,8 @@ const Wrapper = styled.div`
   flex-basis: 100%;
 `;
 
-const ListScroller = styled.div`
-  // background: #ccc;
-  max-width: 100%;
-  position: relative;
-  display: flex;
-  overflow-x: auto;
-  flex: 1 0 auto;
-`;
-
-const ListsHolder = styled.div`
-  flex: 1;
-  margin: 0.5rem;
-  overflow-x: auto;
-  display: inline-flex;
-  position: absolute;
-`;
-
 class Board extends Component<any, any> {
+
   async componentDidMount() {
     const { id } = this.props;
     this.props.dispatch(fetchBoard({ boardId: id }));
@@ -76,16 +62,14 @@ class Board extends Component<any, any> {
           <Wrapper>
             <BoardTitleBar boardId={this.props.id} />
             <ListScroller>
-              <ListsHolder>
-                {this.props.lists.length > 0 && (
-                  <DragDropContext onDragEnd={this.handleDragEnd}>
-                    {this.props.lists.map((taskListId: string, index: number) => {
-                      return <TaskList key={taskListId} id={taskListId} />;
-                    })}
-                  </DragDropContext>
-                )}
-                <ListCreator boardId={this.props.id}></ListCreator>
-              </ListsHolder>
+              {this.props.lists.length > 0 && (
+                <DragDropContext onDragEnd={this.handleDragEnd}>
+                  {this.props.lists.map((taskListId: string, index: number) => {
+                    return <TaskList key={taskListId} id={taskListId} />;
+                  })}
+                </DragDropContext>
+              )}
+              <ListCreator boardId={this.props.id}></ListCreator>
             </ListScroller>
           </Wrapper>
         )}
