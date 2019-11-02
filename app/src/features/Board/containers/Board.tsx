@@ -15,15 +15,27 @@ import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 
 const Wrapper = styled.div`
-  flex: 0 0 100%;
-  flex-flow: row wrap;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+`;
+
+const ListScroller = styled.div`
+  // background: #ccc;
+  max-width: 100%;
+  position: relative;
+  display: flex;
+  overflow-x: auto;
+  flex: 1 0 auto;
 `;
 
 const ListsHolder = styled.div`
-  display: flex;
   flex: 1;
   margin: 0.5rem;
   overflow-x: auto;
+  display: inline-flex;
+  position: absolute;
 `;
 
 class Board extends Component<any, any> {
@@ -63,16 +75,18 @@ class Board extends Component<any, any> {
         {!this.props.loading && (
           <Wrapper>
             <BoardTitleBar boardId={this.props.id} />
-            <ListsHolder>
-              {this.props.lists.length > 0 && (
-                <DragDropContext onDragEnd={this.handleDragEnd}>
-                  {this.props.lists.map((taskListId: string, index: number) => {
-                    return <TaskList key={taskListId} id={taskListId} />;
-                  })}
-                </DragDropContext>
-              )}
-              <ListCreator boardId={this.props.id}></ListCreator>
-            </ListsHolder>
+            <ListScroller>
+              <ListsHolder>
+                {this.props.lists.length > 0 && (
+                  <DragDropContext onDragEnd={this.handleDragEnd}>
+                    {this.props.lists.map((taskListId: string, index: number) => {
+                      return <TaskList key={taskListId} id={taskListId} />;
+                    })}
+                  </DragDropContext>
+                )}
+                <ListCreator boardId={this.props.id}></ListCreator>
+              </ListsHolder>
+            </ListScroller>
           </Wrapper>
         )}
         {!this.props.loading && this.props.modalState.taskModalIsVisible && (

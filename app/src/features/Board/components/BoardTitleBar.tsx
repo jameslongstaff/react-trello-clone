@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   border: none;
   margin: 0.5rem;
   position: relative;
-  display: flex;
+  flex: 0 0 auto;
 `;
 
 interface IBoardHeaderProps {

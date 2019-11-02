@@ -11,7 +11,8 @@ import CardCreator from "../components/CardCreator";
 //components
 
 const Column = styled.div`
-  display: flex;
+  display: inline-flex;
+  flex-direction: column;
   margin: 0 0.5rem 0 0;
   min-width: 16rem;
 `;

@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   background: ${(props: ITopBarProps) => props.colour ? rgba(props.colour, 0.1) : '#026aa7'};
   padding: 0.3rem 0.5rem;
+  position: relative;
   width: 100%;
   z-index: 1;
 `;
