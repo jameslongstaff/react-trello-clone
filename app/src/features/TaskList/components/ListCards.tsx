@@ -13,7 +13,6 @@ interface IListCardsProps {
 	cards: any[];
 }
 
-
 const ListCards: React.FC<IListCardsProps> = props => {
 	return (
 		<Droppable droppableId={props.listId}>
