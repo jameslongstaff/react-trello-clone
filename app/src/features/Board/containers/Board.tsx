@@ -13,7 +13,6 @@ import { updateListOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
-import ScrollDrag from "../../../common/components/ScrollDrag/ScrollDrag";
 import ListScroller from "../components/ListScroller";
 
 const Wrapper = styled.div`
