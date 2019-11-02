@@ -10,7 +10,11 @@ import { createTask } from "../../../store/actionCreators/card";
 const Wrapper = styled.div`
   align-self: flex-start;
   display: flex;
-  text-align: right;
+  flex-flow: row wrap;
+`;
+
+const TextAreaContainer = styled.div`
+  flex: 0 0 100%;
 `;
 
 const TextArea = styled.textarea`
@@ -89,16 +93,14 @@ class CardCreator extends Component<any, any> {
 
   render() {
     let editor = this.state.editorIsOpen ? (
-      <div onClick={this.props.onClick}>
-        <div>
-          <TextArea
-            placeholder="Title.."
-            onChange={event => this.handleChange(event)}
-            onKeyPress={event => this.handleKeyPress(event)}
-            ref={this.input}
-          />
-        </div>
-      </div>
+      <TextAreaContainer onClick={this.props.onClick}>
+        <TextArea
+          placeholder="Title.."
+          onChange={event => this.handleChange(event)}
+          onKeyPress={event => this.handleKeyPress(event)}
+          ref={this.input}
+        />
+      </TextAreaContainer>
     ) : null;
 
     return (
