@@ -37,10 +37,18 @@ interface ListProps {
 
 interface ListState { }
 
+
+
 class List extends Component<ListProps, ListState> {
+
+  // prevent interference with board scroll when dragging lists and cards
+  handleListClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  }
+
   render() {
     return (
-      <Wrapper>
+      <Wrapper onMouseDown={(event: React.MouseEvent) => this.handleListClick(event)}>
         <ListContainer>
           <ListHeader listId={this.props.id} />
           <PaddedContainer>

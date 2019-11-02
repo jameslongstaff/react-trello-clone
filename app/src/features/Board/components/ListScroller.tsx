@@ -35,6 +35,7 @@ export class ListScroller extends React.Component<any, any> {
 	}
 
 	onMouseDown = (e: React.MouseEvent) => {
+		console.log('down');
 		this.setState({
 			...this.state, isScrolling: true,
 			firstPos: e.clientX

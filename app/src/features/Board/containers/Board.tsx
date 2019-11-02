@@ -7,13 +7,13 @@ import styled from "styled-components";
 
 //components
 import BoardTitleBar from "../components/BoardTitleBar";
-import List from "../../TaskList/containers/List";
 import TaskModal from "../../Task/components/TaskModal";
 import { updateListOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 import ListScroller from "../components/ListScroller";
+import Lists from "../components/Lists";
 
 const Wrapper = styled.div`
   position: relative;
@@ -56,26 +56,22 @@ class Board extends Component<any, any> {
   render() {
     return (
       <React.Fragment>
-        {this.props.loading && <Spinner></Spinner>}
-        {!this.props.loading && (
-          <Wrapper>
-            <BoardTitleBar boardId={this.props.id} />
-            <ListScroller>
-              {this.props.lists.length > 0 && (
-                <DragDropContext onDragEnd={this.handleDragEnd}>
-                  {this.props.lists.map((taskListId: string, index: number) => {
-                    return <List key={taskListId} id={taskListId} index={index} />;
-                  })}
-                </DragDropContext>
-              )}
-              <ListCreator boardId={this.props.id}></ListCreator>
-            </ListScroller>
-          </Wrapper>
-        )}
-        {!this.props.loading && this.props.modalState.taskModalIsVisible && (
-          <TaskModal cardId={this.props.modalState.taskModalId} />
-        )}
-      </React.Fragment>
+        <DragDropContext onDragEnd={this.handleDragEnd}>
+          {this.props.loading && <Spinner></Spinner>}
+          {!this.props.loading && (
+            <Wrapper>
+              <BoardTitleBar boardId={this.props.id} />
+              <ListScroller>
+                <Lists lists={this.props.lists}></Lists>
+                <ListCreator boardId={this.props.id}></ListCreator>
+              </ListScroller>
+            </Wrapper>
+          )}
+          {!this.props.loading && this.props.modalState.taskModalIsVisible && (
+            <TaskModal cardId={this.props.modalState.taskModalId} />
+          )}
+        </DragDropContext>
+      </React.Fragment >
     );
   }
 }

@@ -17,21 +17,19 @@ const ListCards: React.FC<IListCardsProps> = props => {
 	return (
 		<Droppable droppableId={props.listId}>
 			{(provided, snapshot) => (
-				<Wrapper {...provided.droppableProps}>
-					<div ref={provided.innerRef}>
-						{props.cards.map((card, index) => {
-							return (
-								<Card
-									id={card.id}
-									key={card.id}
-									index={index}
-									title={card.title}
-								/>
-							);
-						})}
-						{provided.placeholder}
-					</div>
-				</Wrapper>
+				<div ref={provided.innerRef}>
+					{props.cards.map((card, index) => {
+						return (
+							<Card
+								id={card.id}
+								key={card.id}
+								index={index}
+								title={card.title}
+							/>
+						);
+					})}
+					{provided.placeholder}
+				</div>
 			)}
 		</Droppable>
 	);
