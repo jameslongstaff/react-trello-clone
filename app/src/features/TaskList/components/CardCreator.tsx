@@ -8,6 +8,8 @@ import Button from "../../../common/components/Button/Button";
 import { createTask } from "../../../store/actionCreators/card";
 
 const Wrapper = styled.div`
+  align-self: flex-start;
+  display: flex;
   text-align: right;
 `;
 
@@ -31,7 +33,7 @@ const TextArea = styled.textarea`
   }
 `;
 
-class TaskListTaskCreator extends Component<any, any> {
+class CardCreator extends Component<any, any> {
   private input: React.RefObject<HTMLTextAreaElement>;
 
   constructor(props: any) {
@@ -115,4 +117,4 @@ class TaskListTaskCreator extends Component<any, any> {
   }
 }
 
-export default connect()(TaskListTaskCreator);
+export default connect()(CardCreator);

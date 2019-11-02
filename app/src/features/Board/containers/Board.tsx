@@ -15,11 +15,15 @@ import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 
 const Wrapper = styled.div`
-
+  flex: 0 0 100%;
+  flex-flow: row wrap;
 `;
 
 const ListsHolder = styled.div`
+  display: flex;
+  flex: 1;
   margin: 0.5rem;
+  overflow-x: auto;
 `;
 
 class Board extends Component<any, any> {

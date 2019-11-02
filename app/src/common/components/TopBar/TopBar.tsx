@@ -6,11 +6,7 @@ import { Home } from "styled-icons/boxicons-solid/Home";
 
 const Wrapper = styled.div`
   display: flex;
-  height: 2.5rem;
-  left: 0;
-  top: 0;
   background: ${(props: ITopBarProps) => props.colour ? rgba(props.colour, 0.1) : '#026aa7'};
-  position: relative;
   padding: 0.3rem 0.5rem;
   width: 100%;
   z-index: 1;
@@ -30,7 +26,7 @@ const TopBar: React.FC<ITopBarProps> = props => {
       <TopBardLink>
         <HomeIcon size="20"></HomeIcon>
       </TopBardLink>
-    </Wrapper >
+    </Wrapper>
   );
 };
 

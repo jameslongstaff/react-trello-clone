@@ -6,17 +6,18 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import ListHeader from "../components/ListHeader";
 import Task from "../../Task/containers/Task";
-import TaskListTaskCreator from "../components/TaskListTaskCreator";
+import CardCreator from "../components/CardCreator";
 
 //components
 
 const Column = styled.div`
-  float: left;
+  display: flex;
   margin: 0 0.5rem 0 0;
-  width: 16rem;
+  min-width: 16rem;
 `;
 
 const List = styled.div`
+  align-self: flex-start;
   background: #ebecf0;
   border-radius: 3px;
   border: solid 1px #ccc;
@@ -27,7 +28,6 @@ const List = styled.div`
 const PaddedContainer = styled.div`
   padding: 0.5rem;
 `;
-
 
 interface TaskListProps {
   id: string;
@@ -59,9 +59,9 @@ class TaskList extends Component<TaskListProps, TaskListState> {
                   })}
                   {provided.placeholder}
                 </div>
-                <TaskListTaskCreator taskListId={this.props.id}>
+                <CardCreator taskListId={this.props.id}>
                   Add a task
-                </TaskListTaskCreator>
+                </CardCreator>
               </PaddedContainer>
             </List>
           </Column>

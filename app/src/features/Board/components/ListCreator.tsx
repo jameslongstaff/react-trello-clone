@@ -11,13 +11,14 @@ import { rgba } from 'polished'
 //components
 
 const Wrapper = styled.div`
-  float: left;
+  display: flex;
   margin: 0 0.5rem 0 0;
   width: 16rem;
   border-radius: 3px;
   position: relative;
   background: ${rgba('#fff', 0.3)};
   padding: 0.4rem;
+  align-self: flex-start;
 
   &.editing {
     background: #ebecf0;

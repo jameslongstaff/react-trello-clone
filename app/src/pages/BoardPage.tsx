@@ -11,10 +11,9 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-
 const BoardContainer = styled.div`
-  background-color: #fff;
-  flex: 2;
+  display: flex;
+  flex: 1;
 `;
 
 const BoardPage: React.FC<any> = (props: any) => {
@@ -26,7 +25,7 @@ const BoardPage: React.FC<any> = (props: any) => {
       <Wrapper>
         <TopBar colour="#fff"></TopBar>
         <BoardContainer>
-          <Board id={boardId} />;
+          <Board id={boardId} />
         </BoardContainer>
       </Wrapper>
     </React.Fragment>

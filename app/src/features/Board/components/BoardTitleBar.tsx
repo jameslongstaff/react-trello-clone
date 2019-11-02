@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   margin: 0.5rem;
   position: relative;
   display: flex;
-  width: 100%;
 `;
 
 interface IBoardHeaderProps {
