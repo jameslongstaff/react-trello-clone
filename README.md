@@ -1,6 +1,8 @@
 # React Redux Trello clone with NodeJS, Mongo API
 
-This is a work in progress basic clone version of trello. I am using this project to get some practical experience and further develop my knowledge and understanding of JavaScript applications using Front End frameworks, in conjunction with Javascript based API's.
+This is a work in progress basic clone version of trello. I am using this project to get some practical experience and further develop my knowledge and understanding of JavaScript applications using Front End frameworks, in conjunction with TypeScript based API's.
+
+Being my first experience with working with React I have learnt through my time working on this project. I hope this will be beneficial for others learning. Feel free to clone the project and have a play around. Eventually I will setup a demo page to display the project online.
 
 ## Getting Started
 
@@ -19,6 +21,9 @@ This is a work in progress basic clone version of trello. I am using this projec
 1. ~Draggable lists~
 1. ~Board creation~
 1. ~Board listing~
+1. Authentication
+1. Login
+1. Register
 1. Card search
 1. ~Card clone~
 1. ~List clone~
@@ -27,7 +32,7 @@ This is a work in progress basic clone version of trello. I am using this projec
 1. Delete board, clone board
 1. Authentication and login
 1. General style improvements and ui
-1. More improvements not listed 
+1. More improvements not listed
 
 ## Deployment
 
@@ -35,10 +40,14 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* Typescript
+* TypeScript
 * React / Redux
-* MongoDB
-* NodeJS
+* MongoDB / Mongoose
+* NodeJS, Express
+* Lodash
+* React beautiful dnd 
+* Sass
+* Styled Components
 
 ## License
 
