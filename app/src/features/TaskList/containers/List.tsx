@@ -35,6 +35,7 @@ interface ListProps {
   id: string;
   taskList: any;
   cards: any[];
+  isCardBeingEdited: boolean;
 }
 
 interface ListState { }
@@ -44,6 +45,7 @@ class List extends Component<ListProps, ListState> {
   render() {
     return (
       <Draggable
+        isDragDisabled={this.props.isCardBeingEdited}
         draggableId={this.props.id}
         disableInteractiveElementBlocking
         index={this.props.index}
@@ -69,11 +71,17 @@ class List extends Component<ListProps, ListState> {
 }
 
 const mapStateToProps = (state: any, ownProps: any) => {
+
+  const list = state.lists.byId[ownProps.id];
+  const cards = list.cards.map(
+    (cardId: string) => state.cards.byId[cardId]
+  );
+  const isCardBeingEdited = cards.some((c: any) => c.isEditing);
+
   return {
-    list: state.lists.byId[ownProps.id],
-    cards: state.lists.byId[ownProps.id].cards.map(
-      (cardId: string) => state.cards.byId[cardId]
-    )
+    list,
+    cards,
+    isCardBeingEdited,
   };
 };
 
