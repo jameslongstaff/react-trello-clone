@@ -9,13 +9,13 @@ const LinkHeader = styled.div`
 	text-align: center;
 	
 	&:after {
-    background-color: #eee;
-    content: '';
-    display: block;
-    height: 1px;
-    top: 100%;
-    position: absolute;
-    width: 100%;
+		background-color: #eee;
+		content: '';
+		display: block;
+		height: 1px;
+		top: 100%;
+		position: absolute;
+		width: calc(100% - 2rem);
 	}
 `;
 
