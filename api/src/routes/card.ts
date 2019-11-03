@@ -33,7 +33,7 @@ export default (app: Router) => {
 
     const cards = await cardService.get({ listId })
 
-    const cardCopy = await cardService.create({ title, listId, sortOrder: cards.length }).catch(error => {
+    const cardCopy = await cardService.create({ title, listId, sortOrder: cards.length + 1 }).catch(error => {
       return res.status(500).json({ error });
     });
 
@@ -45,11 +45,14 @@ export default (app: Router) => {
 
     const { title, content, listId } = req.body;
 
+    const cards = await cardService.get({ listId });
+
     const card = await cardService
       .create({
         title,
         content,
-        listId
+        listId,
+        sortOrder: cards.length + 1,
       })
       .catch(error => {
         return res.status(500).json({ error });

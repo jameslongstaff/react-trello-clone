@@ -89,44 +89,53 @@ export default (app: Router) => {
   });
 
   app.patch("/cards/update-order", async (req: Request, res: Response) => {
+    const cardService = Container.get(CardService);
 
-    // check if same list
+    const {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex,
+    } = req.body;
 
-    // get cards by list id, sorted by sort order.
-    // Map to array of Ids
-    // splice at source index
-    // splice at destination index
-
-    // perform update with new sort order
-
-    // other list
-
-    // get src cards
-    // Map to array of Ids
-    // splice at source index frm src cards
-    // get dest cards
-    // Map to array of Ids
-    // splice at destination index dest cards
+    const srcCards = await cardService.get({ listId: sourceId });
+    const dstCards = await cardService.get({ listId: destinationId });
 
 
+    let orderedSrcCards;
+    let orderedDstCards;
 
+    if (sourceId !== destinationId) {
+      const [card] = srcCards.splice(sourceIndex, 1);
+      dstCards.splice(destinationIndex, 0, card);
+      orderedDstCards = dstCards.map((c: any, index: number) => {
+        return { id: c._id, sortOrder: index + 1, listId: destinationId };
+      });
+    } else {
+      const [card] = srcCards.splice(sourceIndex, 1);
+      dstCards.splice(destinationIndex, 0, card);
+    }
 
-    // const listService = Container.get(ListService);
+    orderedSrcCards = srcCards.map((c: any, index: number) => {
+      return { id: c._id, sortOrder: index + 1 };
+    });
 
-    // const { listId } = req.params;
+    //TODO: More efficient multi update
+    if (!!orderedDstCards) {
+      orderedDstCards.forEach(async (c: any) => {
+        await cardService.update(c.id, {
+          sortOrder: c.sortOrder,
+          listId: c.listId,
+        });
+      });
+    }
 
-    // const {
-    //   sourceId,
-    //   destinationId,
-    //   sourceIndex,
-    //   destinationIndex,
-    // } = req.body;
-
-    // // const list = await listService.update(listId, { title }).catch(error => {
-    // //   return res.status(500).json({ error });
-    // // });
-
-    // return res.status(200).json(list);
+    //TODO: More efficient multi update
+    orderedSrcCards.forEach(async (c: any) => {
+      await cardService.update(c.id, {
+        sortOrder: c.sortOrder,
+      });
+    });
   });
 
   app.delete("/list/:listId", async (req: Request, res: Response) => {

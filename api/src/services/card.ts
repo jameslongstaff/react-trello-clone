@@ -9,7 +9,7 @@ export default class CardService implements ICrudService {
   constructor(private logger: Logger) { }
 
   public async get(queryOptions?: {}): Promise<any[]> {
-    const cards = Card.find(queryOptions);
+    const cards = Card.find(queryOptions).sort('sortOrder');
     return await cards.exec();
   }
 

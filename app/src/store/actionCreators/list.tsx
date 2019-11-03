@@ -111,13 +111,13 @@ export function updateCardOrder(payload: any) {
 
     const apiUrl = `http://localhost:4000/api/cards/update-order`;
 
+    dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
+
     const response = await axios.patch(apiUrl, {
       sourceId,
       destinationId,
       sourceIndex,
       destinationIndex
     });
-
-    dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
   }
 }
