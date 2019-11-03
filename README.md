@@ -15,7 +15,8 @@ This is a work in progress basic clone version of trello. I am using this projec
 ## Future work
 
 1. Install concurrently to start app and api simultaneously
-1. Draggable cards and lists
+1. Draggable cards
+1. ~Draggable lists~
 1. ~Board creation~
 1. ~Board listing~
 1. Card search
