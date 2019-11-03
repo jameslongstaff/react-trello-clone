@@ -5,16 +5,19 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
 import App from "./App";
+
 import boardReducer from "./store/reducers/board";
 import taskListReducer from "./store/reducers/list";
 import taskReducer from "./store/reducers/card";
+import uiReducer from "./store/reducers/ui";
 
 import * as serviceWorker from "./serviceWorker";
 
 const rootReducer = combineReducers({
   boards: boardReducer,
   lists: taskListReducer,
-  cards: taskReducer
+  cards: taskReducer,
+  ui: uiReducer,
 });
 
 const logger = (store: any) => {

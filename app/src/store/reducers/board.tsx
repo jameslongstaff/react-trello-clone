@@ -14,7 +14,8 @@ const initialState: any = {
     taskModalId: null
   },
   allIds: [],
-  loading: true
+  loading: true,
+  menuOpen: false,
 };
 
 const reducer = (state = initialState, action: any) => {

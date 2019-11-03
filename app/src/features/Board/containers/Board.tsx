@@ -14,6 +14,7 @@ import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 import ListScroller from "../components/ListScroller";
 import Lists from "../components/Lists";
+import SlideOutSideMenu from "../../../common/components/SlideOutSideMenu/SlideOutSideMenu";
 
 const Wrapper = styled.div`
   position: relative;
@@ -93,6 +94,7 @@ class Board extends Component<any, any> {
                     </ListsContainer>
                   </ListScroller>
                   {provided.placeholder}
+                  <SlideOutSideMenu open={this.props.boards.menuOpen}></SlideOutSideMenu>
                 </Wrapper>
               )}
             </Droppable>
@@ -111,7 +113,8 @@ const mapStateToProps = (state: any, ownProps: any) => {
     modalState: state.boards.modalState,
     board: state.boards.board,
     lists: state.lists.allIds,
-    loading: state.boards.loading
+    loading: state.boards.loading,
+    boards: state.boards, // currently using to test slideoutmenu state - will separate ui state at a later date
   };
 };
 
