@@ -10,7 +10,7 @@ const ButtonContainer = styled.div`
   margin-bottom: 0.25rem;
 `;
 
-class TaskModalSidebar extends Component<any> {
+class CardModalSidebar extends Component<any> {
   render() {
     return (
       <VerticalMenu>
@@ -57,4 +57,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskModalSidebar);
+)(CardModalSidebar);

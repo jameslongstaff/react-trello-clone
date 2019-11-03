@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "reactstrap";
 import styled from "styled-components";
-import TaskModalTitle from "./TaskModalTitle";
-import TaskModalDescriptionEditor from "./TaskModalDescriptionEditor";
-import TaskModalSidebar from "./TaskModalSidebar";
+import CardModalTitle from "./CardModalTitle";
+import CardModalDescriptionEditor from "./CardModalDescriptionEditor";
+import CardModalSidebar from "./CardModalSidebar";
 import { hideTaskModal } from "../../../store/actionCreators/board";
 import Modal from "../../../common/components/Modal/Modal";
 
@@ -30,14 +30,14 @@ const ModalHeader = styled.div`
   margin-bottom: 1rem;
 `;
 
-interface TaskModalState {
+interface CardModalState {
   newTitle: string;
   originalTitle: string;
   newContent: string;
   originalContent: string;
 }
 
-class TaskModal extends Component<any, TaskModalState> {
+class CardModal extends Component<any, CardModalState> {
   private wrapper: React.RefObject<HTMLDivElement>;
 
   constructor(props: any) {
@@ -62,18 +62,18 @@ class TaskModal extends Component<any, TaskModalState> {
               <Row>
                 <Col>
                   <ModalHeader>
-                    <TaskModalTitle cardId={this.props.cardId} />
+                    <CardModalTitle cardId={this.props.cardId} />
                   </ModalHeader>
                 </Col>
               </Row>
               <Row>
                 <Col xs="9">
                   <SectionHeader>Description</SectionHeader>
-                  <TaskModalDescriptionEditor cardId={this.props.cardId} />
+                  <CardModalDescriptionEditor cardId={this.props.cardId} />
                 </Col>
                 <Col xs="3">
                   <SectionHeader>Actions</SectionHeader>
-                  <TaskModalSidebar cardId={this.props.cardId} />
+                  <CardModalSidebar cardId={this.props.cardId} />
                 </Col>
               </Row>
             </Container>
@@ -101,4 +101,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskModal);
+)(CardModal);

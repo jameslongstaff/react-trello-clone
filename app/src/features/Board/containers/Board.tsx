@@ -7,7 +7,7 @@ import styled from "styled-components";
 
 //components
 import BoardTitleBar from "../components/BoardTitleBar";
-import TaskModal from "../../Task/components/TaskModal";
+import CardModal from "../../Task/components/CardModal";
 import { updateListOrder, updateCardOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
@@ -98,7 +98,7 @@ class Board extends Component<any, any> {
             </Droppable>
           )}
           {!this.props.loading && this.props.modalState.taskModalIsVisible && (
-            <TaskModal cardId={this.props.modalState.taskModalId} />
+            <CardModal cardId={this.props.modalState.taskModalId} />
           )}
         </DragDropContext>
       </React.Fragment >

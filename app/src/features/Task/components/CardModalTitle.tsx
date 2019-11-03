@@ -5,7 +5,7 @@ import { updateCard } from "../../../store/actionCreators/card";
 
 //common components
 
-class TaskModalTitle extends Component<any, any> {
+class CardModalTitle extends Component<any, any> {
   constructor(props: any) {
     super(props);
 
@@ -59,4 +59,4 @@ const mapDispatchToProps = (dispatch: any, ownProps: any) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskModalTitle);
+)(CardModalTitle);
