@@ -10,6 +10,8 @@ import {
   updateCard,
   cloneCard,
   deleteCard,
+  cancelQuickEdit,
+  beginQuickEdit,
 } from "../../../store/actionCreators/card";
 
 const Wrapper = styled.div`
@@ -81,17 +83,10 @@ const CardContent = styled.div`
   position: relative;
 `;
 
-interface CardState {
-  isEditing: boolean;
-}
 
-class Card extends Component<any, CardState> {
+class Card extends Component<any> {
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      isEditing: false
-    };
   }
 
   handleClick = () => {
@@ -104,13 +99,13 @@ class Card extends Component<any, CardState> {
   }
 
   initEditMode = () => {
-    if (!this.state.isEditing) {
-      this.setState({ isEditing: true }, () => { });
+    if (!this.props.card.isEditing) {
+      this.props.beginQuickEdit(this.props.id);
     }
   };
 
   cancelEditMode = () => {
-    this.setState({ isEditing: false });
+    this.props.cancelQuickEdit(this.props.id);
   };
 
   // prevent interference with board scroll when dragging lists and cards
@@ -122,7 +117,7 @@ class Card extends Component<any, CardState> {
   render() {
     return (
       <Draggable
-        isDragDisabled={this.state.isEditing}
+        isDragDisabled={this.props.card.isEditing}
         draggableId={this.props.id}
         index={this.props.index}
         disableInteractiveElementBlocking
@@ -141,7 +136,7 @@ class Card extends Component<any, CardState> {
                 </QuickEditButton>
               </CardContent>
             </Wrapper>
-            {this.state.isEditing ? (
+            {this.props.card.isEditing ? (
               <CardEditModal
                 title={this.props.title}
                 cardId={this.props.id}
@@ -163,18 +158,24 @@ const mapStateToProps = (state: any, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    handleShowTaskModal: (id: string) => {
-      dispatch(showTaskModal({ cardId: id }));
+    handleShowTaskModal: (cardId: string) => {
+      dispatch(showTaskModal({ cardId }));
     },
-    handleSaveTitle: (title: string, id: string) => {
-      dispatch(updateCard({ cardId: id, title: title }));
+    handleSaveTitle: (title: string, cardId: string) => {
+      dispatch(updateCard({ cardId, title: title }));
     },
     handleCloneTask: (id: string) => {
       dispatch(cloneCard({ taskId: id }));
     },
     handleDeleteTask: (id: string) => {
       dispatch(deleteCard({ taskId: id }));
-    }
+    },
+    beginQuickEdit: (cardId: string) => {
+      dispatch(beginQuickEdit({ cardId }));
+    },
+    cancelQuickEdit: (cardId: string) => {
+      dispatch(cancelQuickEdit({ cardId }));
+    },
   };
 };
 

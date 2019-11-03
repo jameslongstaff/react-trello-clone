@@ -75,7 +75,6 @@ export const cloneCard = (payload: any) => {
 
     dispatch({ type: cardActions.CLONE_CARD, payload: card });
     dispatch({ type: listActions.ADD_CARD_TO_LIST, payload: card });
-
   }
 };
 
@@ -95,3 +94,11 @@ export const updateCard = (payload: any) => {
 export const updateTaskContent = (payload: any) => {
   return { type: cardActions.UPDATE_TASK_CONTENT, payload };
 };
+
+export const beginQuickEdit = (payload: any) => {
+  return { type: cardActions.BEGIN_QUICK_EDIT, payload };
+}
+
+export const cancelQuickEdit = (payload: any) => {
+  return { type: cardActions.CANCEL_QUICK_EDIT, payload };
+}

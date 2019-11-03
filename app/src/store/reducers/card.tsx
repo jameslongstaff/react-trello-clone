@@ -86,6 +86,36 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+  if (action.type === cardActions.BEGIN_QUICK_EDIT) {
+    const { cardId } = payload;
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        [cardId]: {
+          ...state.byId[cardId],
+          isEditing: true,
+        }
+      }
+    }
+  }
+
+  if (action.type === cardActions.CANCEL_QUICK_EDIT) {
+    const { cardId } = payload;
+
+    return {
+      ...state,
+      byId: {
+        ...state.byId,
+        [cardId]: {
+          ...state.byId[cardId],
+          isEditing: false,
+        }
+      }
+    }
+  }
+
   if (action.type === cardActions.DELETE_CARD) {
     const { cardId } = payload;
 
