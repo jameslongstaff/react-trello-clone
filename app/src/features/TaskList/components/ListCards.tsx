@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   padding: 0.5rem;
 `;
 
+const Cards = styled.div`
+  min-height: 1rem;
+`;
+
 interface IListCardsProps {
 	listId: string;
 	cards: any[];
@@ -17,7 +21,7 @@ const ListCards: React.FC<IListCardsProps> = props => {
 	return (
 		<Droppable droppableId={props.listId}>
 			{(provided, snapshot) => (
-				<div ref={provided.innerRef}>
+				<Cards ref={provided.innerRef}>
 					{props.cards.map((card, index) => {
 						return (
 							<Card
@@ -29,7 +33,7 @@ const ListCards: React.FC<IListCardsProps> = props => {
 						);
 					})}
 					{provided.placeholder}
-				</div>
+				</Cards>
 			)}
 		</Droppable>
 	);

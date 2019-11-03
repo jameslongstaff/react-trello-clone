@@ -22,6 +22,12 @@ const Wrapper = styled.div`
   flex-basis: 100%;
 `;
 
+const ListsContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-basis: 100%;
+`;
+
 class Board extends Component<any, any> {
 
   async componentDidMount() {
@@ -30,27 +36,27 @@ class Board extends Component<any, any> {
   }
 
   handleDragEnd = (result: any) => {
-    const { destination, source, draggableId } = result;
+    // const { destination, source, draggableId } = result;
 
-    if (!destination) {
-      return;
-    }
+    // if (!destination) {
+    //   return;
+    // }
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
+    // if (
+    //   destination.droppableId === source.droppableId &&
+    //   destination.index === source.index
+    // ) {
+    //   return;
+    // }
 
-    this.props.dispatch(
-      updateListOrder({
-        sourceId: source.droppableId,
-        destinationId: destination.droppableId,
-        sourceIndex: source.index,
-        destinationIndex: destination.index
-      })
-    );
+    // this.props.dispatch(
+    //   updateListOrder({
+    //     sourceId: source.droppableId,
+    //     destinationId: destination.droppableId,
+    //     sourceIndex: source.index,
+    //     destinationIndex: destination.index
+    //   })
+    // );
   };
 
   render() {
@@ -59,13 +65,22 @@ class Board extends Component<any, any> {
         <DragDropContext onDragEnd={this.handleDragEnd}>
           {this.props.loading && <Spinner></Spinner>}
           {!this.props.loading && (
-            <Wrapper>
-              <BoardTitleBar boardId={this.props.id} />
-              <ListScroller>
-                <Lists lists={this.props.lists}></Lists>
-                <ListCreator boardId={this.props.id}></ListCreator>
-              </ListScroller>
-            </Wrapper>
+            <Droppable droppableId={this.props.id} direction="horizontal" type="lists">
+              {(provided, snapshot) => (
+                <Wrapper
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  <BoardTitleBar boardId={this.props.id} />
+                  <ListScroller>
+                    <ListsContainer onMouseDown={(e) => { e.stopPropagation() }}>
+                      <Lists lists={this.props.lists}></Lists>
+                      <ListCreator boardId={this.props.id}></ListCreator>
+                    </ListsContainer>
+                  </ListScroller>
+                </Wrapper>
+              )}
+            </Droppable>
           )}
           {!this.props.loading && this.props.modalState.taskModalIsVisible && (
             <TaskModal cardId={this.props.modalState.taskModalId} />

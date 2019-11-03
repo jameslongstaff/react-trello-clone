@@ -6,6 +6,7 @@ import styled from "styled-components";
 import ListHeader from "../components/ListHeader";
 import CardCreator from "../components/CardCreator";
 import ListCards from "../components/ListCards";
+import { Draggable } from "react-beautiful-dnd";
 
 //components
 
@@ -30,6 +31,7 @@ const PaddedContainer = styled.div`
 `;
 
 interface ListProps {
+  index: number;
   id: string;
   taskList: any;
   cards: any[];
@@ -37,26 +39,31 @@ interface ListProps {
 
 interface ListState { }
 
-
-
 class List extends Component<ListProps, ListState> {
-
-  // prevent interference with board scroll when dragging lists and cards
-  handleListClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-  }
 
   render() {
     return (
-      <Wrapper onMouseDown={(event: React.MouseEvent) => this.handleListClick(event)}>
-        <ListContainer>
-          <ListHeader listId={this.props.id} />
-          <PaddedContainer>
-            <ListCards listId={this.props.id} cards={this.props.cards} />
-            <CardCreator taskListId={this.props.id}>Add a task</CardCreator>
-          </PaddedContainer>
-        </ListContainer>
-      </Wrapper >
+      <Draggable
+        draggableId={this.props.id}
+        disableInteractiveElementBlocking
+        index={this.props.index}
+      >
+        {provided => (
+          <Wrapper
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            <ListContainer>
+              <ListHeader listId={this.props.id} />
+              <PaddedContainer>
+                <ListCards listId={this.props.id} cards={this.props.cards} />
+                <CardCreator taskListId={this.props.id}>Add a task</CardCreator>
+              </PaddedContainer>
+            </ListContainer>
+          </Wrapper>
+        )}
+      </Draggable>
     );
   }
 }

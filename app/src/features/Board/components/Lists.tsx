@@ -1,6 +1,5 @@
 import React from "react";
 
-import { Droppable } from "react-beautiful-dnd";
 import List from "../../TaskList/containers/List";
 
 interface IListsProps {
@@ -8,9 +7,18 @@ interface IListsProps {
 }
 
 const Lists: React.FC<any> = props => {
+
+	// prevent interference with board scroll when dragging lists and cards
+	// const handleListClick = (e: React.MouseEvent) => {
+	// 	console.log('click');
+	// 	e.stopPropagation();
+	// }
+
 	return (
 		props.lists.map((listId: string, index: number) => {
-			return <List key={listId} id={listId} index={index} />;
+			return (
+				<List id={listId} index={index} />
+			)
 		})
 	);
 }

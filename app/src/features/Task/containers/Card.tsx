@@ -113,6 +113,12 @@ class Card extends Component<any, CardState> {
     this.setState({ isEditing: false });
   };
 
+  // prevent interference with board scroll when dragging lists and cards
+  handleListClick = () => {
+    console.log('stop');
+    // e.stopPropagation();
+  }
+
   render() {
     return (
       <Draggable
