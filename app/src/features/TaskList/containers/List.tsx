@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   display: inline-flex;
   flex-direction: column;
   margin: 0 0.5rem 0 0;
-  max-width: 16rem;
+  width: 16rem;
 `;
 
 const ListContainer = styled.div`
