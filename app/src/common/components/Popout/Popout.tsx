@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import ClickOutside from "../ClickOutside/ClickOutside";
 import styled from "styled-components";
 
