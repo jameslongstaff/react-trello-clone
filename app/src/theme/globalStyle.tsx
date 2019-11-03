@@ -21,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
   
   h1 {
     color: #fff;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     padding: 0.5rem 0;
   }
 

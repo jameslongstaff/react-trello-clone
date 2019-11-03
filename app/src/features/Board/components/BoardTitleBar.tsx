@@ -7,7 +7,13 @@ const Wrapper = styled.div`
   border: none;
   margin: 0.5rem;
   position: relative;
-  flex: 0 0 auto;
+  display: flex;
+`;
+
+const MenuButton = styled.div`
+  display: inline-flex;
+  font-size: 0.9rem;
+  width: 7rem;
 `;
 
 interface IBoardHeaderProps {
@@ -18,7 +24,7 @@ const BoardHeader: React.FC<IBoardHeaderProps> = props => {
   return (
     <Wrapper>
       <BoardTitle boardId={props.boardId} />
-
+      {/* <MenuButton>Show Menu</MenuButton> */}
     </Wrapper>
   );
 };
