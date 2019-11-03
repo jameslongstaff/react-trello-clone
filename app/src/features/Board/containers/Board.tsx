@@ -8,7 +8,7 @@ import styled from "styled-components";
 //components
 import BoardTitleBar from "../components/BoardTitleBar";
 import TaskModal from "../../Task/components/TaskModal";
-import { updateListOrder } from "../../../store/actionCreators/list";
+import { updateListOrder, updateCardOrder } from "../../../store/actionCreators/list";
 import { fetchBoard } from "../../../store/actionCreators/board";
 import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
@@ -36,27 +36,38 @@ class Board extends Component<any, any> {
   }
 
   handleDragEnd = (result: any) => {
-    // const { destination, source, draggableId } = result;
+    const { destination, source, type } = result;
 
-    // if (!destination) {
-    //   return;
-    // }
+    if (!destination) {
+      return;
+    }
 
-    // if (
-    //   destination.droppableId === source.droppableId &&
-    //   destination.index === source.index
-    // ) {
-    //   return;
-    // }
+    if (type === 'lists') {
+      this.props.dispatch(
+        updateListOrder({
+          sourceIndex: source.index,
+          destinationIndex: destination.index,
+        })
+      );
+    }
 
-    // this.props.dispatch(
-    //   updateListOrder({
-    //     sourceId: source.droppableId,
-    //     destinationId: destination.droppableId,
-    //     sourceIndex: source.index,
-    //     destinationIndex: destination.index
-    //   })
-    // );
+    if (type === 'cards') {
+      if (
+        destination.droppableId === source.droppableId &&
+        destination.index === source.index
+      ) {
+        return;
+      }
+
+      this.props.dispatch(
+        updateCardOrder({
+          sourceId: source.droppableId,
+          destinationId: destination.droppableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index
+        })
+      );
+    }
   };
 
   render() {
@@ -78,6 +89,7 @@ class Board extends Component<any, any> {
                       <ListCreator boardId={this.props.id}></ListCreator>
                     </ListsContainer>
                   </ListScroller>
+                  {provided.placeholder}
                 </Wrapper>
               )}
             </Droppable>

@@ -81,13 +81,33 @@ export function updateListOrder(payload: any) {
   return async (dispatch: any) => {
 
     const {
+      sourceIndex,
+      destinationIndex
+    } = payload;
+
+    const apiUrl = `http://localhost:4000/api/list/update-order`;
+
+    // const response = await axios.patch(apiUrl, {
+    //   sourceIndex,
+    //   destinationId,
+    //   sourceIndex,
+    //   destinationIndex
+    // });
+
+    dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
+  }
+}
+export function updateCardOrder(payload: any) {
+  return async (dispatch: any) => {
+
+    const {
       sourceId,
       destinationId,
       sourceIndex,
       destinationIndex
     } = payload;
 
-    const apiUrl = `http://localhost:4000/api/list/update-order`;
+    const apiUrl = `http://localhost:4000/api/card/update-order`;
 
     // const response = await axios.patch(apiUrl, {
     //   sourceId,
@@ -96,6 +116,6 @@ export function updateListOrder(payload: any) {
     //   destinationIndex
     // });
 
-    dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
+    dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
   }
 }

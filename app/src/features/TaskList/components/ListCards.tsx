@@ -19,7 +19,7 @@ interface IListCardsProps {
 
 const ListCards: React.FC<IListCardsProps> = props => {
 	return (
-		<Droppable droppableId={props.listId}>
+		<Droppable droppableId={props.listId} type="cards">
 			{(provided, snapshot) => (
 				<Cards ref={provided.innerRef}>
 					{props.cards.map((card, index) => {

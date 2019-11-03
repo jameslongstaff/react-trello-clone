@@ -17,7 +17,7 @@ const Lists: React.FC<any> = props => {
 	return (
 		props.lists.map((listId: string, index: number) => {
 			return (
-				<List id={listId} index={index} />
+				<List key={listId} id={listId} index={index} />
 			)
 		})
 	);

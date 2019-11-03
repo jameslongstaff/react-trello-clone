@@ -139,8 +139,25 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-
   if (action.type === listActions.UPDATE_LIST_ORDER) {
+    const {
+      sourceIndex,
+      destinationIndex
+    } = payload;
+
+    const lists = [...state.allIds];
+
+    const [list] = lists.splice(sourceIndex, 1);
+    lists.splice(destinationIndex, 0, list);
+
+    return {
+      ...state,
+      allIds: lists,
+    };
+  }
+
+
+  if (action.type === listActions.UPDATE_CARD_ORDER) {
     const {
       sourceId,
       destinationId,
