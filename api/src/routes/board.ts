@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { Container } from "typedi";
+import _ from "lodash";
 import BoardService from "../services/board";
 import ListService from "../services/list";
 import CardService from "../services/card";
@@ -110,6 +111,40 @@ export default (app: Router) => {
       });
 
     return res.status(201).json(board);
+  });
+
+  app.patch("/board/:boardId/update-list-order", async (req: Request, res: Response) => {
+
+    const listService = Container.get(ListService);
+
+    const { boardId } = req.params;
+
+    const {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex,
+    } = req.body;
+
+    // pull down all lists for board
+    const lists = await listService.get({ boardId });
+
+    // // perform reorder
+    const [list] = lists.splice(sourceIndex, 1);
+    lists.splice(destinationIndex, 0, list)
+
+    const orderedLists = lists.map((l: any, index: number) => {
+      return { id: l._id, sortOrder: index + 1 };
+    });
+
+    //TODO: Multi update implementation rather than separate queries
+    orderedLists.forEach(async (l: any) => {
+      await listService.update(l.id, {
+        sortOrder: l.sortOrder,
+      });
+    });
+
+    return res.status(200).json(lists);
   });
 
   app.patch("/board/:boardId/update", async (req: Request, res: Response) => {

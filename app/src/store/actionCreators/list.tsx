@@ -79,22 +79,24 @@ export const createList = (payload: any) => {
 
 export function updateListOrder(payload: any) {
   return async (dispatch: any) => {
-
     const {
+      boardId,
       sourceIndex,
-      destinationIndex
+      destinationIndex,
+      sourceId,
+      destinationId,
     } = payload;
 
-    const apiUrl = `http://localhost:4000/api/list/update-order`;
-
-    // const response = await axios.patch(apiUrl, {
-    //   sourceIndex,
-    //   destinationId,
-    //   sourceIndex,
-    //   destinationIndex
-    // });
+    const apiUrl = `http://localhost:4000/api/board/${boardId}/update-list-order`;
 
     dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
+
+    const response = await axios.patch(apiUrl, {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    });
   }
 }
 export function updateCardOrder(payload: any) {
@@ -107,14 +109,14 @@ export function updateCardOrder(payload: any) {
       destinationIndex
     } = payload;
 
-    const apiUrl = `http://localhost:4000/api/card/update-order`;
+    const apiUrl = `http://localhost:4000/api/cards/update-order`;
 
-    // const response = await axios.patch(apiUrl, {
-    //   sourceId,
-    //   destinationId,
-    //   sourceIndex,
-    //   destinationIndex
-    // });
+    const response = await axios.patch(apiUrl, {
+      sourceId,
+      destinationId,
+      sourceIndex,
+      destinationIndex
+    });
 
     dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
   }

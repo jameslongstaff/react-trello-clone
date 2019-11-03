@@ -45,6 +45,9 @@ class Board extends Component<any, any> {
     if (type === 'lists') {
       this.props.dispatch(
         updateListOrder({
+          sourceId: source.droppableId,
+          destinationId: destination.droppableId,
+          boardId: this.props.id,
           sourceIndex: source.index,
           destinationIndex: destination.index,
         })

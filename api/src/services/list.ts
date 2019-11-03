@@ -9,7 +9,7 @@ export default class ListService implements ICrudService {
   constructor(private logger: Logger) { }
 
   public async get(queryOptions?: {}): Promise<any[]> {
-    const lists = await List.find(queryOptions).exec();
+    const lists = await List.find(queryOptions).sort('sortOrder').exec();
     return lists;
   }
 

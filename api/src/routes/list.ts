@@ -20,7 +20,9 @@ export default (app: Router) => {
 
     const { boardId, title } = req.body;
 
-    const list = await listService.create({ boardId, title }).catch(error => {
+    const lists = await listService.get();
+
+    const list = await listService.create({ boardId, title, sortOrder: lists.length + 1 }).catch(error => {
       return res.status(500).json({ error });
     });
 
@@ -68,7 +70,6 @@ export default (app: Router) => {
     let clonedCards = [];
 
     if (cards.length) {
-
       const cardsToClone = cards.map((c: any) => {
         const { title, content, sortOrder } = c;
         return {
@@ -87,7 +88,7 @@ export default (app: Router) => {
     return res.status(200).json(response);
   });
 
-  app.patch("/list/:listId/update-order", async (req: Request, res: Response) => {
+  app.patch("/cards/update-order", async (req: Request, res: Response) => {
 
     // check if same list
 
