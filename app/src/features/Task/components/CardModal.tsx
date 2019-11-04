@@ -1,3 +1,4 @@
+//TODO: Modal to be refactored, stripping out reactstrap in favour of flex styled components.
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "reactstrap";

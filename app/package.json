@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@rebass/grid": "^6.1.0",
+    "@types/reselect": "^2.2.0",
     "axios": "^0.18.1",
     "bootstrap": "^4.3.1",
     "connected-react-router": "^6.5.2",
@@ -21,6 +22,7 @@
     "reactstrap": "^7.1.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "styled-components": "^4.4.0",
     "styled-icons": "^6.12.0",
     "styled-system": "^3.2.1"
