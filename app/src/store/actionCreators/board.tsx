@@ -6,6 +6,10 @@ import * as cardActionCreators from "../actionCreators/card";
 
 import axios from "axios";
 
+export const toggleBoardMenu = () => {
+  return { type: boardActions.TOGGLE_BOARD_MENU };
+};
+
 export const showTaskModal = (payload: any) => {
   return { type: boardActions.SHOW_TASK_MODAL, payload };
 };
@@ -81,7 +85,6 @@ export const fetchBoards = () => {
     dispatch(fetchBoardsSuccess());
   };
 };
-
 
 export const fetchBoard = (payload: any) => {
   return async (dispatch: any) => {

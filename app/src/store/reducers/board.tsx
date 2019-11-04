@@ -21,6 +21,13 @@ const initialState: any = {
 const reducer = (state = initialState, action: any) => {
   const { payload } = action;
 
+  if (action.type === actions.TOGGLE_BOARD_MENU) {
+    return {
+      ...state,
+      menuOpen: !state.menuOpen,
+    };
+  }
+
   if (action.type === actions.SHOW_TASK_MODAL) {
     return {
       ...state,

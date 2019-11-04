@@ -5,6 +5,8 @@ import SlideOutMenuLink from "../../../common/components/SlideOutSideMenu/SlideO
 import styled from "styled-components";
 import { Bin2 } from "styled-icons/icomoon/Bin2";
 import { Paintcan } from "styled-icons/octicons/Paintcan";
+import { useDispatch } from 'react-redux'
+import { toggleBoardMenu } from "../../../store/actionCreators/board";
 
 const PaddedContainer = styled.div`
 	padding: 1rem;
@@ -32,13 +34,14 @@ interface BoardSideMenuProps {
 }
 
 const BoardSideMenu: React.FC<BoardSideMenuProps> = (props => {
+	const dispatch = useDispatch();
 
 	const handleClose = () => {
 
 	};
 
 	return (
-		<SlideOutMenu open={props.open} onClose={handleClose}>
+		<SlideOutMenu open={props.open} onClose={() => console.log('close')} onClick={() => dispatch(toggleBoardMenu())}>
 			<SlideOutMenuHeader>
 				<span>Menu</span>
 			</SlideOutMenuHeader>

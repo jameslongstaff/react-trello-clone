@@ -13,12 +13,15 @@ const Wrapper = styled.div<Pick<SlideOutMenuProps, 'open'>>`
   right: ${(props) => (props.open ? "0" : "-20rem")};
   padding: 0;
   flex-direction: column;
+  transition: right 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 `;
 
 const MenuClose = styled.div`
+  cursor: pointer;
   position: absolute;
   right: 1rem;
   top: 0.45rem;
+  z-index: 2;
 `;
 
 const CloseIcon = styled(Close)`
@@ -26,6 +29,7 @@ const CloseIcon = styled(Close)`
 
 
 interface SlideOutMenuProps {
+  onClick(): void;
   onClose(): void;
   open?: boolean;
   children?: any;
@@ -35,7 +39,7 @@ const SlideOutMenu: React.FC<SlideOutMenuProps> = props => {
   return (
     <ClickOutside handleClickOutside={props.onClose}>
       <Wrapper open={props.open}>
-        <MenuClose>
+        <MenuClose onClick={props.onClick}>
           <CloseIcon size='20' />
         </MenuClose>
         {props.children}
