@@ -9,6 +9,10 @@ import { updateBoardTitle } from "../../../store/actionCreators/board";
 const Wrapper = styled.div`
   display: inline-flex;
   width: 100%;
+
+  h1 {
+    padding: 0;
+  }
 `;
 
 interface IBoardTitleState {
