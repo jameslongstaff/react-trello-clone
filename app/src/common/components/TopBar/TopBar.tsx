@@ -7,14 +7,22 @@ import { Home } from "styled-icons/boxicons-solid/Home";
 const Wrapper = styled.div`
   display: flex;
   background: ${(props: ITopBarProps) => props.colour ? rgba(props.colour, 0.1) : '#026aa7'};
-  padding: 0.3rem 0.5rem;
   position: relative;
   width: 100%;
+  padding: 0.25rem 0.25rem;
   z-index: 1;
 `;
 
 const HomeIcon = styled(Home)`
+  background-color: ${rgba('#fff', 0.2)};
+  border-radius: 3px;
   color: #fff;
+  padding: 0.25rem;
+  vertical-align: top;
+
+  &:hover {
+    background-color: ${rgba('#fff', 0.3)};
+  }
 `;
 
 interface ITopBarProps {
@@ -25,7 +33,7 @@ const TopBar: React.FC<ITopBarProps> = props => {
   return (
     <Wrapper colour={props.colour}>
       <TopBardLink>
-        <HomeIcon size="20"></HomeIcon>
+        <HomeIcon size="27"></HomeIcon>
       </TopBardLink>
     </Wrapper>
   );
