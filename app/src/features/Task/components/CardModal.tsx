@@ -1,7 +1,6 @@
 //TODO: Modal to be refactored, stripping out reactstrap in favour of flex styled components.
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Container, Row, Col } from "reactstrap";
 import styled from "styled-components";
 import CardModalTitle from "./CardModalTitle";
 import CardModalDescriptionEditor from "./CardModalDescriptionEditor";
