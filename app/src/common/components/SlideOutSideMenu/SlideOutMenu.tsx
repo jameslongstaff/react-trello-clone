@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ClickOutside from "../ClickOutside/ClickOutside";
-import { Close } from "styled-icons/material/Close";
+import { Close, ArrowBack } from "styled-icons/material";
 
 const Wrapper = styled.div<Pick<SlideOutMenuProps, 'open'>>`
   background-color: #f4f5f7;
@@ -24,13 +24,23 @@ const MenuClose = styled.div`
   z-index: 2;
 `;
 
+
+const MenuPrevious = styled.div`
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 0.45rem;
+  z-index: 2;
+`;
+
 const CloseIcon = styled(Close)`
 `;
 
 
 interface SlideOutMenuProps {
-  onClick(): void;
+  onNavigatePrevious(): void;
   onClose(): void;
+  canNavigateBack: boolean;
   open?: boolean;
   children?: any;
 }
@@ -39,7 +49,12 @@ const SlideOutMenu: React.FC<SlideOutMenuProps> = props => {
   return (
     <ClickOutside handleClickOutside={props.onClose}>
       <Wrapper open={props.open}>
-        <MenuClose onClick={props.onClick}>
+        {props.canNavigateBack && (
+          <MenuPrevious onClick={props.onNavigatePrevious}>
+            <ArrowBack size='20' />
+          </MenuPrevious>
+        )}
+        <MenuClose onClick={props.onClose}>
           <CloseIcon size='20' />
         </MenuClose>
         {props.children}

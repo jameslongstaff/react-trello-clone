@@ -14,7 +14,7 @@ import Spinner from "../../../common/components/Spinner/Spinner";
 import ListCreator from "../components/ListCreator";
 import ListScroller from "../components/ListScroller";
 import Lists from "../components/Lists";
-import BoardSideMenu from "../components/BoardSideMenu";
+import BoardMenu from "../components/BoardMenu/BoardMenu";
 
 const Wrapper = styled.div`
   position: relative;
@@ -94,7 +94,7 @@ class Board extends Component<any, any> {
                     </ListsContainer>
                   </ListScroller>
                   {provided.placeholder}
-                  <BoardSideMenu open={this.props.boards.menuOpen} />
+                  <BoardMenu open={this.props.boards.menuOpen} />
                 </Wrapper>
               )}
             </Droppable>

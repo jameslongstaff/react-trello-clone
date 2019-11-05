@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   background: ${(props: ITopBarProps) => props.colour ? rgba(props.colour, 0.1) : '#026aa7'};
   position: relative;
   width: 100%;
-  padding: 0.25rem 0.25rem;
+  padding: 0.1rem 0rem;
   z-index: 1;
 `;
 
