@@ -4,6 +4,8 @@ This is a work in progress basic clone version of trello. I am using this projec
 
 Being my first experience with working with React I have learnt through my time working on this project. I hope this will be beneficial for others learning. Feel free to clone the project and have a play around. Eventually I will setup a demo page to display the project online.
 
+![example board](https://github.com/jameslongstaff/react-trello-clone/blob/master/examples/board-example.png)
+
 ## Getting Started
 
 1. Create [MLabl](https://mlab.com/welcome/) account with database
