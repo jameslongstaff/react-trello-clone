@@ -19,6 +19,8 @@ const Wrapper = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
   min-height: 13.75rem;
 `;
 
@@ -28,7 +30,16 @@ const SectionHeader = styled.h5`
 `;
 
 const ModalHeader = styled.div`
-  margin-bottom: 1rem;
+  flex: 1 100%;
+`;
+
+const ModalContent = styled.div`
+  flex: 1 auto;
+`;
+
+const ModalSidebar = styled.div`
+flex: 0 auto;
+width: 10rem;
 `;
 
 interface CardModalState {
@@ -59,28 +70,20 @@ class CardModal extends Component<any, CardModalState> {
       <Wrapper>
         <Modal hideHandler={this.props.handleHideTaskModal} show>
           <ModalContainer ref={this.wrapper}>
-            <Container fluid>
-              <Row>
-                <Col>
-                  <ModalHeader>
-                    <CardModalTitle cardId={this.props.cardId} />
-                  </ModalHeader>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="9">
-                  <SectionHeader>Description</SectionHeader>
-                  <CardModalDescriptionEditor cardId={this.props.cardId} />
-                </Col>
-                <Col xs="3">
-                  <SectionHeader>Actions</SectionHeader>
-                  <CardModalSidebar cardId={this.props.cardId} />
-                </Col>
-              </Row>
-            </Container>
+            <ModalHeader>
+              <CardModalTitle cardId={this.props.cardId} />
+            </ModalHeader>
+            <ModalContent>
+              <SectionHeader>Description</SectionHeader>
+              <CardModalDescriptionEditor cardId={this.props.cardId} />
+            </ModalContent>
+            <ModalSidebar>
+              <SectionHeader>Actions</SectionHeader>
+              <CardModalSidebar cardId={this.props.cardId} />
+            </ModalSidebar>
           </ModalContainer>
-        </Modal>
-      </Wrapper>
+        </Modal >
+      </Wrapper >
     );
   }
 }
