@@ -1,6 +1,8 @@
 export const SHOW_TASK_MODAL = "SHOW_TASK_MODAL";
 export const HIDE_TASK_MODAL = "HIDE_TASK_MODAL";
 
+export const OPEN_BOARD_MENU = "OPEN_BOARD_MENU";
+export const CLOSE_BOARD_MENU = "CLOSE_BOARD_MENU";
 export const TOGGLE_BOARD_MENU = "TOGGLE_BOARD_MENU";
 
 export const DELETE_BOARD = "DELETE_BOARD";

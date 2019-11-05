@@ -10,6 +10,14 @@ export const toggleBoardMenu = () => {
   return { type: boardActions.TOGGLE_BOARD_MENU };
 };
 
+export const openBoardMenu = () => {
+  return { type: boardActions.OPEN_BOARD_MENU };
+};
+
+export const closeBoardMenu = () => {
+  return { type: boardActions.CLOSE_BOARD_MENU };
+};
+
 export const showTaskModal = (payload: any) => {
   return { type: boardActions.SHOW_TASK_MODAL, payload };
 };

@@ -4,7 +4,7 @@ import SlideOutMenu from "../../../../common/components/SlideOutSideMenu/SlideOu
 import SlideOutMenuPanel from "../../../../common/components/SlideOutSideMenu/SlideOutMenuPanel";
 
 import { connect } from 'react-redux'
-import { toggleBoardMenu } from "../../../../store/actionCreators/board";
+import { toggleBoardMenu, closeBoardMenu } from "../../../../store/actionCreators/board";
 
 import BoardMenuMainPanel from "./BoardMenuMainPanel";
 import BoardMenuBackgroundPanel from "./BoardMenuBackgroundPanel";
@@ -59,7 +59,7 @@ class BoardMenu extends Component<any, any> {
 				open={this.props.open}
 				canNavigateBack={this.canNavigateBack()}
 				onNavigatePrevious={() => this.handleNavigatePrevious()}
-				onClose={() => this.props.dispatch(toggleBoardMenu())}
+				onClose={() => this.props.dispatch(closeBoardMenu())}
 			>
 				<SlideOutMenuPanel active={this.panelIsActive('main-panel')} id='main-panel'>
 					<BoardMenuMainPanel onPanelChange={(panelId: any) => this.handlePanelChange(panelId)} />

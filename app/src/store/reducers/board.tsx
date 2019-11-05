@@ -28,6 +28,20 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
+  if (action.type === actions.OPEN_BOARD_MENU) {
+    return {
+      ...state,
+      menuOpen: true,
+    };
+  }
+
+  if (action.type === actions.CLOSE_BOARD_MENU) {
+    return {
+      ...state,
+      menuOpen: false,
+    };
+  }
+
   if (action.type === actions.SHOW_TASK_MODAL) {
     return {
       ...state,
