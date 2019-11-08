@@ -100,7 +100,6 @@ class EditableTitle extends Component<any, IEditableTitleState> {
   //theme provider - styled components
 
   render() {
-
     const Tag = `${this.props.tag}` as TagType;
 
     return (

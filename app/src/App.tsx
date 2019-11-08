@@ -8,6 +8,7 @@ import { GlobalStyle } from "./theme/globalStyle";
 
 import BoardPage from "./pages/BoardPage";
 import BoardListingPage from "./pages/BoardListingPage";
+import LoginPage from "./pages/LoginPage";
 
 const theme = {
   secondaryColor: "white",
@@ -28,6 +29,11 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <Router>
             <Switch>
+              <Route
+                exact
+                path="/login"
+                render={props => <LoginPage {...props} />}
+              />
               <Route
                 exact
                 path="/"

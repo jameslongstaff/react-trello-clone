@@ -43,7 +43,7 @@ const Wrapper = styled.div`
   z-index: 2;
 `;
 
-interface ISpinnerProps {}
+interface ISpinnerProps { }
 
 const Spinner: React.FC<ISpinnerProps> = props => {
   return (
