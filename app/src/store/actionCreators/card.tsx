@@ -48,7 +48,7 @@ export const deleteCard = (payload: any) => {
 
     const apiUrl = `http://localhost:4000/api/card/${cardId}/delete`;
 
-    const response = await axios.delete(apiUrl);
+    await axios.delete(apiUrl);
 
     dispatch({ type: listActions.REMOVE_CARD_FROM_LIST, payload });
     dispatch({ type: cardActions.DELETE_CARD, payload });
@@ -85,7 +85,7 @@ export const updateCard = (payload: any) => {
 
     const apiUrl = `http://localhost:4000/api/card/${cardId}/update`;
 
-    const response = await axios.patch(apiUrl, { title });
+    await axios.patch(apiUrl, { title });
 
     dispatch({ type: cardActions.UPDATE_CARD, payload });
   }

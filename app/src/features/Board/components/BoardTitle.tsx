@@ -59,11 +59,9 @@ class BoardTitle extends Component<any, IBoardTitleState> {
   }
 }
 
-const mapStateToProps = (state: any, ownProps: any) => {
-  return {
-    board: state.boards.board
-  };
-};
+const mapStateToProps = (state: any) => ({
+  board: state.boards.board
+});
 
 const mapDispatchToProps = (dispatch: any, ownProps: any) => {
   return {

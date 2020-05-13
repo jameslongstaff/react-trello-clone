@@ -12,8 +12,6 @@ export const cloneList = (payload: any) => {
 
     const response = await axios.post(apiUrl, { listId });
 
-    console.log(response.data);
-
     dispatch({ type: cardActions.CREATE_CLONED_CARDS, payload: response.data.cards });
     dispatch({ type: listActions.CREATE_CLONED_LIST, payload: response.data });
   }
@@ -36,7 +34,7 @@ export const deleteList = (payload: any) => {
 
     const apiUrl = `http://localhost:4000/api/list/${listId}`;
 
-    const response = await axios.delete(apiUrl);
+    await axios.delete(apiUrl);
 
     dispatch({ type: listActions.DELETE_LIST, payload });
     dispatch({ type: cardActions.DELETE_LIST_CARDS, payload: { listId } });
@@ -49,7 +47,7 @@ export const updateListTitle = (payload: any) => {
 
     const apiUrl = `http://localhost:4000/api/list/${listId}/update`;
 
-    const response = await axios.patch(apiUrl, { title });
+    await axios.patch(apiUrl, { title });
 
     dispatch({ type: listActions.UPDATE_LIST_TITLE, payload });
   }
@@ -91,7 +89,7 @@ export function updateListOrder(payload: any) {
 
     dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
 
-    const response = await axios.patch(apiUrl, {
+    await axios.patch(apiUrl, {
       sourceId,
       destinationId,
       sourceIndex,
@@ -113,7 +111,7 @@ export function updateCardOrder(payload: any) {
 
     dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
 
-    const response = await axios.patch(apiUrl, {
+    await axios.patch(apiUrl, {
       sourceId,
       destinationId,
       sourceIndex,
