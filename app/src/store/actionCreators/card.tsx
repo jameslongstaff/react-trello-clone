@@ -4,10 +4,11 @@ import * as listActions from "../actions/list";
 import _ from "lodash";
 
 import axios from "axios";
+import { apiPath } from "../../config";
 
 export const createTask = (payload: any) => {
   return async (dispatch: any) => {
-    const apiUrl = `http://localhost:4000/api/card/create`;
+    const apiUrl = `${apiPath}/card/create`;
 
     const { title, listId } = payload;
 
@@ -46,7 +47,7 @@ export const deleteCard = (payload: any) => {
 
     const { cardId, listId } = payload;
 
-    const apiUrl = `http://localhost:4000/api/card/${cardId}/delete`;
+    const apiUrl = `${apiPath}/card/${cardId}/delete`;
 
     await axios.delete(apiUrl);
 
@@ -59,7 +60,7 @@ export const cloneCard = (payload: any) => {
   return async (dispatch: any) => {
     const { cardId } = payload;
 
-    const apiUrl = `http://localhost:4000/api/card/${cardId}/clone`;
+    const apiUrl = `${apiPath}/card/${cardId}/clone`;
 
     const response = await axios.post(apiUrl, { cardId });
 
@@ -83,7 +84,7 @@ export const updateCard = (payload: any) => {
 
     const { cardId, title } = payload;
 
-    const apiUrl = `http://localhost:4000/api/card/${cardId}/update`;
+    const apiUrl = `${apiPath}/card/${cardId}/update`;
 
     await axios.patch(apiUrl, { title });
 

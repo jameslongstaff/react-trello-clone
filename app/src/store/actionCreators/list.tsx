@@ -3,12 +3,13 @@ import * as boardActions from "../actions/board";
 import * as cardActions from "../actions/card";
 
 import axios from "axios";
+import { apiPath } from "../../config";
 
 export const cloneList = (payload: any) => {
   return async (dispatch: any) => {
     const { listId } = payload;
 
-    const apiUrl = `http://localhost:4000/api/list/${listId}/clone`;
+    const apiUrl = `${apiPath}/list/${listId}/clone`;
 
     const response = await axios.post(apiUrl, { listId });
 
@@ -32,7 +33,7 @@ export const deleteList = (payload: any) => {
   return async (dispatch: any) => {
     const { listId } = payload;
 
-    const apiUrl = `http://localhost:4000/api/list/${listId}`;
+    const apiUrl = `${apiPath}/list/${listId}`;
 
     await axios.delete(apiUrl);
 
@@ -45,7 +46,7 @@ export const updateListTitle = (payload: any) => {
   return async (dispatch: any) => {
     const { listId, title } = payload;
 
-    const apiUrl = `http://localhost:4000/api/list/${listId}/update`;
+    const apiUrl = `${apiPath}/list/${listId}/update`;
 
     await axios.patch(apiUrl, { title });
 
@@ -55,7 +56,7 @@ export const updateListTitle = (payload: any) => {
 
 export const createList = (payload: any) => {
   return async (dispatch: any) => {
-    const apiUrl = `http://localhost:4000/api/list/create`;
+    const apiUrl = `${apiPath}/list/create`;
 
     const { title, boardId } = payload;
 
@@ -85,7 +86,7 @@ export function updateListOrder(payload: any) {
       destinationId,
     } = payload;
 
-    const apiUrl = `http://localhost:4000/api/board/${boardId}/update-list-order`;
+    const apiUrl = `${apiPath}/board/${boardId}/update-list-order`;
 
     dispatch({ type: listActions.UPDATE_LIST_ORDER, payload });
 
@@ -107,7 +108,7 @@ export function updateCardOrder(payload: any) {
       destinationIndex
     } = payload;
 
-    const apiUrl = `http://localhost:4000/api/cards/update-order`;
+    const apiUrl = `${apiPath}/cards/update-order`;
 
     dispatch({ type: listActions.UPDATE_CARD_ORDER, payload });
 

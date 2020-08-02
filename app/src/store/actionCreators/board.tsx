@@ -5,6 +5,9 @@ import * as listActionCreators from "../actionCreators/list";
 import * as cardActionCreators from "../actionCreators/card";
 
 import axios from "axios";
+import { apiPath } from "../../config";
+
+console.log(apiPath);
 
 export const toggleBoardMenu = () => {
   return { type: boardActions.TOGGLE_BOARD_MENU };
@@ -31,7 +34,7 @@ export const createBoard = (payload: any) => {
 
     const { title } = payload;
 
-    const apiUrl = `http://localhost:4000/api/board/create`;
+    const apiUrl = `${apiPath}/board/create`;
 
     const response = await axios.post(apiUrl, { title });
 
@@ -72,9 +75,9 @@ export const updateBoardTitle = (payload: any) => {
 
     const { boardId, title } = payload;
 
-    const apiUrl = `http://localhost:4000/api/board/${boardId}/update`;
+    const apiUrl = `${apiPath}/board/${boardId}/update`;
 
-    const response = await axios.patch(apiUrl, { title });
+    await axios.patch(apiUrl, { title });
 
     dispatch({ type: boardActions.UPDATE_BOARD_TITLE, payload });
   }
@@ -84,7 +87,7 @@ export const fetchBoards = () => {
   return async (dispatch: any) => {
     dispatch(fetchBoardsBegin());
 
-    const apiUrl = `http://localhost:4000/api/boards`;
+    const apiUrl = `${apiPath}/boards`;
 
     const response = await axios.get(apiUrl);
 
@@ -100,7 +103,7 @@ export const fetchBoard = (payload: any) => {
 
     const { boardId } = payload;
 
-    const apiUrl = `http://localhost:4000/api/board/${boardId}`;
+    const apiUrl = `${apiPath}/board/${boardId}`;
 
     const response = await axios.get(apiUrl);
 
