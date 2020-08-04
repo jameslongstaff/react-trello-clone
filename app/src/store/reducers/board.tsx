@@ -1,13 +1,27 @@
 import * as actions from "../actions/board";
+import { Board } from "../../models/board";
+import { Action } from "../types";
 
-export type boardReduxState = {
-  readonly byId: {};
-  readonly activeBoardId: string;
-  readonly modalState: {};
-};
+export interface ByIdHash {
+  [id: string]: Board;
+}
+
+export interface BoardModalState {
+  taskModalIsVisible: boolean;
+  taskModalId: string | null,
+}
+
+export interface BoardState {
+  board: Board;
+  byId: any,
+  modalState: BoardModalState,
+  allIds: string[],
+  loading: boolean,
+  menuOpen: boolean,
+}
 
 const initialState: any = {
-  board: {},
+  board: { title: '', listId: null },
   byId: {},
   modalState: {
     taskModalIsVisible: false,
@@ -18,31 +32,31 @@ const initialState: any = {
   menuOpen: false,
 };
 
-const reducer = (state = initialState, action: any) => {
-  const { payload } = action;
+const reducer = (state: any = initialState, action: Action) => {
+  const { payload, type } = action;
 
-  if (action.type === actions.TOGGLE_BOARD_MENU) {
+  if (type === actions.TOGGLE_BOARD_MENU) {
     return {
       ...state,
       menuOpen: !state.menuOpen,
     };
   }
 
-  if (action.type === actions.OPEN_BOARD_MENU) {
+  if (type === actions.OPEN_BOARD_MENU) {
     return {
       ...state,
       menuOpen: true,
     };
   }
 
-  if (action.type === actions.CLOSE_BOARD_MENU) {
+  if (type === actions.CLOSE_BOARD_MENU) {
     return {
       ...state,
       menuOpen: false,
     };
   }
 
-  if (action.type === actions.SHOW_TASK_MODAL) {
+  if (type === actions.SHOW_TASK_MODAL) {
     return {
       ...state,
       modalState: {
@@ -53,7 +67,7 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-  if (action.type === actions.HIDE_TASK_MODAL) {
+  if (type === actions.HIDE_TASK_MODAL) {
     return {
       ...state,
       modalState: {
@@ -64,7 +78,7 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-  if (action.type === actions.DELETE_BOARD) {
+  if (type === actions.DELETE_BOARD) {
     const { boardId } = payload;
 
     let boards = {
@@ -77,7 +91,7 @@ const reducer = (state = initialState, action: any) => {
     return boards;
   }
 
-  if (action.type === actions.UPDATE_BOARD_TITLE) {
+  if (type === actions.UPDATE_BOARD_TITLE) {
     const { boardId, title } = payload;
 
     return {
@@ -89,24 +103,19 @@ const reducer = (state = initialState, action: any) => {
     };
   }
 
-  if (action.type === actions.CREATE_BOARD) {
-    const { title, _id } = payload;
-    const board = {
-      id: _id,
-      title,
-    }
+  if (type === actions.CREATE_BOARD) {
 
     return {
       ...state,
       byId: {
         ...state.byId,
-        [board.id]: board,
+        [payload.board.id]: payload.board,
       },
-      allIds: [...state.allIds.concat([board.id])]
+      allIds: [...state.allIds.concat([payload.id])]
     };
   }
 
-  if (action.type === actions.LOAD_BOARDS) {
+  if (type === actions.LOAD_BOARDS) {
     const boards = payload.map((b: any) => {
       const { title, _id } = b;
       return {
@@ -164,7 +173,7 @@ const reducer = (state = initialState, action: any) => {
   return state;
 };
 
-const arrayToObject = (array: [], param: string) =>
+const arrayToObject = (array: [], param: string): ByIdHash =>
   array.reduce((obj: any, item: any) => {
     obj[item[param]] = item;
     return obj;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Spinner } from "reactstrap";
 import styled from "styled-components";
+
 import { fetchBoards } from "../../../store/actionCreators/board";
 import BoardListingItem from "../components/BoardListingItem";
 import BoardCreator from "../components/BoardCreator";
@@ -15,14 +16,21 @@ const Wrapper = styled.div`
   padding: 2rem 0;
 `;
 
-class BoardListing extends Component<any, any> {
+interface IStateProps {
+  boards: [],
+  loading: boolean;
+}
 
+interface IDispatchProps {
+  fetchBoards: () => () => {};
+}
+
+class BoardListing extends Component<any, any> {
   async componentDidMount() {
-    this.props.dispatch(fetchBoards());
+    this.props.fetchBoards();
   }
 
   render = () => {
-
     return (
       <React.Fragment>
         {this.props.loading && <Spinner></Spinner>}
@@ -47,4 +55,4 @@ const mapStateToProps = (state: any, ownProps: any) => {
   };
 };
 
-export default connect(mapStateToProps)(BoardListing);
+export default connect(mapStateToProps, { fetchBoards })(BoardListing);
