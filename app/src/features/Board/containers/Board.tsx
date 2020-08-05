@@ -78,8 +78,8 @@ class Board extends Component<any, any> {
     return (
       <React.Fragment>
         <DragDropContext onDragEnd={this.handleDragEnd}>
-          {this.props.loading && <Spinner></Spinner>}
-          {!this.props.loading && (
+          {this.props.ui.loading && <Spinner></Spinner>}
+          {!this.props.ui.loading && (
             <Droppable droppableId={this.props.id} direction="horizontal" type="lists">
               {(provided, snapshot) => (
                 <Wrapper
@@ -94,7 +94,7 @@ class Board extends Component<any, any> {
                     </ListsContainer>
                   </ListScroller>
                   {provided.placeholder}
-                  <BoardMenu open={this.props.boards.menuOpen} />
+                  <BoardMenu open={this.props.ui.menuOpen} />
                 </Wrapper>
               )}
             </Droppable>
@@ -113,7 +113,7 @@ const mapStateToProps = (state: any, ownProps: any) => {
     modalState: state.boards.modalState,
     board: state.boards.board,
     lists: state.lists.allIds,
-    loading: state.boards.loading,
+    ui: state.ui,
     boards: state.boards, // currently using to test slideoutmenu state - will separate ui state at a later date
   };
 };

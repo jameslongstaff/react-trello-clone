@@ -6,19 +6,8 @@ import axios from "axios";
 import { apiPath } from "../../config";
 import { Board } from "../../models/board";
 import ActionUtility from "../../utilities/ActionUtility";
-import { ToggleBoardMenuAction, OpenBoardMenuAction, CloseBoardMenuAction, HideTaskModalAction, ShowTaskModalAction, DeleteBoardAction, LoadBoardAction, LoadBoardsAction, FetchBoardsBeginAction, FetchBoardsSuccessAction, FetchBoardBeginAction, TOGGLE_BOARD_MENU, OPEN_BOARD_MENU, CLOSE_BOARD_MENU, SHOW_TASK_MODAL, HIDE_TASK_MODAL, CREATE_BOARD, DELETE_BOARD, LOAD_BOARD, LOAD_BOARDS, FETCH_BOARDS_BEGIN, FETCH_BOARDS_SUCCESS, FETCH_BOARD_BEGIN, FETCH_BOARD_SUCCESS, UPDATE_BOARD_TITLE } from "../actions/board";
-
-export const toggleBoardMenu = (): ToggleBoardMenuAction => {
-  return ActionUtility.createAction(TOGGLE_BOARD_MENU);
-};
-
-export const openBoardMenu = (): OpenBoardMenuAction => {
-  return ActionUtility.createAction(OPEN_BOARD_MENU);
-};
-
-export const closeBoardMenu = (): CloseBoardMenuAction => {
-  return ActionUtility.createAction(CLOSE_BOARD_MENU);
-};
+import { HideTaskModalAction, ShowTaskModalAction, DeleteBoardAction, LoadBoardAction, LoadBoardsAction, SHOW_TASK_MODAL, HIDE_TASK_MODAL, CREATE_BOARD, DELETE_BOARD, LOAD_BOARD, LOAD_BOARDS, UPDATE_BOARD_TITLE } from "../actions/board";
+import { LOADING_START, LOADING_END } from "../actions/ui";
 
 export const showTaskModal = (payload: { cardId: string }): ShowTaskModalAction => {
   return ActionUtility.createAction(SHOW_TASK_MODAL, payload);
@@ -48,22 +37,6 @@ export const loadBoards = (payload: any): LoadBoardsAction => {
   return ActionUtility.createAction(LOAD_BOARDS, payload);
 };
 
-export const fetchBoardsBegin = (): FetchBoardsBeginAction => {
-  return ActionUtility.createAction(FETCH_BOARDS_BEGIN);
-};
-
-export const fetchBoardsSuccess = (): FetchBoardsSuccessAction => {
-  return ActionUtility.createAction(FETCH_BOARDS_SUCCESS);
-}
-
-export const fetchBoardBegin = (): FetchBoardBeginAction => {
-  return ActionUtility.createAction(FETCH_BOARD_BEGIN);
-};
-
-export const fetchBoardSuccess = (): FetchBoardsSuccessAction => {
-  return ActionUtility.createAction(FETCH_BOARD_SUCCESS);
-}
-
 export const updateBoardTitle = (payload: any) => {
   return async (dispatch: any) => {
     const { boardId, title } = payload;
@@ -76,19 +49,19 @@ export const updateBoardTitle = (payload: any) => {
 
 export const fetchBoards = () => {
   return async (dispatch: any) => {
-    dispatch(ActionUtility.createAction(FETCH_BOARDS_BEGIN));
+    dispatch(ActionUtility.createAction(LOADING_START));
 
     const response = await axios.get(`${apiPath}/boards`);
 
     dispatch(boardActionCreators.loadBoards(response.data));
 
-    dispatch(ActionUtility.createAction(FETCH_BOARDS_SUCCESS));
+    dispatch(ActionUtility.createAction(LOADING_END));
   };
 };
 
 export const fetchBoard = (payload: any) => {
   return async (dispatch: any) => {
-    dispatch(ActionUtility.createAction(FETCH_BOARD_BEGIN));
+    dispatch(ActionUtility.createAction(LOADING_START));
     const apiUrl = `${apiPath}/board/${payload.boardId}`;
 
     const response = await axios.get(apiUrl);
@@ -97,6 +70,6 @@ export const fetchBoard = (payload: any) => {
     dispatch(cardActionCreators.loadCards(response.data));
     dispatch(listActionCreators.loadLists(response.data));
 
-    dispatch(ActionUtility.createAction(FETCH_BOARD_SUCCESS));
+    dispatch(ActionUtility.createAction(LOADING_END));
   };
 };

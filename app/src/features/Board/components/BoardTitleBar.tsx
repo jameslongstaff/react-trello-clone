@@ -4,7 +4,7 @@ import BoardTitle from "./BoardTitle";
 import { rgba } from 'polished';
 import { Menu } from 'styled-icons/material/Menu';
 import { useDispatch } from 'react-redux'
-import { toggleBoardMenu } from "../../../store/actionCreators/board";
+import { toggleBoardMenu } from "../../../store/actionCreators/ui";
 
 const Wrapper = styled.div`
   background: none;

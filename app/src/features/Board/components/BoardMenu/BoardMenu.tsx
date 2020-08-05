@@ -4,10 +4,10 @@ import SlideOutMenu from "../../../../common/components/SlideOutSideMenu/SlideOu
 import SlideOutMenuPanel from "../../../../common/components/SlideOutSideMenu/SlideOutMenuPanel";
 
 import { connect } from 'react-redux'
-import { toggleBoardMenu, closeBoardMenu } from "../../../../store/actionCreators/board";
 
 import BoardMenuMainPanel from "./BoardMenuMainPanel";
 import BoardMenuBackgroundPanel from "./BoardMenuBackgroundPanel";
+import { closeBoardMenu } from "../../../../store/actionCreators/ui";
 
 class BoardMenu extends Component<any, any> {
 

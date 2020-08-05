@@ -28,33 +28,10 @@ const initialState: any = {
     taskModalId: null
   },
   allIds: [],
-  loading: true,
-  menuOpen: false,
 };
 
 const reducer = (state: any = initialState, action: Action) => {
   const { payload, type } = action;
-
-  if (type === actions.TOGGLE_BOARD_MENU) {
-    return {
-      ...state,
-      menuOpen: !state.menuOpen,
-    };
-  }
-
-  if (type === actions.OPEN_BOARD_MENU) {
-    return {
-      ...state,
-      menuOpen: true,
-    };
-  }
-
-  if (type === actions.CLOSE_BOARD_MENU) {
-    return {
-      ...state,
-      menuOpen: false,
-    };
-  }
 
   if (type === actions.SHOW_TASK_MODAL) {
     return {
@@ -139,34 +116,6 @@ const reducer = (state: any = initialState, action: Action) => {
         ...state.board,
         title: payload.title
       }
-    };
-  }
-
-  if (action.type === actions.FETCH_BOARD_SUCCESS) {
-    return {
-      ...state,
-      loading: false
-    };
-  }
-
-  if (action.type === actions.FETCH_BOARD_BEGIN) {
-    return {
-      ...state,
-      loading: true
-    };
-  }
-
-  if (action.type === actions.FETCH_BOARDS_SUCCESS) {
-    return {
-      ...state,
-      loading: false
-    };
-  }
-
-  if (action.type === actions.FETCH_BOARDS_BEGIN) {
-    return {
-      ...state,
-      loading: true
     };
   }
 
