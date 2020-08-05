@@ -10,7 +10,6 @@ import {
 import ActionUtility from "../../utilities/ActionUtility";
 
 export const toggleBoardMenu = (): ToggleBoardMenuAction => {
-  console.log('test');
   return ActionUtility.createAction(TOGGLE_BOARD_MENU);
 };
 

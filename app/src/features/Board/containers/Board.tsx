@@ -15,6 +15,7 @@ import ListCreator from "../components/ListCreator";
 import ListScroller from "../components/ListScroller";
 import Lists from "../components/Lists";
 import BoardMenu from "../components/BoardMenu/BoardMenu";
+import { UIState } from "../../../store/reducers/ui";
 
 const Wrapper = styled.div`
   position: relative;
@@ -29,11 +30,22 @@ const ListsContainer = styled.div`
   flex-basis: 100%;
 `;
 
-class Board extends Component<any, any> {
+interface Props {
+  id: string,
+  ui: UIState,
+  lists: any,
+  boards: any,
+
+  fetchBoard: (params: {}) => any,
+  updateListOrder: (params: {}) => any,
+  updateCardOrder: (params: {}) => any,
+}
+
+class Board extends Component<Props, any> {
 
   async componentDidMount() {
     const { id } = this.props;
-    this.props.dispatch(fetchBoard({ boardId: id }));
+    this.props.fetchBoard({ boardId: id });
   }
 
   handleDragEnd = (result: any) => {
@@ -44,15 +56,13 @@ class Board extends Component<any, any> {
     }
 
     if (type === 'lists') {
-      this.props.dispatch(
-        updateListOrder({
-          sourceId: source.droppableId,
-          destinationId: destination.droppableId,
-          boardId: this.props.id,
-          sourceIndex: source.index,
-          destinationIndex: destination.index,
-        })
-      );
+      this.props.updateListOrder({
+        sourceId: source.droppableId,
+        destinationId: destination.droppableId,
+        boardId: this.props.id,
+        sourceIndex: source.index,
+        destinationIndex: destination.index,
+      });
     }
 
     if (type === 'cards') {
@@ -63,14 +73,12 @@ class Board extends Component<any, any> {
         return;
       }
 
-      this.props.dispatch(
-        updateCardOrder({
-          sourceId: source.droppableId,
-          destinationId: destination.droppableId,
-          sourceIndex: source.index,
-          destinationIndex: destination.index
-        })
-      );
+      this.props.updateCardOrder({
+        sourceId: source.droppableId,
+        destinationId: destination.droppableId,
+        sourceIndex: source.index,
+        destinationIndex: destination.index
+      });
     }
   };
 
@@ -81,7 +89,7 @@ class Board extends Component<any, any> {
           {this.props.ui.loading && <Spinner></Spinner>}
           {!this.props.ui.loading && (
             <Droppable droppableId={this.props.id} direction="horizontal" type="lists">
-              {(provided, snapshot) => (
+              {(provided) => (
                 <Wrapper
                   ref={provided.innerRef}
                   {...provided.droppableProps}
@@ -99,8 +107,8 @@ class Board extends Component<any, any> {
               )}
             </Droppable>
           )}
-          {!this.props.loading && this.props.modalState.taskModalIsVisible && (
-            <CardModal cardId={this.props.modalState.taskModalId} />
+          {!this.props.ui.loading && this.props.boards.modalState.taskModalIsVisible && (
+            <CardModal cardId={this.props.boards.modalState.taskModalId} />
           )}
         </DragDropContext>
       </React.Fragment >
@@ -110,12 +118,11 @@ class Board extends Component<any, any> {
 
 const mapStateToProps = (state: any, ownProps: any) => {
   return {
-    modalState: state.boards.modalState,
+    boards: state.boards,
     board: state.boards.board,
     lists: state.lists.allIds,
     ui: state.ui,
-    boards: state.boards, // currently using to test slideoutmenu state - will separate ui state at a later date
   };
 };
 
-export default connect(mapStateToProps)(Board);
+export default connect(mapStateToProps, { updateCardOrder, fetchBoard, updateListOrder })(Board);
