@@ -18,23 +18,17 @@ Being my first experience with working with React I have learnt through my time 
 
 ## Future work
 
-1. Install concurrently to start app and api simultaneously
+1. Stricter typing across App.
 1. ~Draggable cards~
 1. ~Draggable lists~
 1. ~Board creation~
 1. ~Board listing~
-1. Authentication
-1. Login
-1. Register
 1. Card search
 1. ~Card clone~
 1. ~List clone~
-1. `reselect` integration
-1. Unit tests with jest
 1. Delete board, clone board
 1. Authentication and login
 1. General style improvements and ui
-1. More improvements not listed
 
 ## Deployment
 
