@@ -30,7 +30,7 @@
     "agenda": "^2.0.2",
     "agendash": "^1.0.0",
     "argon2": "^0.25.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.2",
     "celebrate": "^9.1.0",
     "config": "^3.2.4",
