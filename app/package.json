@@ -5,7 +5,7 @@
   "dependencies": {
     "@rebass/grid": "^6.1.0",
     "@types/reselect": "^2.2.0",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.1",
     "connected-react-router": "^6.8.0",
     "cuid": "^2.1.8",
