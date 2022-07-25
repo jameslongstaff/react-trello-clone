@@ -1,50 +1,70 @@
-# React Redux Trello clone with NodeJS, Mongo API
+# Getting Started with Create React App
 
-This is a work in progress basic clone version of trello. I am using this project to get some practical experience and further develop my knowledge and understanding of JavaScript applications using Front End frameworks, in conjunction with TypeScript based API's.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Being my first experience with working with React I have learnt through my time working on this project. I hope this will be beneficial for others learning. Feel free to clone the project and have a play around.
+## Available Scripts
 
-![example board](https://github.com/jameslongstaff/react-trello-clone/blob/master/examples/board-example.png)
+In the project directory, you can run:
 
-## Getting Started
+### `npm start`
 
-1. Create [MLabl](https://mlab.com/welcome/) account with database
-1. Make a copy on the .env.example file, renaming to .env, within api root directory.
-1. Update mongo credentials to point to your mongo DB instance
-1. Run `npm install` in both api, app directories
-1. Run `npm start` in api and app directories.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-// instructions are incomplete -- Board creation and better routing coming soon to allow creation of initial board. 
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-## Future work
+### `npm test`
 
-1. Stricter typing across App.
-1. ~Draggable cards~
-1. ~Draggable lists~
-1. ~Board creation~
-1. ~Board listing~
-1. Card search
-1. ~Card clone~
-1. ~List clone~
-1. Delete board, clone board
-1. Authentication and login
-1. General style improvements and ui
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-## Deployment
+### `npm run build`
 
-Add additional notes about how to deploy this on a live system
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Built With
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-* TypeScript
-* React / Redux
-* MongoDB / Mongoose
-* NodeJS, Express
-* Lodash
-* React beautiful dnd 
-* Sass
-* Styled Components
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## License
+### `npm run eject`
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
