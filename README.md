@@ -1,5 +1,10 @@
 # REWORK IN PROGRESS
 
+- React update, moving from classes to hooks
+- ~~MongoDB API~~ Local storage persistence - for easier set up
+- ~~Styled components~~ TailwindCSS
+- ~~Create React App setup~~ Vite
+
 
 # React Redux Trello clone with NodeJS, Mongo API
 
@@ -17,21 +22,6 @@ Being my first experience with working with React I have learnt through my time 
 1. Run `npm install` in both api, app directories
 1. Run `npm start` in api and app directories.
 
-// instructions are incomplete -- Board creation and better routing coming soon to allow creation of initial board. 
-
-## Future work
-
-1. Stricter typing across App.
-1. ~Draggable cards~
-1. ~Draggable lists~
-1. ~Board creation~
-1. ~Board listing~
-1. Card search
-1. ~Card clone~
-1. ~List clone~
-1. Delete board, clone board
-1. Authentication and login
-1. General style improvements and ui
 
 ## Deployment
 
