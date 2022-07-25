@@ -39,6 +39,8 @@ const Board = () => {
     <>
       <BoardTitle title={board.title} />
 
+      <div className="font-bold">Text red</div>
+
       <button onClick={() => createList()}>Create List</button>
 
       {board.lists.map((list: ListType) => {
