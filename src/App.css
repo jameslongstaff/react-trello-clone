@@ -1,0 +1,15 @@
+.list {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 0 0.5rem 0 0;
+  width: 16rem;
+}
+
+.list-container {
+  align-self: flex-start;
+  background: #ebecf0;
+  border-radius: 3px;
+  border: solid 1px #ccc;
+  width: 100%;
+  position: relative;
+}

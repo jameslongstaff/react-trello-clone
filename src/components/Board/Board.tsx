@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import BoardType from "../../types/BoardType";
 import ListType from "../../types/ListType";
 import List from "../List/List";
 import BoardTitle from "./BoardTitle";
 import { v4 as uuidv4 } from "uuid";
+import useBoardStore from "../../hooks/useBoardStore";
 
 const Board = () => {
-  const [board, setBoard] = useState<BoardType | undefined>(undefined);
+  const boardStore = useBoardStore();
+
+  console.log(111, boardStore.board);
 
   useEffect(() => {
     if (!localStorage.getItem("board")) {
@@ -15,7 +17,7 @@ const Board = () => {
 
     const board = JSON.parse(localStorage.getItem("board")!);
 
-    setBoard(board);
+    boardStore.setBoard(board);
   }, []);
 
   // useCallback
@@ -32,20 +34,22 @@ const Board = () => {
 
     localStorage.setItem("board", JSON.stringify(board));
 
-    setBoard(board);
+    boardStore.setBoard(board);
   };
 
-  return !!board ? (
+  return !!boardStore.board ? (
     <>
-      <BoardTitle title={board.title} />
+      <BoardTitle title={boardStore.board.title} />
 
       <div className="font-bold">Text red</div>
 
       <button onClick={() => createList()}>Create List</button>
 
-      {board.lists.map((list: ListType) => {
-        return <List list={list} />;
-      })}
+      <div className="w-full mt-2">
+        {boardStore.board.lists.map((list: ListType) => {
+          return <List key={list.id} list={list} />;
+        })}
+      </div>
     </>
   ) : (
     <p>No board</p>
