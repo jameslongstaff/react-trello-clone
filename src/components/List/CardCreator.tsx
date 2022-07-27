@@ -3,6 +3,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import Card from "../Card/Card";
 import { addCardToList } from "../../utils/board";
+import { setBoard } from "../../utils/persistence";
 
 const CardCreator = (props: any) => {
   const [title, setTitle] = useState<string>("");
@@ -11,7 +12,7 @@ const CardCreator = (props: any) => {
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
-      saveTask();
+      saveCard();
     }
   };
 
@@ -29,22 +30,19 @@ const CardCreator = (props: any) => {
 
   const handleClickOutside = () => {
     if (editorIsOpen) {
-      saveTask();
+      saveCard();
     }
   };
 
-  const saveTask = () => {
+  const saveCard = () => {
     if (title !== "") {
       const listId: string = props.listId;
 
       const card = { id: uuidv4(), title: "title", content: "content" };
 
-      localStorage.setItem(
-        "board",
-        JSON.stringify(addCardToList(boardStore.board, listId, card))
-      );
-
       boardStore.addCard(listId, card);
+
+      setBoard(boardStore.board);
     }
 
     closeEditor();
@@ -57,16 +55,20 @@ const CardCreator = (props: any) => {
   return (
     <>
       {!!editorIsOpen && (
-        <div>
-          <textarea
-            placeholder="Title.."
-            onChange={(event) => handleChange(event)}
-            onKeyPress={(event) => handleKeyPress(event)}
-          />
-        </div>
+        <textarea
+          className="w-full rounded-[3px] p-3"
+          placeholder="Title.."
+          onChange={(event) => handleChange(event)}
+          onKeyPress={(event) => handleKeyPress(event)}
+        />
       )}
 
-      <button onClick={editorIsOpen ? saveTask : openEditor}>Add card</button>
+      <button
+        className="bg-[#0079bf] text-white py-2 px-3 text-sm rounded-[3px]"
+        onClick={editorIsOpen ? saveCard : openEditor}
+      >
+        Add card
+      </button>
     </>
   );
 };

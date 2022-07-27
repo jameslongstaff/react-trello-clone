@@ -2,39 +2,19 @@ import React, { useEffect, useState } from "react";
 import ListType from "../../types/ListType";
 import List from "../List/List";
 import BoardTitle from "./BoardTitle";
-import { v4 as uuidv4 } from "uuid";
 import useBoardStore from "../../hooks/useBoardStore";
+import { addListToBoard, getBoard } from "../../utils/persistence";
 
 const Board = () => {
   const boardStore = useBoardStore();
 
-  console.log(111, boardStore.board);
-
   useEffect(() => {
-    if (!localStorage.getItem("board")) {
-      localStorage.setItem("board", JSON.stringify({ lists: [] }));
-    }
-
-    const board = JSON.parse(localStorage.getItem("board")!);
-
-    boardStore.setBoard(board);
+    boardStore.setBoard(getBoard());
   }, []);
 
   // useCallback
   const createList = () => {
-    const newList: ListType = {
-      id: uuidv4(),
-      title: "title",
-      cards: [],
-    };
-
-    const board = JSON.parse(localStorage.getItem("board")!);
-
-    board.lists = board.lists.concat([newList]);
-
-    localStorage.setItem("board", JSON.stringify(board));
-
-    boardStore.setBoard(board);
+    boardStore.setBoard(addListToBoard("title"));
   };
 
   return !!boardStore.board ? (
@@ -45,10 +25,12 @@ const Board = () => {
 
       <button onClick={() => createList()}>Create List</button>
 
-      <div className="w-full mt-2">
-        {boardStore.board.lists.map((list: ListType) => {
-          return <List key={list.id} list={list} />;
-        })}
+      <div className="w-full">
+        <div className="mt-2 flex-nowrap inline-flex">
+          {boardStore.board.lists.map((list: ListType) => {
+            return <List key={list.id} list={list} />;
+          })}
+        </div>
       </div>
     </>
   ) : (
