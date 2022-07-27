@@ -4,6 +4,7 @@ import List from "../List/List";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
 import { addListToBoard, getBoard } from "../../utils/persistence";
+import ListCreator from "./ListCreator";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -21,15 +22,13 @@ const Board = () => {
     <>
       <BoardTitle title={boardStore.board.title} />
 
-      <div className="font-bold">Text red</div>
-
-      <button onClick={() => createList()}>Create List</button>
-
       <div className="w-full">
         <div className="mt-2 flex-nowrap inline-flex">
           {boardStore.board.lists.map((list: ListType) => {
             return <List key={list.id} list={list} />;
           })}
+
+          <ListCreator></ListCreator>
         </div>
       </div>
     </>
