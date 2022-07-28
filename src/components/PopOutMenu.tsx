@@ -2,6 +2,11 @@ import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOutsideAlerter from "../hooks/useOutsideAlerter";
 
+export type PopoutMenuItemType = {
+  fn?: () => void;
+  title: string;
+};
+
 const PopOutMenu = (props: any) => {
   const wrapperRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,9 +35,18 @@ const PopOutMenu = (props: any) => {
             <header className="py-2 text-center text-[#5e6c84]">
               List actions
             </header>
-            <a className="text-left block w-full py-2 px-3 text-[#172b4d] hover:bg-[#091e420a]">
-              Delete list
-            </a>
+
+            {props.items.map((item: PopoutMenuItemType, index: number) => {
+              return (
+                <a
+                  key={index}
+                  onClick={item.fn}
+                  className="text-left block w-full py-2 px-3 text-[#172b4d] hover:bg-[#091e420a]"
+                >
+                  {item.title}
+                </a>
+              );
+            })}
           </div>
         )}
       </button>

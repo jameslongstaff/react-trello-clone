@@ -4,7 +4,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import { updateList } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";
-import PopOutMenu from "../PopOutMenu";
+import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
 import CardCreator from "./CardCreator";
 
 const List = (props: any) => {
@@ -14,6 +14,14 @@ const List = (props: any) => {
     const updatedBoard = updateList({ ...props.list, title });
     boardStore.setBoard(updatedBoard);
   };
+
+  const deleteList = () => {
+    console.log("delete list");
+  };
+
+  const listMenuItems: PopoutMenuItemType[] = [
+    { title: "Delete list", fn: deleteList },
+  ];
 
   return !!props.list ? (
     <div className="w-64 mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start">
@@ -25,7 +33,7 @@ const List = (props: any) => {
             onSave={handleBoardUpdate}
             className="font-semibold text-base"
           />
-          <PopOutMenu className="ml-auto mr-2" />
+          <PopOutMenu items={listMenuItems} className="ml-auto mr-2" />
         </header>
 
         {props.list.cards &&
