@@ -18,7 +18,7 @@ const BoardTitle = (props: any) => {
       title={props.title}
       tag="h1"
       onSave={handleBoardUpdate}
-      className="font-semibold text-white text-2xl bg-[#ffffff3d] rounded-[3px]"
+      className="font-semibold text-white text-2xl hover:bg-[#ffffff3d] rounded-[3px]"
       spacingClass="px-2"
     />
   );
