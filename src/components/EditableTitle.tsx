@@ -63,10 +63,14 @@ const EditableTitle = (props: any) => {
 
   return (
     <div ref={wrapperRef} onClick={handleClick}>
-      <Tag className={props.className}>
+      <Tag
+        className={`${props.className} cursor-pointer ${
+          !isEditing && props.spacingClass
+        }`}
+      >
         {isEditing ? (
           <input
-            className="w-full"
+            className={`w-full ${props.spacingClass}`}
             type="text"
             defaultValue={props.title}
             onChange={handleChange}

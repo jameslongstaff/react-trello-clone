@@ -17,7 +17,9 @@ const Board = () => {
 
   return !!boardStore.board ? (
     <>
-      <BoardTitle title={boardStore.board.title} />
+      <div className="inline-flex">
+        <BoardTitle title={boardStore.board.title} />
+      </div>
 
       <div className="w-full">
         <div className="mt-2 flex-nowrap inline-flex">

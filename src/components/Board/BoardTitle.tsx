@@ -27,7 +27,8 @@ const BoardTitle = (props: any) => {
       tag="h1"
       onChange={handleChangeTitle}
       onSave={handleSaveTitle}
-      className="font-semibold text-2xl mb-2"
+      className="font-semibold text-white text-2xl bg-[#ffffff3d] rounded-[3px]"
+      spacingClass="px-2"
     />
   );
 };
