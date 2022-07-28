@@ -47,9 +47,12 @@ const Card = (props: any) => {
         </button>
         <h3>{card.title}</h3>
         {isQuickEditing && (
-          <div ref={wrapperRef} className="absolute top-0 left-0 w-full h-full">
+          <div
+            ref={wrapperRef}
+            className="absolute top-0 left-0 w-full h-full z-20"
+          >
             <textarea
-              className="w-full h-24 bg-white rounded-[3px] shadow-sm  p-2"
+              className="w-full h-32 bg-white rounded-[3px] shadow-sm  p-2"
               defaultValue={card.title}
               onChange={(event) => handleChange(event)}
             />
