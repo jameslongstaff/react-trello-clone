@@ -28,12 +28,6 @@ const useBoardStore = create<BoardState>()(
         }),
       addCard: (listId, card) =>
         set((state) => {
-          const listIndex = state.board.lists.findIndex(
-            (list) => list.id === listId
-          );
-
-          state.board.lists[listIndex].cards.push(card);
-
           return { board: addCardToList(state.board, listId, card) };
         }),
     }))

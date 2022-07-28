@@ -1,12 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import CardType from "../../types/CardType";
+import EditableTitle from "../EditableTitle";
 import CardCreator from "./CardCreator";
 
 const List = (props: any) => {
+  const [newTitle, setNewTitle] = useState(props.list.title);
+  const [originalTitle, setOriginalTitle] = useState(props.list.title);
+
+  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTitle(event.target.value);
+  };
+
+  const handleSaveTitle = () => {
+    if (newTitle !== originalTitle) {
+      if (newTitle !== "") {
+        // persist
+        // this.props.onSaveTitle(newTitle);
+        setOriginalTitle(newTitle);
+      } else {
+        setNewTitle(originalTitle);
+      }
+    }
+  };
+
   return !!props.list ? (
     <div className="w-64 mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm">
       <div className="p-2 w-full">
-        <h2 className="font-semibold ml-1">{props.list.title}</h2>
+        <EditableTitle
+          title={newTitle}
+          tag="h2"
+          onChange={handleChangeTitle}
+          onSave={handleSaveTitle}
+          className="font-semibold text-regular ml-1"
+        />
 
         {props.list.cards &&
           props.list.cards.map((card: CardType) => {

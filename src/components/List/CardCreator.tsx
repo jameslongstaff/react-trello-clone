@@ -7,11 +7,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CardCreator = (props: any) => {
   const wrapperRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   const [title, setTitle] = useState<string>("");
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
 
   useOutsideAlerter(wrapperRef, () => {
+    if (editorIsOpen) {
+      saveCard();
+    }
+
     setEditorIsOpen(false);
   });
 
@@ -24,19 +30,13 @@ const CardCreator = (props: any) => {
   const openEditor = () => {
     setEditorIsOpen(true);
 
-    // if (!!this.input && this.input.current) {
-    //   this.input.current.focus();
-    // }
+    if (!!inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const closeEditor = () => {
     setEditorIsOpen(false);
-  };
-
-  const handleClickOutside = () => {
-    if (editorIsOpen) {
-      saveCard();
-    }
   };
 
   const saveCard = () => {
@@ -58,10 +58,11 @@ const CardCreator = (props: any) => {
   };
 
   return (
-    <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px] p-1`}>
+    <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px]`}>
       {!!editorIsOpen && (
         <textarea
-          className="w-full rounded-[3px] p-3 text-sm"
+          ref={inputRef}
+          className="bg-white rounded-[3px] shadow-sm h-20 mb-2 p-2 w-full"
           placeholder="Title.."
           onChange={(event) => handleChange(event)}
           onKeyPress={(event) => handleKeyPress(event)}
@@ -77,10 +78,12 @@ const CardCreator = (props: any) => {
           }`}
           onClick={editorIsOpen ? saveCard : openEditor}
         >
-          <FontAwesomeIcon
-            className="text-[#6b778c] mr-1"
-            icon={["fas", "plus"]}
-          />
+          {!editorIsOpen && (
+            <FontAwesomeIcon
+              className="text-[#6b778c] mr-1"
+              icon={["fas", "plus"]}
+            />
+          )}
           Add a card
         </button>
 
