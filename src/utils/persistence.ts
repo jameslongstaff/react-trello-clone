@@ -38,6 +38,7 @@ const addCardToList = (listId: string, title: string): BoardType => {
     id: uuidv4(),
     title,
     content: "",
+    listId,
   };
 
   const board = getBoard();
@@ -63,4 +64,29 @@ const updateList = (update: ListType): BoardType => {
   return board;
 };
 
-export { getBoard, addListToBoard, setBoard, addCardToList, updateList };
+const updateCard = (update: CardType): BoardType => {
+  const board = getBoard();
+
+  const listIndex = board.lists.findIndex(
+    (list: ListType) => list.id === update.listId
+  );
+
+  const cardIndex = board.lists[listIndex].cards.findIndex(
+    (card) => card.id === update.id
+  );
+
+  board.lists[listIndex].cards[cardIndex] = update;
+
+  setBoard(board);
+
+  return board;
+};
+
+export {
+  getBoard,
+  addListToBoard,
+  setBoard,
+  addCardToList,
+  updateList,
+  updateCard,
+};
