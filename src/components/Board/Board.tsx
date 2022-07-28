@@ -10,7 +10,9 @@ const Board = () => {
   const boardStore = useBoardStore();
 
   useEffect(() => {
-    boardStore.setBoard(getBoard());
+    const board = getBoard();
+
+    boardStore.setBoard(board);
   }, []);
 
   return !!boardStore.board ? (

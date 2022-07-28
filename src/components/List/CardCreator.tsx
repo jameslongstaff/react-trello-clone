@@ -62,7 +62,7 @@ const CardCreator = (props: any) => {
       {!!editorIsOpen && (
         <textarea
           ref={inputRef}
-          className="bg-white rounded-[3px] shadow-sm h-20 mb-2 p-2 w-full"
+          className="bg-white rounded-[3px] shadow-sm h-20 p-2 w-full"
           placeholder="Title.."
           onChange={(event) => handleChange(event)}
           onKeyPress={(event) => handleKeyPress(event)}

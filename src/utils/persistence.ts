@@ -8,7 +8,9 @@ const setBoard = (board: BoardType): void => {
 
 const getBoard = (): BoardType => {
   if (!localStorage.getItem("board")) {
-    localStorage.setItem("board", JSON.stringify({ lists: [] }));
+    const board = { lists: [], title: "Board title" };
+    localStorage.setItem("board", JSON.stringify(board));
+    return board;
   }
 
   return JSON.parse(localStorage.getItem("board")!);
