@@ -1,14 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useOutsideAlerter from "../hooks/useOutsideAlerter";
 
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
 const EditableTitle = (props: any) => {
-  const [newTitle, setNewTitle] = useState("");
-  const [originalTitle, setOriginalTitle] = useState(props.title);
   const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [newTitle, setNewTitle] = useState("");
+  const [originalTitle, setOriginalTitle] = useState(props.title);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleClickOutside = () => {
@@ -28,10 +28,8 @@ const EditableTitle = (props: any) => {
   }, [isEditing]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isEditing) {
-      if (event.key === "Enter") {
-        handleSave();
-      }
+    if (isEditing && event.key === "Enter") {
+      handleSave();
     }
   };
 

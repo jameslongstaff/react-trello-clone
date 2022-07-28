@@ -1,9 +1,9 @@
 import "./App.css";
 import Board from "./components/Board/Board";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faPlus, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faXmark, faPlus);
+library.add(faXmark, faPlus, faEllipsis);
 
 function App() {
   return (
