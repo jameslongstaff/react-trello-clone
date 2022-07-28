@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +19,13 @@ const CardCreator = (props: any) => {
 
     setEditorIsOpen(false);
   });
+
+  useEffect(() => {
+    if (!!inputRef && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editorIsOpen]);
 
   const handleBoardUpdate = () => {
     const updatedBoard = addCardToList(props.listId, title);

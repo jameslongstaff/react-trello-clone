@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
@@ -7,6 +7,7 @@ import { addListToBoard } from "../../utils/persistence";
 
 const ListCreator = () => {
   const wrapperRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>("");
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
@@ -20,6 +21,15 @@ const ListCreator = () => {
     setEditorIsOpen(false);
   });
 
+  useEffect(() => {
+    if (!!inputRef && inputRef.current) {
+      console.log(inputRef);
+
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [editorIsOpen]);
+
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
       saveList();
@@ -32,6 +42,7 @@ const ListCreator = () => {
 
   const closeEditor = () => {
     setEditorIsOpen(false);
+    setTitle("");
   };
 
   const saveList = () => {
@@ -56,6 +67,7 @@ const ListCreator = () => {
       }`}
     >
       <input
+        ref={inputRef}
         className={`${
           !!editorIsOpen ? "block p-2 mb-1 " : "hidden"
         } w-full rounded-[3px] text-sm`}

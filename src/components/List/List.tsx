@@ -22,14 +22,14 @@ const List = (props: any) => {
           title={props.list.title}
           tag="h2"
           onSave={handleBoardUpdate}
-          className="font-semibold text-regular ml-1 mb-2"
+          className="font-semibold text-base ml-1 mb-2"
         />
 
         {props.list.cards &&
           props.list.cards.map((card: CardType) => {
             return (
               <div
-                className="bg-white rounded-[3px] shadow-sm w-full h-20 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer"
+                className="text-sm bg-white rounded-[3px] shadow-sm w-full h-20 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer"
                 key={card.id}
               >
                 <h3>{card.title}</h3>
