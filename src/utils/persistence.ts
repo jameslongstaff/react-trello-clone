@@ -43,7 +43,17 @@ const addCardToList = (listId: string, title: string): BoardType => {
 
   const board = getBoard();
 
-  board.lists.find((list: ListType) => (list.id = listId))!.cards.push(newCard);
+  board.lists.find((list: ListType) => list.id === listId)!.cards.push(newCard);
+
+  setBoard(board);
+
+  return board;
+};
+
+const deleteList = (listId: string): BoardType => {
+  const board = getBoard();
+
+  board.lists = board.lists.filter((list: ListType) => list.id !== listId);
 
   setBoard(board);
 
@@ -89,4 +99,5 @@ export {
   addCardToList,
   updateList,
   updateCard,
+  deleteList,
 };

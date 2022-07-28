@@ -89,7 +89,8 @@ const ListCreator = () => {
               icon={["fas", "plus"]}
             />
           )}
-          Add list
+
+          {!boardStore.board.lists.length ? "Add a list" : "Add another list"}
         </button>
 
         <button

@@ -23,7 +23,7 @@ const PopOutMenu = (props: any) => {
     <>
       <a
         ref={wrapperRef}
-        className={`${props.className} relative`}
+        className={`${props.className} relative cursor-pointer`}
         onClick={clickHandler}
       >
         <FontAwesomeIcon

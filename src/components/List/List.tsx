@@ -1,6 +1,6 @@
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
-import { updateList } from "../../utils/persistence";
+import { deleteList, updateList } from "../../utils/persistence";
 import Card from "../Card/Card";
 import EditableTitle from "../EditableTitle";
 import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
@@ -14,12 +14,13 @@ const List = (props: any) => {
     boardStore.setBoard(updatedBoard);
   };
 
-  const deleteList = () => {
-    console.log("delete list");
+  const handleDeleteList = () => {
+    const updatedBoard = deleteList(props.list.id);
+    boardStore.setBoard(updatedBoard);
   };
 
   const listMenuItems: PopoutMenuItemType[] = [
-    { title: "Delete list", fn: deleteList },
+    { title: "Delete list", fn: handleDeleteList },
   ];
 
   return !!props.list ? (
