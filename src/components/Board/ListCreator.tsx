@@ -3,7 +3,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addListToBoard, getBoard } from "../../utils/persistence";
+import { addListToBoard } from "../../utils/persistence";
 
 const ListCreator = () => {
   const wrapperRef = useRef(null);

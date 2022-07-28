@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
-import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addCardToList } from "../../utils/persistence";

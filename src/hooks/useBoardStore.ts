@@ -10,6 +10,7 @@ interface BoardState {
   setBoard: (board: BoardType) => void;
   addCard: (listId: string, card: CardType) => void;
   addList: (list: ListType) => void;
+  resetBoard: () => void;
 }
 
 const useBoardStore = create<BoardState>()(
@@ -20,6 +21,14 @@ const useBoardStore = create<BoardState>()(
         lists: [],
       },
       setBoard: (board) => set({ board }),
+      resetBoard: () =>
+        set({
+          board: {
+            title: "New title",
+            lists: [],
+          },
+        }),
+
       addList: (list) =>
         set((state) => {
           state.board.lists.push(list);
