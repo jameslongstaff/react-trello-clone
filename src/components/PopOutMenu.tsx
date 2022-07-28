@@ -21,7 +21,7 @@ const PopOutMenu = (props: any) => {
 
   return (
     <>
-      <button
+      <a
         ref={wrapperRef}
         className={`${props.className} relative`}
         onClick={clickHandler}
@@ -49,7 +49,7 @@ const PopOutMenu = (props: any) => {
             })}
           </div>
         )}
-      </button>
+      </a>
     </>
   );
 };
