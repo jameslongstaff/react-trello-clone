@@ -1,8 +1,7 @@
 import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
-import { setBoardTitle } from "../../utils/board";
-import { getBoard } from "../../utils/persistence";
+import { updateList } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";
 import CardCreator from "./CardCreator";
 
@@ -10,8 +9,7 @@ const List = (props: any) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {
-    const board = getBoard();
-    const updatedBoard = setBoardTitle(board, title);
+    const updatedBoard = updateList({ ...props.list, title });
     boardStore.setBoard(updatedBoard);
   };
 

@@ -38,4 +38,4 @@ const updateList = (board: BoardType, update: ListType): BoardType => {
   return clonedBoard;
 };
 
-export { addCardToList, setBoardTitle };
+export { addCardToList, setBoardTitle, updateList };

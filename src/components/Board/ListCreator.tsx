@@ -23,8 +23,6 @@ const ListCreator = () => {
 
   useEffect(() => {
     if (!!inputRef && inputRef.current) {
-      console.log(inputRef);
-
       inputRef.current.focus();
       inputRef.current.select();
     }

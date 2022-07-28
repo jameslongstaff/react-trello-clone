@@ -24,11 +24,11 @@ const addListToBoard = (title: string): BoardType => {
     cards: [],
   };
 
-  const board = JSON.parse(localStorage.getItem("board")!);
+  const board = getBoard();
 
   board.lists = board.lists.concat([newList]);
 
-  localStorage.setItem("board", JSON.stringify(board));
+  setBoard(board);
 
   return board;
 };
@@ -40,13 +40,27 @@ const addCardToList = (listId: string, title: string): BoardType => {
     content: "",
   };
 
-  const board = JSON.parse(localStorage.getItem("board")!);
+  const board = getBoard();
 
-  board.lists.find((list: ListType) => (list.id = listId)).cards.push(newCard);
+  board.lists.find((list: ListType) => (list.id = listId))!.cards.push(newCard);
 
-  localStorage.setItem("board", JSON.stringify(board));
+  setBoard(board);
 
   return board;
 };
 
-export { getBoard, addListToBoard, setBoard, addCardToList };
+const updateList = (update: ListType): BoardType => {
+  const board = getBoard();
+
+  const index = board.lists.findIndex(
+    (list: ListType) => list.id === update.id
+  );
+
+  board.lists[index] = update;
+
+  setBoard(board);
+
+  return board;
+};
+
+export { getBoard, addListToBoard, setBoard, addCardToList, updateList };

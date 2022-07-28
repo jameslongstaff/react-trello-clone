@@ -76,10 +76,10 @@ const CardCreator = (props: any) => {
 
       <div className="flex">
         <button
-          className={`py-1 px-2 text-sm rounded-[3px] hover:bg-[#091e4214] ${
+          className={`py-1 px-2 text-sm rounded-[3px]  ${
             editorIsOpen
-              ? "bg-[#0079bf] text-white text-center"
-              : "bg-none text-[#5e6c84] text-left w-full"
+              ? "bg-[#0079bf] hover:bg-[#026aa7] text-white text-center"
+              : "bg-none text-[#5e6c84] hover:bg-[#091e4214] text-left w-full"
           }`}
           onClick={editorIsOpen ? saveCard : openEditor}
         >
