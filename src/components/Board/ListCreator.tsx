@@ -3,12 +3,18 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addListToBoard, getBoard } from "../../utils/persistence";
 
 const ListCreator = () => {
   const wrapperRef = useRef(null);
   const [title, setTitle] = useState<string>("");
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
+
+  const handleBoardUpdate = () => {
+    const updatedBoard = addListToBoard(title);
+    boardStore.setBoard(updatedBoard);
+  };
 
   useOutsideAlerter(wrapperRef, () => {
     setEditorIsOpen(false);
@@ -32,6 +38,7 @@ const ListCreator = () => {
     if (title !== "") {
       const list = { id: uuidv4(), title, cards: [] };
       boardStore.addList(list);
+      handleBoardUpdate();
     }
 
     closeEditor();

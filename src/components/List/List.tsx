@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import { setBoardTitle } from "../../utils/board";
@@ -9,10 +9,10 @@ import CardCreator from "./CardCreator";
 const List = (props: any) => {
   const boardStore = useBoardStore();
 
-  const handleSaveTitle = (title: string) => {
-    // const board = getBoard();
-    // const updatedBoard = setBoardTitle(board, title);
-    // boardStore.setBoard(updatedBoard);
+  const handleBoardUpdate = (title: string) => {
+    const board = getBoard();
+    const updatedBoard = setBoardTitle(board, title);
+    boardStore.setBoard(updatedBoard);
   };
 
   return !!props.list ? (
@@ -21,7 +21,7 @@ const List = (props: any) => {
         <EditableTitle
           title={props.list.title}
           tag="h2"
-          onSave={handleSaveTitle}
+          onSave={handleBoardUpdate}
           className="font-semibold text-regular ml-1 mb-2"
         />
 

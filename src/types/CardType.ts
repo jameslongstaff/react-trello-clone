@@ -1,7 +1,7 @@
 type CardType = {
   id: string;
-  title: string;
   content: string;
+  title: string;
 };
 
 export default CardType;

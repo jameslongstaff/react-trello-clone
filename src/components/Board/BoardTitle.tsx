@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { setBoardTitle } from "../../utils/board";
 import { getBoard } from "../../utils/persistence";

@@ -3,6 +3,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addCardToList } from "../../utils/persistence";
 
 const CardCreator = (props: any) => {
   const wrapperRef = useRef(null);
@@ -19,6 +20,11 @@ const CardCreator = (props: any) => {
 
     setEditorIsOpen(false);
   });
+
+  const handleBoardUpdate = () => {
+    const updatedBoard = addCardToList(props.listId, title);
+    boardStore.setBoard(updatedBoard);
+  };
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
@@ -40,11 +46,7 @@ const CardCreator = (props: any) => {
 
   const saveCard = () => {
     if (title !== "") {
-      const listId: string = props.listId;
-
-      const card = { id: uuidv4(), title: "title", content: "content" };
-
-      boardStore.addCard(listId, card);
+      handleBoardUpdate();
     }
 
     closeEditor();
