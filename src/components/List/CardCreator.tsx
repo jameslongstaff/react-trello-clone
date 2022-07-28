@@ -3,6 +3,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
 import { setBoard } from "../../utils/persistence";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CardCreator = (props: any) => {
   const wrapperRef = useRef(null);
@@ -60,21 +61,38 @@ const CardCreator = (props: any) => {
     <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px] p-1`}>
       {!!editorIsOpen && (
         <textarea
-          className="w-full rounded-[3px] p-3"
+          className="w-full rounded-[3px] p-3 text-sm"
           placeholder="Title.."
           onChange={(event) => handleChange(event)}
           onKeyPress={(event) => handleKeyPress(event)}
         />
       )}
 
-      <button
-        className={`py-1 px-2 text-sm rounded-[3px] color-[#5e6c84] ${
-          editorIsOpen ? "bg-[#0079bf] text-white" : "bg-none"
-        }`}
-        onClick={editorIsOpen ? saveCard : openEditor}
-      >
-        Add a card
-      </button>
+      <div className="flex">
+        <button
+          className={`py-1 px-2 text-sm rounded-[3px] ${
+            editorIsOpen
+              ? "bg-[#0079bf] text-white text-center"
+              : "bg-none text-[#5e6c84] text-left w-full"
+          }`}
+          onClick={editorIsOpen ? saveCard : openEditor}
+        >
+          <FontAwesomeIcon
+            className="text-[#6b778c] mr-1"
+            icon={["fas", "plus"]}
+          />
+          Add a card
+        </button>
+
+        {editorIsOpen && (
+          <button className="ml-2" onClick={closeEditor}>
+            <FontAwesomeIcon
+              className="text-[#6b778c]"
+              icon={["fas", "xmark"]}
+            />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
