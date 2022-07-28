@@ -43,7 +43,7 @@ const addCardToList = (listId: string, title: string): BoardType => {
 
   const board = getBoard();
 
-  board.lists.find((list: ListType) => (list.id = listId))!.cards.push(newCard);
+  board.lists.find((list: ListType) => list.id === listId)!.cards.push(newCard);
 
   setBoard(board);
 
