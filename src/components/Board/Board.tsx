@@ -3,7 +3,7 @@ import ListType from "../../types/ListType";
 import List from "../List/List";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
-import { getBoard } from "../../utils/persistence";
+import { getBoard, setBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
 
 const Board = () => {
@@ -11,9 +11,12 @@ const Board = () => {
 
   useEffect(() => {
     const board = getBoard();
-
     boardStore.setBoard(board);
   }, []);
+
+  useEffect(() => {
+    setBoard(boardStore.board);
+  }, [boardStore.board]);
 
   return !!boardStore.board ? (
     <>

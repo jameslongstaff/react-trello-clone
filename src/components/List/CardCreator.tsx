@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
-import { setBoard } from "../../utils/persistence";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -46,8 +45,6 @@ const CardCreator = (props: any) => {
       const card = { id: uuidv4(), title: "title", content: "content" };
 
       boardStore.addCard(listId, card);
-
-      setBoard(boardStore.board);
     }
 
     closeEditor();
@@ -88,7 +85,7 @@ const CardCreator = (props: any) => {
         </button>
 
         {editorIsOpen && (
-          <button className="ml-2" onClick={closeEditor}>
+          <button className="ml-2" onClick={saveCard}>
             <FontAwesomeIcon
               className="text-[#6b778c]"
               icon={["fas", "xmark"]}

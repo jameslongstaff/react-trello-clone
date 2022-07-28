@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
-import { setBoard } from "../../utils/persistence";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -32,10 +31,7 @@ const ListCreator = () => {
   const saveList = () => {
     if (title !== "") {
       const list = { id: uuidv4(), title, cards: [] };
-
       boardStore.addList(list);
-
-      setBoard(boardStore.board);
     }
 
     closeEditor();

@@ -15,6 +15,8 @@ const addCardToList = (
 
   clonedBoard.lists[listIndex].cards.push(card);
 
+  console.log(clonedBoard);
+
   return clonedBoard;
 };
 
