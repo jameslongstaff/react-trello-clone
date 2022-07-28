@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { v4 as uuidv4 } from "uuid";
-import Card from "../Card/Card";
-import { addCardToList } from "../../utils/board";
 import { setBoard } from "../../utils/persistence";
+import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 
 const CardCreator = (props: any) => {
+  const wrapperRef = useRef(null);
   const [title, setTitle] = useState<string>("");
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
+
+  useOutsideAlerter(wrapperRef, () => {
+    setEditorIsOpen(false);
+  });
 
   const handleKeyPress = (event: any) => {
     if (event.key === "Enter") {
@@ -53,7 +57,7 @@ const CardCreator = (props: any) => {
   };
 
   return (
-    <>
+    <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px] p-1`}>
       {!!editorIsOpen && (
         <textarea
           className="w-full rounded-[3px] p-3"
@@ -64,12 +68,14 @@ const CardCreator = (props: any) => {
       )}
 
       <button
-        className="bg-[#0079bf] text-white py-2 px-3 text-sm rounded-[3px]"
+        className={`py-1 px-2 text-sm rounded-[3px] color-[#5e6c84] ${
+          editorIsOpen ? "bg-[#0079bf] text-white" : "bg-none"
+        }`}
         onClick={editorIsOpen ? saveCard : openEditor}
       >
-        Add card
+        Add a card
       </button>
-    </>
+    </div>
   );
 };
 

@@ -23,7 +23,8 @@ const useBoardStore = create<BoardState>()(
       addList: (list) =>
         set((state) => {
           state.board.lists.push(list);
-          return state;
+
+          return { board: state.board };
         }),
       addCard: (listId, card) =>
         set((state) => {

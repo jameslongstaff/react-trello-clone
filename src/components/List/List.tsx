@@ -5,7 +5,7 @@ import CardCreator from "./CardCreator";
 const List = (props: any) => {
   return !!props.list ? (
     <div className="w-64 mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm">
-      <div className="p-3 w-full">
+      <div className="p-2 w-full">
         <h2 className="font-semibold mb-2 ml-1">{props.list.title}</h2>
 
         {props.list.cards &&
