@@ -50,6 +50,16 @@ const addCardToList = (listId: string, title: string): BoardType => {
   return board;
 };
 
+const deleteList = (listId: string): BoardType => {
+  const board = getBoard();
+
+  board.lists = board.lists.filter((list: ListType) => list.id !== listId);
+
+  setBoard(board);
+
+  return board;
+};
+
 const updateList = (update: ListType): BoardType => {
   const board = getBoard();
 
@@ -89,4 +99,5 @@ export {
   addCardToList,
   updateList,
   updateCard,
+  deleteList,
 };
