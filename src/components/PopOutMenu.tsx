@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useOutsideAlerter from "../hooks/useOutsideAlerter";
 
 const PopOutMenu = (props: any) => {
+  const wrapperRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useOutsideAlerter(wrapperRef, () => {
+    setMenuOpen(false);
+  });
 
   const clickHandler = () => {
     setMenuOpen(!menuOpen);
@@ -10,15 +16,23 @@ const PopOutMenu = (props: any) => {
 
   return (
     <>
-      <button className={`${props.className} relative`} onClick={clickHandler}>
+      <button
+        ref={wrapperRef}
+        className={`${props.className} relative`}
+        onClick={clickHandler}
+      >
         <FontAwesomeIcon
           className="text-[#6b778c]"
           icon={["fas", "ellipsis"]}
         />
         {menuOpen && (
-          <div className="absolute top-[100%] left-0 bg-white w-64 rounded-[3px] shadow-sm">
-            <header className="py-1 text-center">List actions</header>
-            <a className="block w-full py-1 text-[#172b4d]">Delete list</a>
+          <div className="absolute text-sm top-[100%] left-0 bg-white w-64 rounded-[3px] shadow-sm">
+            <header className="py-2 text-center text-[#5e6c84]">
+              List actions
+            </header>
+            <a className="text-left block w-full py-2 px-3 text-[#172b4d] hover:bg-[#091e420a]">
+              Delete list
+            </a>
           </div>
         )}
       </button>
