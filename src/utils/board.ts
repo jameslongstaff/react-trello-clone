@@ -15,9 +15,27 @@ const addCardToList = (
 
   clonedBoard.lists[listIndex].cards.push(card);
 
-  console.log(clonedBoard);
+  return clonedBoard;
+};
+
+const setBoardTitle = (board: BoardType, title: string): BoardType => {
+  const clonedBoard = structuredClone(board);
+
+  clonedBoard.title = title;
 
   return clonedBoard;
 };
 
-export { addCardToList };
+const updateList = (board: BoardType, update: ListType): BoardType => {
+  const clonedBoard = structuredClone(board);
+
+  const index = clonedBoard.lists.findIndex(
+    (list: ListType) => list.id === update.id
+  );
+
+  clonedBoard.lists[index] = update;
+
+  return clonedBoard;
+};
+
+export { addCardToList, setBoardTitle };

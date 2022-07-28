@@ -4,17 +4,21 @@ import useOutsideAlerter from "../hooks/useOutsideAlerter";
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
 const EditableTitle = (props: any) => {
+  const [newTitle, setNewTitle] = useState("");
+  const [originalTitle, setOriginalTitle] = useState(props.title);
   const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const handleClickOutside = useCallback(() => {
-    handleSave();
-    cancelEditMode();
-  }, []);
+  const handleClickOutside = () => {
+    if (isEditing) {
+      handleSave();
+      cancelEditMode();
+    }
+  };
 
-  useOutsideAlerter(wrapperRef, handleClickOutside);
+  useOutsideAlerter(wrapperRef, handleClickOutside, [newTitle, isEditing]);
 
   useEffect(() => {
     if (!!inputRef && inputRef.current) {
@@ -32,9 +36,7 @@ const EditableTitle = (props: any) => {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (props.onChange) {
-      props.onChange(event);
-    }
+    setNewTitle(event.target.value);
   };
 
   const handleClick = () => {
@@ -42,8 +44,16 @@ const EditableTitle = (props: any) => {
   };
 
   const handleSave = () => {
-    if (props.onSave) {
-      props.onSave();
+    if (newTitle !== originalTitle) {
+      if (newTitle !== "") {
+        setOriginalTitle(newTitle);
+
+        if (props.onSave) {
+          props.onSave(newTitle);
+        }
+      } else {
+        setNewTitle(originalTitle);
+      }
     }
 
     cancelEditMode();
@@ -70,7 +80,7 @@ const EditableTitle = (props: any) => {
       >
         {isEditing ? (
           <input
-            className={`w-full ${props.spacingClass}`}
+            className={`w-full ${props.spacingClass} text-black`}
             type="text"
             defaultValue={props.title}
             onChange={handleChange}

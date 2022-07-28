@@ -1,31 +1,24 @@
 import React, { useState } from "react";
+import useBoardStore from "../../hooks/useBoardStore";
+import { setBoardTitle } from "../../utils/board";
+import { getBoard } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";
 
 const BoardTitle = (props: any) => {
-  const [newTitle, setNewTitle] = useState(props.title);
-  const [originalTitle, setOriginalTitle] = useState(props.title);
+  const boardStore = useBoardStore();
 
-  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTitle(event.target.value);
+  const handleSaveTitle = (title: string) => {
+    const board = getBoard();
+    const updatedBoard = setBoardTitle(board, title);
+    boardStore.setBoard(updatedBoard);
   };
 
-  const handleSaveTitle = () => {
-    if (newTitle !== originalTitle) {
-      if (newTitle !== "") {
-        // persist
-        // this.props.onSaveTitle(newTitle);
-        setOriginalTitle(newTitle);
-      } else {
-        setNewTitle(originalTitle);
-      }
-    }
-  };
+  console.log(props.title);
 
   return (
     <EditableTitle
-      title={newTitle}
+      title={props.title}
       tag="h1"
-      onChange={handleChangeTitle}
       onSave={handleSaveTitle}
       className="font-semibold text-white text-2xl bg-[#ffffff3d] rounded-[3px]"
       spacingClass="px-2"
