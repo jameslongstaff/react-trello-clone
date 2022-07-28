@@ -36,7 +36,9 @@ const List = (props: any) => {
         </header>
 
         {props.list.cards &&
-          props.list.cards.map((card: CardType) => <Card card={card} />)}
+          props.list.cards.map((card: CardType) => (
+            <Card key={card.id} card={card} />
+          ))}
 
         <CardCreator listId={props.list.id} />
       </div>
