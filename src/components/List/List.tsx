@@ -1,8 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import { updateList } from "../../utils/persistence";
+import Card from "../Card/Card";
 import EditableTitle from "../EditableTitle";
 import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
 import CardCreator from "./CardCreator";
@@ -37,16 +36,8 @@ const List = (props: any) => {
         </header>
 
         {props.list.cards &&
-          props.list.cards.map((card: CardType) => {
-            return (
-              <div
-                className="text-sm bg-white rounded-[3px] shadow-sm w-full h-20 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer"
-                key={card.id}
-              >
-                <h3>{card.title}</h3>
-              </div>
-            );
-          })}
+          props.list.cards.map((card: CardType) => <Card card={card} />)}
+
         <CardCreator listId={props.list.id} />
       </div>
     </div>
