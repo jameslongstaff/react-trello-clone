@@ -36,6 +36,10 @@ const CardCreator = (props: any) => {
     if (event.key === "Enter") {
       saveCard();
     }
+
+    if (event.key === "Escape") {
+      closeEditor();
+    }
   };
 
   const openEditor = () => {
@@ -70,7 +74,7 @@ const CardCreator = (props: any) => {
           className="bg-white rounded-[3px] shadow-sm h-20 p-2 w-full"
           placeholder="Title.."
           onChange={(event) => handleChange(event)}
-          onKeyPress={(event) => handleKeyPress(event)}
+          onKeyDown={(event) => handleKeyPress(event)}
         />
       )}
 

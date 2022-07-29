@@ -28,9 +28,13 @@ const ListCreator = () => {
     }
   }, [editorIsOpen]);
 
-  const handleKeyPress = (event: any) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       saveList();
+    }
+
+    if (event.key === "Escape") {
+      closeEditor();
     }
   };
 
@@ -71,7 +75,7 @@ const ListCreator = () => {
         } w-full rounded-[3px] text-sm`}
         placeholder="Title.."
         onChange={(event) => handleChange(event)}
-        onKeyPress={(event) => handleKeyPress(event)}
+        onKeyDown={(event) => handleKeyPress(event)}
       />
 
       <div className="flex">

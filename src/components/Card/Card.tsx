@@ -50,6 +50,16 @@ const Card = (props: any) => {
     setCard(updatedCard);
   };
 
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      handleSaveCard();
+    }
+
+    if (event.key === "Escape") {
+      setIsQuickEditing(false);
+    }
+  };
+
   const handleClick = () => {
     setIsQuickEditing(true);
   };
@@ -81,6 +91,7 @@ const Card = (props: any) => {
                 className="w-full h-28 bg-white rounded-[3px] shadow-sm  p-2"
                 defaultValue={card.title}
                 onChange={(event) => handleChange(event)}
+                onKeyDown={(event) => handleKeyPress(event)}
               />
               <button
                 onClick={handleSaveCard}
