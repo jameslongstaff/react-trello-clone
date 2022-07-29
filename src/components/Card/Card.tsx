@@ -44,7 +44,7 @@ const Card = (props: any) => {
   };
 
   return (
-    <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-20 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
+    <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
       {isQuickEditing && (
         <div className="absolute top-0 left-0 h-[100vh] w-full bg-[#0009]"></div>
       )}
@@ -60,22 +60,26 @@ const Card = (props: any) => {
         </button>
         <h3>{card.title}</h3>
         {isQuickEditing && (
-          <div
-            ref={wrapperRef}
-            className="absolute top-0 left-0 w-full h-full z-20"
-          >
-            <textarea
-              ref={inputRef}
-              className="w-full h-32 bg-white rounded-[3px] shadow-sm  p-2"
-              defaultValue={card.title}
-              onChange={(event) => handleChange(event)}
-            />
-            <button
-              onClick={() => handleBoardUpdate()}
-              className={`text-white py-1 px-2 text-sm rounded-[3px] bg-[#0079bf] hover:bg-[#026aa7]`}
-            >
-              Save
-            </button>
+          <div className="absolute top-0 left-0 w-full h-full z-20">
+            <div ref={wrapperRef} className="w-full h-full">
+              <textarea
+                ref={inputRef}
+                className="w-full h-28 bg-white rounded-[3px] shadow-sm  p-2"
+                defaultValue={card.title}
+                onChange={(event) => handleChange(event)}
+              />
+              <button
+                onClick={() => handleBoardUpdate()}
+                className={`text-white py-1 px-2 text-sm rounded-[3px] bg-[#0079bf] hover:bg-[#026aa7]`}
+              >
+                Save
+              </button>
+            </div>
+            <div className="absolute top-0 left-full ml-2 w-28">
+              <button className="block px-3 py-2 mb-2 left-0 text-white bg-[#0009] hover:bg-[#000c] rounded-[3px] transition-all hover:left-1 relative">
+                Delete card
+              </button>
+            </div>
           </div>
         )}
       </div>

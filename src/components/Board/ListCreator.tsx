@@ -76,10 +76,10 @@ const ListCreator = () => {
 
       <div className="flex">
         <button
-          className={`text-white py-1 px-2 text-sm rounded-[3px] ${
+          className={`text-white py-1 text-sm rounded-[3px] ${
             editorIsOpen
-              ? "bg-[#0079bf] hover:bg-[#026aa7]"
-              : "bg-none w-full text-left"
+              ? "bg-[#0079bf] px-4 hover:bg-[#026aa7]"
+              : "bg-none w-full text-left px-2"
           }`}
           onClick={editorIsOpen ? saveList : openEditor}
         >
@@ -90,7 +90,9 @@ const ListCreator = () => {
             />
           )}
 
-          {!boardStore.board.lists.length ? "Add a list" : "Add another list"}
+          {!boardStore.board.lists.length || editorIsOpen
+            ? "Add a list"
+            : "Add another list"}
         </button>
 
         <button
