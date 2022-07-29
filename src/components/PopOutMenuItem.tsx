@@ -1,6 +1,13 @@
 import React from "react";
+import { PopoutMenuItemType } from "./PopOutMenu";
 
-const PopOutMenuItem = (props: any) => {
+export type PopOutMenuPropsType = {
+  key: string | number;
+  item: PopoutMenuItemType;
+  onClick?: () => void;
+};
+
+const PopOutMenuItem = (props: PopOutMenuPropsType) => {
   return (
     <a
       key={props.key}

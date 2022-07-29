@@ -3,7 +3,15 @@ import useOutsideAlerter from "../hooks/useOutsideAlerter";
 
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
 
-const EditableTitle = (props: any) => {
+export type EditableTitleType = {
+  title: string;
+  onSave?: (title: string) => void;
+  className?: string;
+  spacingClass?: string;
+  tag: TagType;
+};
+
+const EditableTitle = (props: EditableTitleType) => {
   const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
