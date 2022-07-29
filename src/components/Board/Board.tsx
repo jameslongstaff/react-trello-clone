@@ -7,7 +7,7 @@ import ListCreator from "./ListCreator";
 import ListContainer from "./ListContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, MouseSensor, useSensor } from "@dnd-kit/core";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -16,6 +16,13 @@ const Board = () => {
     const board = getBoard();
     boardStore.setBoard(board);
   }, []);
+
+  const mouseSensor = useSensor(MouseSensor, {
+    // Require the mouse to move by 10 pixels before activating
+    activationConstraint: {
+      distance: 10,
+    },
+  });
 
   const clearAll = () => {
     localStorage.clear();
@@ -32,7 +39,7 @@ const Board = () => {
   };
 
   return !!boardStore.board ? (
-    <DndContext onDragEnd={handleDragEnd}>
+    <DndContext onDragEnd={handleDragEnd} sensors={[mouseSensor]}>
       <div className="inline-flex">
         <BoardTitle title={boardStore.board.title} />
         <button
