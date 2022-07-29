@@ -33,7 +33,7 @@ const List = (props: any) => {
             onSave={handleBoardUpdate}
             className="font-semibold text-base"
           />
-          <PopOutMenu items={listMenuItems} className="ml-auto mr-2" />
+          <PopOutMenu items={listMenuItems} className="ml-auto" />
         </header>
 
         {props.list.cards &&

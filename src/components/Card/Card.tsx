@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import CardType from "../../types/CardType";
@@ -7,6 +7,8 @@ import useBoardStore from "../../hooks/useBoardStore";
 
 const Card = (props: any) => {
   const wrapperRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
   const [isQuickEditing, setIsQuickEditing] = useState<boolean>(false);
   const [card, setCard] = useState<CardType>(props.card);
   const boardStore = useBoardStore();
@@ -14,6 +16,13 @@ const Card = (props: any) => {
   useOutsideAlerter(wrapperRef, () => {
     setIsQuickEditing(false);
   });
+
+  useEffect(() => {
+    if (inputRef?.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isQuickEditing]);
 
   const handleBoardUpdate = () => {
     const updatedBoard = updateCard(card);
@@ -30,6 +39,10 @@ const Card = (props: any) => {
     setCard(updatedCard);
   };
 
+  const handleClick = () => {
+    setIsQuickEditing(true);
+  };
+
   return (
     <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-20 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
       {isQuickEditing && (
@@ -37,7 +50,7 @@ const Card = (props: any) => {
       )}
       <div className="relative">
         <button
-          onClick={() => setIsQuickEditing(true)}
+          onClick={handleClick}
           className="absolute opacity-0 group-hover:opacity-100 top-0 right-0 hover:bg-[#cfcfcf52] px-2 py-1 rounded-[3px]"
         >
           <FontAwesomeIcon
@@ -52,6 +65,7 @@ const Card = (props: any) => {
             className="absolute top-0 left-0 w-full h-full z-20"
           >
             <textarea
+              ref={inputRef}
               className="w-full h-32 bg-white rounded-[3px] shadow-sm  p-2"
               defaultValue={card.title}
               onChange={(event) => handleChange(event)}
