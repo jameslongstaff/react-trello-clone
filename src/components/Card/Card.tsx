@@ -1,22 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import CardType from "../../types/CardType";
 import { deleteCard, updateCard } from "../../utils/persistence";
 import useBoardStore from "../../hooks/useBoardStore";
 
-const Card = (props: any) => {
-  const wrapperRef = useRef(null);
+export type CardPropsType = {
+  card: CardType;
+};
+
+const Card = (props: CardPropsType) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [isQuickEditing, setIsQuickEditing] = useState<boolean>(false);
   const [card, setCard] = useState<CardType>(props.card);
   const boardStore = useBoardStore();
-
-  // useOutsideAlerter(wrapperRef, () => {
-  //   console.log("outside");
-  //   setIsQuickEditing(false);
-  // });
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -64,8 +61,15 @@ const Card = (props: any) => {
     setIsQuickEditing(true);
   };
 
+  const handleCardClick = () => {
+    boardStore.setCardModal(props.card);
+  };
+
   return (
-    <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
+    <div
+      onClick={handleCardClick}
+      className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer"
+    >
       {isQuickEditing && (
         <div
           onClick={onBackdropClick}
@@ -85,7 +89,7 @@ const Card = (props: any) => {
         <h3>{card.title}</h3>
         {isQuickEditing && (
           <div className="absolute top-0 left-0 w-full h-full z-20">
-            <div ref={wrapperRef} className="w-full h-full">
+            <div className="w-full h-full">
               <textarea
                 ref={inputRef}
                 className="w-full h-28 bg-white rounded-[3px] shadow-sm  p-2"

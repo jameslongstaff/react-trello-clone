@@ -2,15 +2,19 @@ import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import BoardType from "../types/BoardType";
 import CardType from "../types/CardType";
-import ListType from "../types/ListType";
-import { addCardToList } from "../utils/board";
+
+interface CardModalState {
+  show: boolean;
+  card?: CardType;
+}
 
 interface BoardState {
   board: BoardType;
+  cardModal: CardModalState;
   setBoard: (board: BoardType) => void;
-  addCard: (listId: string, card: CardType) => void;
-  addList: (list: ListType) => void;
   resetBoard: () => void;
+  setCardModal: (card: CardType) => void;
+  resetCardModal: () => void;
 }
 
 const useBoardStore = create<BoardState>()(
@@ -20,6 +24,10 @@ const useBoardStore = create<BoardState>()(
         title: "",
         lists: [],
       },
+      cardModal: {
+        show: false,
+        card: undefined,
+      },
       setBoard: (board) => set({ board }),
       resetBoard: () =>
         set({
@@ -28,16 +36,19 @@ const useBoardStore = create<BoardState>()(
             lists: [],
           },
         }),
-
-      addList: (list) =>
-        set((state) => {
-          state.board.lists.push(list);
-
-          return { board: state.board };
+      setCardModal: (card: CardType) =>
+        set({
+          cardModal: {
+            show: true,
+            card,
+          },
         }),
-      addCard: (listId, card) =>
-        set((state) => {
-          return { board: addCardToList(state.board, listId, card) };
+      resetCardModal: () =>
+        set({
+          cardModal: {
+            show: true,
+            card: undefined,
+          },
         }),
     }))
   )

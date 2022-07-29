@@ -3,7 +3,11 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard, setBoard } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";
 
-const BoardTitle = (props: any) => {
+export type BoardTitleType = {
+  title: string;
+};
+
+const BoardTitle = (props: BoardTitleType) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {

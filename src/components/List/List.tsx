@@ -1,12 +1,17 @@
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
+import ListType from "../../types/ListType";
 import { deleteList, updateList } from "../../utils/persistence";
 import Card from "../Card/Card";
 import EditableTitle from "../EditableTitle";
 import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
 import CardCreator from "./CardCreator";
 
-const List = (props: any) => {
+export type ListPropsType = {
+  list: ListType;
+};
+
+const List = (props: ListPropsType) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {

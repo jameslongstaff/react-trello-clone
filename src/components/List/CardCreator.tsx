@@ -4,7 +4,11 @@ import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addCardToList } from "../../utils/persistence";
 
-const CardCreator = (props: any) => {
+export type CardCreatorPropsType = {
+  listId: string;
+};
+
+const CardCreator = (props: CardCreatorPropsType) => {
   const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 

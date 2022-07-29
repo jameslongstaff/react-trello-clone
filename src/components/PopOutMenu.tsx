@@ -8,7 +8,12 @@ export type PopoutMenuItemType = {
   title: string;
 };
 
-const PopOutMenu = (props: any) => {
+export type PopOutMenuPropsType = {
+  className?: string;
+  items: PopoutMenuItemType[];
+};
+
+const PopOutMenu = (props: PopOutMenuPropsType) => {
   const wrapperRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
