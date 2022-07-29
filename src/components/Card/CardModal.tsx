@@ -17,7 +17,7 @@ const CardModal = () => {
         onClick={closeModal}
       ></div>
       <div className="w-4/6 mt-[48px] mb-[80px] mx-auto bg-[#f4f5f7] relative z-20 rounded-[3px] px-6 py-4">
-        <div className="flex mb-2">
+        <div className="flex mb-4">
           <EditableTitle
             className="text-xl font-semibold"
             title={boardStore.cardModal.card.title}
@@ -31,7 +31,12 @@ const CardModal = () => {
           </button>
         </div>
 
-        <h3>Description</h3>
+        <div className="flex">
+          <h3 className="font-semibold ">Description</h3>
+          <button className="py-1 px-4 text-sm rounded-[3px] ml-3 bg-[#091e420a] hover:bg-[#091e4214] text-[#172b4d] hover:text-[#091e42]">
+            Edit
+          </button>
+        </div>
 
         <p>{boardStore.cardModal.card.content || ""}</p>
       </div>
