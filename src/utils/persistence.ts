@@ -108,6 +108,27 @@ const updateCard = (update: CardType): BoardType => {
   return board;
 };
 
+const moveList = (src: string, dest: string): BoardType => {
+  const board = getBoard();
+
+  const srcListIndex = board.lists.findIndex(
+    (list: ListType) => list.id === src
+  );
+
+  const destListIndex = board.lists.findIndex(
+    (list: ListType) => list.id === dest
+  );
+
+  const destListClone = structuredClone(board.lists[destListIndex]);
+
+  board.lists[destListIndex] = board.lists[srcListIndex];
+  board.lists[srcListIndex] = destListClone;
+
+  setBoard(board);
+
+  return board;
+};
+
 export {
   getBoard,
   addListToBoard,
@@ -117,4 +138,5 @@ export {
   updateCard,
   deleteList,
   deleteCard,
+  moveList,
 };

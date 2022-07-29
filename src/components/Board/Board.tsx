@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import ListType from "../../types/ListType";
-import List from "../List/List";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
+import ListContainer from "./ListContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -22,7 +24,7 @@ const Board = () => {
   };
 
   return !!boardStore.board ? (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <div className="inline-flex">
         <BoardTitle title={boardStore.board.title} />
         <button
@@ -35,16 +37,16 @@ const Board = () => {
       </div>
 
       <div className="w-full">
-        <div className="mt-4 flex-nowrap inline-flex">
+        <div className="mt-4 flex-nowrap inline-flex h-80">
           {boardStore.board.lists.map((list: ListType) => {
-            return <List key={list.id} list={list} />;
+            return <ListContainer key={list.id} list={list} />;
           })}
 
           <ListCreator></ListCreator>
         </div>
       </div>
       <CardModal />
-    </>
+    </DndProvider>
   ) : (
     <p>No board</p>
   );

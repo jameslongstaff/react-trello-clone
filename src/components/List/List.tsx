@@ -1,3 +1,4 @@
+import { useDrag } from "react-dnd";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
@@ -14,6 +15,17 @@ export type ListPropsType = {
 const List = (props: ListPropsType) => {
   const boardStore = useBoardStore();
 
+  const [, dragRef] = useDrag(
+    () => ({
+      type: "List",
+      item: {
+        id: props.list.id,
+      },
+      end: (item, monitor) => {},
+    }),
+    []
+  );
+
   const handleBoardUpdate = (title: string) => {
     const updatedBoard = updateList({ ...props.list, title });
     boardStore.setBoard(updatedBoard);
@@ -29,7 +41,10 @@ const List = (props: ListPropsType) => {
   ];
 
   return !!props.list ? (
-    <div className="w-64 mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start">
+    <div
+      ref={dragRef}
+      className="mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start"
+    >
       <div className="p-2 w-full">
         <header className="flex mb-2">
           <EditableTitle
