@@ -12,11 +12,6 @@ const ListCreator = () => {
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
 
-  const handleBoardUpdate = () => {
-    const updatedBoard = addListToBoard(title);
-    boardStore.setBoard(updatedBoard);
-  };
-
   useOutsideAlerter(wrapperRef, () => {
     setEditorIsOpen(false);
   });
@@ -49,9 +44,8 @@ const ListCreator = () => {
 
   const saveList = () => {
     if (title !== "") {
-      const list = { id: uuidv4(), title, cards: [] };
-      boardStore.addList(list);
-      handleBoardUpdate();
+      const updatedBoard = addListToBoard(title);
+      boardStore.setBoard(updatedBoard);
     }
 
     closeEditor();

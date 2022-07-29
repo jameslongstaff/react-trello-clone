@@ -62,7 +62,7 @@ const Card = (props: CardPropsType) => {
   };
 
   const handleCardClick = () => {
-    boardStore.setCardModal(props.card.id);
+    boardStore.setCardModal(props.card);
   };
 
   return (

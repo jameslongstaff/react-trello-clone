@@ -1,10 +1,11 @@
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import BoardType from "../types/BoardType";
+import CardType from "../types/CardType";
 
 interface CardModalState {
   show: boolean;
-  cardId?: string;
+  card?: CardType;
 }
 
 interface BoardState {
@@ -12,7 +13,7 @@ interface BoardState {
   cardModal: CardModalState;
   setBoard: (board: BoardType) => void;
   resetBoard: () => void;
-  setCardModal: (cardId: string) => void;
+  setCardModal: (card: CardType) => void;
   resetCardModal: () => void;
 }
 
@@ -25,7 +26,7 @@ const useBoardStore = create<BoardState>()(
       },
       cardModal: {
         show: false,
-        cardId: undefined,
+        card: undefined,
       },
       setBoard: (board) => set({ board }),
       resetBoard: () =>
@@ -35,18 +36,18 @@ const useBoardStore = create<BoardState>()(
             lists: [],
           },
         }),
-      setCardModal: (cardId: string) =>
+      setCardModal: (card: CardType) =>
         set({
           cardModal: {
             show: true,
-            cardId,
+            card,
           },
         }),
       resetCardModal: () =>
         set({
           cardModal: {
             show: true,
-            cardId: undefined,
+            card: undefined,
           },
         }),
     }))
