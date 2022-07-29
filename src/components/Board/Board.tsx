@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import ListType from "../../types/ListType";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
-import { getBoard } from "../../utils/persistence";
+import { getBoard, moveList } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
 import ListContainer from "./ListContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndContext } from "@dnd-kit/core";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -23,8 +22,17 @@ const Board = () => {
     boardStore.resetBoard();
   };
 
+  const handleDragEnd = (params: any) => {
+    const [src, dest] = [params?.active?.id, params?.over?.id];
+
+    if (src && dest) {
+      const board = moveList(dest, src);
+      boardStore.setBoard(board);
+    }
+  };
+
   return !!boardStore.board ? (
-    <DndProvider backend={HTML5Backend}>
+    <DndContext onDragEnd={handleDragEnd}>
       <div className="inline-flex">
         <BoardTitle title={boardStore.board.title} />
         <button
@@ -37,7 +45,7 @@ const Board = () => {
       </div>
 
       <div className="w-full">
-        <div className="mt-4 flex-nowrap inline-flex h-80">
+        <div className="mt-4 flex-nowrap inline-flex">
           {boardStore.board.lists.map((list: ListType) => {
             return <ListContainer key={list.id} list={list} />;
           })}
@@ -46,7 +54,7 @@ const Board = () => {
         </div>
       </div>
       <CardModal />
-    </DndProvider>
+    </DndContext>
   ) : (
     <p>No board</p>
   );
