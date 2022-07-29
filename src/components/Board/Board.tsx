@@ -6,6 +6,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CardModal from "../Card/CardModal";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -42,6 +43,7 @@ const Board = () => {
           <ListCreator></ListCreator>
         </div>
       </div>
+      <CardModal />
     </>
   ) : (
     <p>No board</p>

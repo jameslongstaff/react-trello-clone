@@ -61,8 +61,15 @@ const Card = (props: CardPropsType) => {
     setIsQuickEditing(true);
   };
 
+  const handleCardClick = () => {
+    boardStore.setCardModal(props.card.id);
+  };
+
   return (
-    <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
+    <div
+      onClick={handleCardClick}
+      className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer"
+    >
       {isQuickEditing && (
         <div
           onClick={onBackdropClick}
