@@ -1,4 +1,4 @@
-import { useDrag } from "react-dnd";
+import { useDraggable } from "@dnd-kit/core";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
@@ -15,16 +15,15 @@ export type ListPropsType = {
 const List = (props: ListPropsType) => {
   const boardStore = useBoardStore();
 
-  const [, dragRef] = useDrag(
-    () => ({
-      type: "List",
-      item: {
-        id: props.list.id,
-      },
-      end: (item, monitor) => {},
-    }),
-    []
-  );
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: props.list.id,
+  });
+
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
 
   const handleBoardUpdate = (title: string) => {
     const updatedBoard = updateList({ ...props.list, title });
@@ -42,7 +41,10 @@ const List = (props: ListPropsType) => {
 
   return !!props.list ? (
     <div
-      ref={dragRef}
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      style={style}
       className="mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start"
     >
       <div className="p-2 w-full">
