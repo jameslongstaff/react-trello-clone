@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import CardType from "../../types/CardType";
-import { updateCard } from "../../utils/persistence";
+import { deleteCard, updateCard } from "../../utils/persistence";
 import useBoardStore from "../../hooks/useBoardStore";
 
 const Card = (props: any) => {
@@ -13,9 +13,10 @@ const Card = (props: any) => {
   const [card, setCard] = useState<CardType>(props.card);
   const boardStore = useBoardStore();
 
-  useOutsideAlerter(wrapperRef, () => {
-    setIsQuickEditing(false);
-  });
+  // useOutsideAlerter(wrapperRef, () => {
+  //   console.log("outside");
+  //   setIsQuickEditing(false);
+  // });
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -24,8 +25,18 @@ const Card = (props: any) => {
     }
   }, [isQuickEditing]);
 
-  const handleBoardUpdate = () => {
+  const onBackdropClick = () => {
+    setIsQuickEditing(false);
+  };
+
+  const handleSaveCard = () => {
     const updatedBoard = updateCard(card);
+    boardStore.setBoard(updatedBoard);
+    setIsQuickEditing(false);
+  };
+
+  const handleDeleteCard = (e: React.MouseEvent) => {
+    const updatedBoard = deleteCard(card);
     boardStore.setBoard(updatedBoard);
     setIsQuickEditing(false);
   };
@@ -46,7 +57,10 @@ const Card = (props: any) => {
   return (
     <div className="group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer">
       {isQuickEditing && (
-        <div className="absolute top-0 left-0 h-[100vh] w-full bg-[#0009]"></div>
+        <div
+          onClick={onBackdropClick}
+          className="absolute top-0 left-0 h-[100vh] w-full bg-[#0009]"
+        ></div>
       )}
       <div className="relative">
         <button
@@ -69,14 +83,17 @@ const Card = (props: any) => {
                 onChange={(event) => handleChange(event)}
               />
               <button
-                onClick={() => handleBoardUpdate()}
+                onClick={handleSaveCard}
                 className={`text-white py-1 px-2 text-sm rounded-[3px] bg-[#0079bf] hover:bg-[#026aa7]`}
               >
                 Save
               </button>
             </div>
             <div className="absolute top-0 left-full ml-2 w-28">
-              <button className="block px-3 py-2 mb-2 left-0 text-white bg-[#0009] hover:bg-[#000c] rounded-[3px] transition-all hover:left-1 relative">
+              <button
+                onClick={(e) => handleDeleteCard(e)}
+                className="block px-3 py-2 mb-2 left-0 text-white bg-[#0009] hover:bg-[#000c] rounded-[3px] transition-all hover:left-1 relative"
+              >
                 Delete card
               </button>
             </div>

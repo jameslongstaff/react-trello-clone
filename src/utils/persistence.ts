@@ -74,6 +74,22 @@ const updateList = (update: ListType): BoardType => {
   return board;
 };
 
+const deleteCard = (card: CardType): BoardType => {
+  const board = getBoard();
+
+  const listIndex = board.lists.findIndex(
+    (list: ListType) => list.id === card.listId
+  );
+
+  board.lists[listIndex].cards = board.lists[listIndex].cards.filter(
+    (c) => c.id !== card.id
+  );
+
+  setBoard(board);
+
+  return board;
+};
+
 const updateCard = (update: CardType): BoardType => {
   const board = getBoard();
 
@@ -100,4 +116,5 @@ export {
   updateList,
   updateCard,
   deleteList,
+  deleteCard,
 };
