@@ -28,9 +28,13 @@ const ListCreator = () => {
     }
   }, [editorIsOpen]);
 
-  const handleKeyPress = (event: any) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       saveList();
+    }
+
+    if (event.key === "Escape") {
+      closeEditor();
     }
   };
 
@@ -71,15 +75,15 @@ const ListCreator = () => {
         } w-full rounded-[3px] text-sm`}
         placeholder="Title.."
         onChange={(event) => handleChange(event)}
-        onKeyPress={(event) => handleKeyPress(event)}
+        onKeyDown={(event) => handleKeyPress(event)}
       />
 
       <div className="flex">
         <button
-          className={`text-white py-1 px-2 text-sm rounded-[3px] ${
+          className={`text-white py-1 text-sm rounded-[3px] ${
             editorIsOpen
-              ? "bg-[#0079bf] hover:bg-[#026aa7]"
-              : "bg-none w-full text-left"
+              ? "bg-[#0079bf] px-4 hover:bg-[#026aa7]"
+              : "bg-none w-full text-left px-2"
           }`}
           onClick={editorIsOpen ? saveList : openEditor}
         >
@@ -90,7 +94,9 @@ const ListCreator = () => {
             />
           )}
 
-          {!boardStore.board.lists.length ? "Add a list" : "Add another list"}
+          {!boardStore.board.lists.length || editorIsOpen
+            ? "Add a list"
+            : "Add another list"}
         </button>
 
         <button

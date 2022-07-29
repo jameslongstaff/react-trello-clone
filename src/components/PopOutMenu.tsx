@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useOutsideAlerter from "../hooks/useOutsideAlerter";
+import PopOutMenuItem from "./PopOutMenuItem";
 
 export type PopoutMenuItemType = {
   fn?: () => void;
@@ -23,7 +24,7 @@ const PopOutMenu = (props: any) => {
     <>
       <a
         ref={wrapperRef}
-        className={`${props.className} relative cursor-pointer`}
+        className={`${props.className} relative cursor-pointer hover:bg-[#091e4214] px-2 rounded-[3px]`}
         onClick={clickHandler}
       >
         <FontAwesomeIcon
@@ -31,20 +32,14 @@ const PopOutMenu = (props: any) => {
           icon={["fas", "ellipsis"]}
         />
         {menuOpen && (
-          <div className="absolute text-sm top-[100%] left-0 bg-white w-64 rounded-[3px] shadow-sm">
+          <div className="absolute text-sm top-[100%] left-0 bg-white w-64 rounded-[3px] shadow-sm z-20">
             <header className="py-2 text-center text-[#5e6c84]">
               List actions
             </header>
 
             {props.items.map((item: PopoutMenuItemType, index: number) => {
               return (
-                <a
-                  key={index}
-                  onClick={item.fn}
-                  className="text-left block w-full py-2 px-3 text-[#172b4d] hover:bg-[#091e420a]"
-                >
-                  {item.title}
-                </a>
+                <PopOutMenuItem key={index} onClick={item.fn} item={item} />
               );
             })}
           </div>
