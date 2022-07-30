@@ -10,20 +10,11 @@ import CardCreator from "./CardCreator";
 
 export type ListPropsType = {
   list: ListType;
+  isDragging: boolean;
 };
 
 const List = (props: ListPropsType) => {
   const boardStore = useBoardStore();
-
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: props.list.id,
-  });
-
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
 
   const handleBoardUpdate = (title: string) => {
     const updatedBoard = updateList({ ...props.list, title });
@@ -41,11 +32,9 @@ const List = (props: ListPropsType) => {
 
   return !!props.list ? (
     <div
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      style={style}
-      className="mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start"
+      className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative ${
+        props.isDragging && "rotate-[3deg]"
+      }`}
     >
       <div className="p-2 w-full">
         <header className="flex mb-2">

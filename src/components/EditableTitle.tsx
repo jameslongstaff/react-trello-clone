@@ -78,7 +78,7 @@ const EditableTitle = (props: EditableTitleType) => {
   const Tag = `${props.tag}` as TagType;
 
   return (
-    <div ref={wrapperRef} onClick={handleClick}>
+    <div ref={wrapperRef} onClick={handleClick} className="w-full">
       <Tag
         className={`${props.className} cursor-pointer ${
           !isEditing && props.spacingClass

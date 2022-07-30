@@ -7,7 +7,16 @@ import ListCreator from "./ListCreator";
 import ListContainer from "./ListContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
-import { DndContext, MouseSensor, useSensor } from "@dnd-kit/core";
+import {
+  closestCenter,
+  DndContext,
+  MouseSensor,
+  useSensor,
+} from "@dnd-kit/core";
+import {
+  horizontalListSortingStrategy,
+  SortableContext,
+} from "@dnd-kit/sortable";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -18,7 +27,6 @@ const Board = () => {
   }, []);
 
   const mouseSensor = useSensor(MouseSensor, {
-    // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
       distance: 10,
     },
@@ -29,7 +37,7 @@ const Board = () => {
     boardStore.resetBoard();
   };
 
-  const handleDragEnd = (params: any) => {
+  const handleDragOver = (params: any) => {
     const [src, dest] = [params?.active?.id, params?.over?.id];
 
     if (src && dest) {
@@ -39,28 +47,39 @@ const Board = () => {
   };
 
   return !!boardStore.board ? (
-    <DndContext onDragEnd={handleDragEnd} sensors={[mouseSensor]}>
-      <div className="inline-flex">
-        <BoardTitle title={boardStore.board.title} />
-        <button
-          className="text-white ml-2 bg-[#ffffff3d] hover:bg-[#ffffff52] px-3 text-sm rounded-[3px]"
-          onClick={clearAll}
-        >
-          <FontAwesomeIcon className="mr-2" icon={["fas", "xmark"]} />
-          Clear all
-        </button>
-      </div>
-
-      <div className="w-full">
-        <div className="mt-4 flex-nowrap inline-flex">
-          {boardStore.board.lists.map((list: ListType) => {
-            return <ListContainer key={list.id} list={list} />;
-          })}
-
-          <ListCreator></ListCreator>
+    <DndContext
+      onDragEnd={handleDragOver}
+      collisionDetection={closestCenter}
+      sensors={[mouseSensor]}
+    >
+      <SortableContext
+        items={boardStore.board.lists}
+        strategy={horizontalListSortingStrategy}
+      >
+        <div className="inline-flex">
+          <div>
+            <BoardTitle title={boardStore.board.title} />
+          </div>
+          <button
+            className="text-white ml-2 bg-[#ffffff3d] hover:bg-[#ffffff52] px-3 text-sm rounded-[3px]"
+            onClick={clearAll}
+          >
+            <FontAwesomeIcon className="mr-2" icon={["fas", "xmark"]} />
+            Clear all
+          </button>
         </div>
-      </div>
-      <CardModal />
+
+        <div className="w-full">
+          <div className="mt-4 flex-nowrap inline-flex">
+            {boardStore.board.lists.map((list: ListType) => {
+              return <ListContainer key={list.id} list={list} />;
+            })}
+
+            <ListCreator></ListCreator>
+          </div>
+        </div>
+        <CardModal />
+      </SortableContext>
     </DndContext>
   ) : (
     <p>No board</p>
