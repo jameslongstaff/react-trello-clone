@@ -15,13 +15,14 @@ export type ListPropsType = {
 const List = (props: ListPropsType) => {
   const boardStore = useBoardStore();
 
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: props.list.id,
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: props.list.id,
+    });
 
   const style = transform
     ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0) rotate(4deg)`,
       }
     : undefined;
 
@@ -45,7 +46,9 @@ const List = (props: ListPropsType) => {
       {...listeners}
       {...attributes}
       style={style}
-      className="mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start"
+      className={`mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative ${
+        isDragging && "z-20"
+      }`}
     >
       <div className="p-2 w-full">
         <header className="flex mb-2">

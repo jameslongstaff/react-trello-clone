@@ -18,7 +18,6 @@ const Board = () => {
   }, []);
 
   const mouseSensor = useSensor(MouseSensor, {
-    // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
       distance: 10,
     },
@@ -29,7 +28,8 @@ const Board = () => {
     boardStore.resetBoard();
   };
 
-  const handleDragEnd = (params: any) => {
+  const handleDragOver = (params: any) => {
+    console.log("over");
     const [src, dest] = [params?.active?.id, params?.over?.id];
 
     if (src && dest) {
@@ -38,10 +38,18 @@ const Board = () => {
     }
   };
 
+  const handleDragMove = () => {};
+
   return !!boardStore.board ? (
-    <DndContext onDragEnd={handleDragEnd} sensors={[mouseSensor]}>
+    <DndContext
+      onDragOver={handleDragOver}
+      onDragMove={handleDragMove}
+      sensors={[mouseSensor]}
+    >
       <div className="inline-flex">
-        <BoardTitle title={boardStore.board.title} />
+        <div>
+          <BoardTitle title={boardStore.board.title} />
+        </div>
         <button
           className="text-white ml-2 bg-[#ffffff3d] hover:bg-[#ffffff52] px-3 text-sm rounded-[3px]"
           onClick={clearAll}

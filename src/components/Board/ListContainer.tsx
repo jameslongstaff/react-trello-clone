@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useDroppable } from "@dnd-kit/core";
-import useBoardStore from "../../hooks/useBoardStore";
 import ListType from "../../types/ListType";
-import { moveList } from "../../utils/persistence";
 import List from "../List/List";
 
 type ListContainerPropsType = {
