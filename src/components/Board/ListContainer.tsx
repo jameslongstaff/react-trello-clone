@@ -1,43 +1,53 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDroppable } from "@dnd-kit/core";
+import React from "react";
 import ListType from "../../types/ListType";
 import List from "../List/List";
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 
 type ListContainerPropsType = {
   list: ListType;
 };
 
 const ListContainer = (props: ListContainerPropsType) => {
-  const { setNodeRef, isOver, node } = useDroppable({
-    id: props.list.id,
-  });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: props.list.id });
+  // const { setNodeRef, isOver, node } = useDroppable({
+  //   id: props.list.id,
+  // });
 
-  const [listHeight, setListHeight] = useState(0);
+  // const [listHeight, setListHeight] = useState(0);
 
-  const listRef = useRef<HTMLDivElement>(null);
+  // const listRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (listRef.current?.clientHeight && !listHeight) {
-      setListHeight(listRef.current?.clientHeight);
-    }
-  }, [listRef.current?.clientHeight]);
+  // useEffect(() => {
+  //   if (listRef.current?.clientHeight && !listHeight) {
+  //     setListHeight(listRef.current?.clientHeight);
+  //   }
+  // }, [listRef.current?.clientHeight]);
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    transition,
+  };
 
   return (
     <div
-      ref={setNodeRef}
       key={props.list.id}
-      className={`w-64 mr-2 h-96 relative ${isOver ? "" : ""}`}
+      className={`w-64 mr-2 h-96 relative ${isDragging && "z-20"}`}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
     >
-      {}
-      {isOver && (
-        <div
-          className="bg-[#943c2a] absolute top-0 left-0 w-full rounded-[3px]"
-          style={{ height: listHeight }}
-        ></div>
-      )}
-      <div ref={listRef}>
-        <List list={props.list} />
-      </div>
+      <List list={props.list} isDragging={isDragging} />
     </div>
   );
 };
