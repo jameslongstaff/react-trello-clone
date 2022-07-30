@@ -46,7 +46,7 @@ const List = (props: ListPropsType) => {
       {...listeners}
       {...attributes}
       style={style}
-      className={`mr-2 bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative ${
+      className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative ${
         isDragging && "z-20"
       }`}
     >
