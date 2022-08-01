@@ -1,4 +1,3 @@
-import { useDraggable } from "@dnd-kit/core";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
@@ -10,7 +9,6 @@ import CardCreator from "./CardCreator";
 
 export type ListPropsType = {
   list: ListType;
-  isDragging: boolean;
 };
 
 const List = (props: ListPropsType) => {
@@ -32,9 +30,7 @@ const List = (props: ListPropsType) => {
 
   return !!props.list ? (
     <div
-      className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative ${
-        props.isDragging && "rotate-[3deg]"
-      }`}
+      className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative w-64 mr-2`}
     >
       <div className="p-2 w-full">
         <header className="flex mb-2">

@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import ListType from "../../types/ListType";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
-import { getBoard, moveList } from "../../utils/persistence";
+import { getBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
-import ListContainer from "./ListContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
 import {
@@ -17,13 +15,16 @@ import {
   horizontalListSortingStrategy,
   SortableContext,
 } from "@dnd-kit/sortable";
+import List from "../List/List";
 
 const Board = () => {
   const boardStore = useBoardStore();
 
   useEffect(() => {
     const board = getBoard();
-    boardStore.setBoard(board);
+    boardStore.setBoard({ title: board.title });
+    boardStore.setListsById(board.lists);
+    boardStore.setLists(board.lists.map((list) => list.id));
   }, []);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -38,12 +39,11 @@ const Board = () => {
   };
 
   const handleDragOver = (params: any) => {
-    const [src, dest] = [params?.active?.id, params?.over?.id];
-
-    if (src && dest) {
-      const board = moveList(dest, src);
-      boardStore.setBoard(board);
-    }
+    // const [src, dest] = [params?.active?.id, params?.over?.id];
+    // if (src && dest) {
+    //   const board = moveList(dest, src);
+    //   boardStore.setBoard(board);
+    // }
   };
 
   return !!boardStore.board ? (
@@ -53,7 +53,7 @@ const Board = () => {
       sensors={[mouseSensor]}
     >
       <SortableContext
-        items={boardStore.board.lists}
+        items={boardStore.lists}
         strategy={horizontalListSortingStrategy}
       >
         <div className="inline-flex">
@@ -71,8 +71,8 @@ const Board = () => {
 
         <div className="w-full">
           <div className="mt-4 flex-nowrap inline-flex">
-            {boardStore.board.lists.map((list: ListType) => {
-              return <ListContainer key={list.id} list={list} />;
+            {boardStore.lists.map((listId: string) => {
+              return <List key={listId} list={boardStore.listsById[listId]} />;
             })}
 
             <ListCreator></ListCreator>
