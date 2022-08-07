@@ -60,7 +60,7 @@ const deleteList = (listId: string): BoardType => {
   return board;
 };
 
-const updateList = (update: ListType): BoardType => {
+const updateList = (update: ListType): ListType => {
   const board = getBoard();
 
   const index = board.lists.findIndex(
@@ -71,7 +71,7 @@ const updateList = (update: ListType): BoardType => {
 
   setBoard(board);
 
-  return board;
+  return update;
 };
 
 const deleteCard = (card: CardType): BoardType => {

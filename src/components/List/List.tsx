@@ -16,7 +16,7 @@ import DraggableCard from "../Card/DraggableCard";
 
 export type ListPropsType = {
   height?: number;
-  isDragging: boolean;
+  isDragging?: boolean;
   list: ListType;
   style?: CSSProperties;
   attributes?: DraggableAttributes;
@@ -27,8 +27,8 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {
-    const updatedBoard = updateList({ ...props.list, title });
-    boardStore.setBoard(updatedBoard);
+    const updatedList = updateList({ ...props.list, title });
+    boardStore.setList(updatedList);
   };
 
   const handleDeleteList = () => {

@@ -23,6 +23,12 @@ const setLists = (listIds: string[]) => {
   return { lists: listIds };
 };
 
+const setList = (state: AppState, list: ListType) => {
+  return produce(state, (draftState) => {
+    draftState.listsById[list.id] = list;
+  });
+};
+
 const addListToBoard = (state: AppState, list: ListType) => {
   return produce(state, (draftState) => {
     draftState.lists.concat([list.id]);
@@ -98,6 +104,7 @@ export default {
   addCardToList,
   moveCardToList,
   setLists,
+  setList,
   resetBoard,
   setCardModal,
   resetCardModal,

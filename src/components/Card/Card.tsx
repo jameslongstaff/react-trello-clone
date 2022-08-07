@@ -87,10 +87,10 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
       {...props.attributes}
       ref={ref}
       onClick={handleCardClick}
-      className={`relative mb-2 ${props.isDragging && "z-30"}`}
+      className={`relative mb-2`}
     >
       {!props.isDragging ? (
-        <div className="bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative">
+        <div className="bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative z-20">
           <button
             onClick={(e) => handleClick(e)}
             className="absolute opacity-0 group-hover:opacity-100 top-0 right-0 hover:bg-[#cfcfcf52] px-2 py-1 rounded-[3px]"
@@ -136,7 +136,7 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
           )}
         </div>
       ) : (
-        <div className="bg-[#091e4214] rounded-[3px] h-16"></div>
+        <div className="bg-[#091e4214] rounded-[3px] h-16 relative z-10"></div>
       )}
     </div>
   );

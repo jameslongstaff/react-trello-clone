@@ -25,7 +25,7 @@ const move = <T>(
   arr: Array<(T & { id: string }) | undefined>,
   oldIndex: number,
   newIndex: number
-) => {
+): T[] => {
   if (newIndex >= arr.length) {
     var k = newIndex - arr.length + 1;
 

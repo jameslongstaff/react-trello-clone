@@ -2,7 +2,10 @@ import { ListsByIdType } from "../hooks/useBoardStore";
 import CardType from "../types/CardType";
 import ListType from "../types/ListType";
 
-const findContainer = (id: string, listsById: ListsByIdType) => {
+const findContainer = (
+  id: string,
+  listsById: ListsByIdType
+): string | undefined => {
   if (id in listsById) {
     return id;
   }
@@ -10,13 +13,19 @@ const findContainer = (id: string, listsById: ListsByIdType) => {
   return findContainerForCard(id, listsById);
 };
 
-const findContainerForCard = (id: string, listsById: ListsByIdType) => {
+const findContainerForCard = (
+  id: string,
+  listsById: ListsByIdType
+): string | undefined => {
   return Object.keys(listsById).find((listId) => {
     return listsById[listId].cards.find((card: CardType) => card.id === id);
   });
 };
 
-const findCardById = (id: string, listsById: ListsByIdType) => {
+const findCardById = (
+  id: string,
+  listsById: ListsByIdType
+): CardType | undefined => {
   return Object.keys(listsById)
     .map((listId) => listsById[listId].cards)
     .flat()
@@ -56,8 +65,7 @@ const isBelowOverItem = (over: any, active: any) => {
 };
 
 const removeCardFromList = (list: ListType, cardId: string): ListType => {
-  const cards = list.cards.filter((card) => card.id !== cardId);
-  return { ...list, cards };
+  return { ...list, cards: list.cards.filter((card) => card.id !== cardId) };
 };
 
 const addCardToList = (

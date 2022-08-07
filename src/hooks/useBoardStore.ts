@@ -49,6 +49,7 @@ export interface AppState {
   listsById: ListsByIdType;
 
   setLists: (listIds: string[]) => void;
+  setList: (listType: ListType) => void;
   addListToBoard: (list: ListType) => void;
   removeListFromBoard: (list: ListType) => void;
   addCardToList: (listId: string, card: CardType) => void;
@@ -58,7 +59,6 @@ export interface AppState {
   setListsById: (listsById: ListsByIdType) => void;
 }
 
-// TODO move state modifiers to helper -> stateModfiers.ts
 const useBoardStore = create<AppState>()((set) => ({
   board: {
     title: "",
@@ -80,6 +80,9 @@ const useBoardStore = create<AppState>()((set) => ({
   resetCardModal: () => set(() => stateModifiers.resetCardModal()),
 
   setLists: (listIds: string[]) => set(() => stateModifiers.setLists(listIds)),
+
+  setList: (list: ListType) =>
+    set((state: AppState) => stateModifiers.setList(state, list)),
 
   moveList: (params: moveListParams) =>
     set((state: AppState) => stateModifiers.moveList(state, params)),

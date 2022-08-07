@@ -104,45 +104,27 @@ const Board = () => {
       return;
     }
 
-    // moving card in the same list
-    if (activeListId === overListId) {
+    if (activeListId === overListId || activeListId !== overListId) {
       const overListCards = boardStore.listsById[overListId].cards;
 
-      const overListCardIndex = overListCards.findIndex(
-        (card) => card.id === overId
-      );
+      const overListCardIndex = overListCards.findIndex((c) => c.id === overId);
 
       const newIndex = getNewIndex(overListCardIndex, over, active);
 
-      // recentlyMovedToNewContainer.current = true;
+      recentlyMovedToNewContainer.current = true;
 
       const activeList = boardStore.listsById[activeListId];
-      const overList = boardStore.listsById[overListId];
 
-      boardStore.moveCard({
-        cardId: active.id as string,
-        list: activeList,
-        pos: newIndex,
-      });
-    }
+      if (activeListId === overListId) {
+        boardStore.moveCard({
+          cardId: active.id as string,
+          list: activeList,
+          pos: newIndex,
+        });
 
-    // moving to a different list
-    if (activeListId !== overListId) {
-      const overListCards = boardStore.listsById[overListId].cards;
+        return;
+      }
 
-      const overListCardIndex = overListCards.findIndex(
-        (card) => card.id === overId
-      );
-
-      const isOverEmptyList = (overId as string) in boardStore.lists;
-
-      const newIndex = !isOverEmptyList
-        ? getNewIndex(overListCardIndex, over, active)
-        : 0;
-
-      // recentlyMovedToNewContainer.current = true;
-
-      const activeList = boardStore.listsById[activeListId];
       const overList = boardStore.listsById[overListId];
 
       boardStore.moveCardToList({
@@ -244,7 +226,12 @@ const Board = () => {
       </div>
 
       {createPortal(
-        <DragOverlay>
+        <DragOverlay
+          dropAnimation={{
+            duration: 25,
+            easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
+          }}
+        >
           {activeId
             ? boardStore.lists.includes(activeId)
               ? renderListOverlay(activeId)
