@@ -1,15 +1,15 @@
 import produce from "immer";
-import {
-  AppState,
-  moveCardParams,
-  moveCardToListParams,
-  moveListParams,
-} from "../hooks/useBoardStore";
+import { AppState } from "../hooks/useBoardStore";
 import BoardType from "../types/BoardType";
 import CardType from "../types/CardType";
 import ListType from "../types/ListType";
 import { getById, insert, move, removeById } from "./arrayUtils";
 import boardConfig from "../config/board.config";
+import {
+  MoveCardParamsType,
+  MoveCardToListParamsType,
+  MoveListParamsType,
+} from "../types/StoreTypes";
 
 const initBoard = (state: AppState, board: BoardType) => {
   const listsById = board.lists.reduce((acc: any, curr: any) => {
@@ -82,7 +82,7 @@ const removeCardFromList = (
   });
 };
 
-const moveList = (state: AppState, params: moveListParams): AppState => {
+const moveList = (state: AppState, params: MoveListParamsType): AppState => {
   return produce(state, (draftState) => {
     draftState.lists[params.fromIndex] = state.lists[params.toIndex];
     draftState.lists[params.toIndex] = state.lists[params.fromIndex];
@@ -91,7 +91,7 @@ const moveList = (state: AppState, params: moveListParams): AppState => {
 
 const moveCardToList = (
   state: AppState,
-  params: moveCardToListParams
+  params: MoveCardToListParamsType
 ): AppState => {
   const { cardId, pos, fromList, toList } = params;
 
@@ -111,7 +111,7 @@ const moveCardToList = (
   });
 };
 
-const moveCard = (state: AppState, params: moveCardParams): AppState => {
+const moveCard = (state: AppState, params: MoveCardParamsType): AppState => {
   const { cardId, pos, list } = params;
 
   const oldIndex = list.cards.findIndex((card) => card.id === cardId);
