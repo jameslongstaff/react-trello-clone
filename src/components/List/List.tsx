@@ -15,6 +15,8 @@ import CardCreator from "./CardCreator";
 import DraggableCard from "../Card/DraggableCard";
 
 export type ListPropsType = {
+  height?: number;
+  isDragging: boolean;
   list: ListType;
   style?: CSSProperties;
   attributes?: DraggableAttributes;
@@ -40,35 +42,44 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
 
   return !!props.list ? (
     <div
-      className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left relative w-64 mr-2`}
+      className={`relative w-64 mr-2`}
       ref={ref}
       style={props.style}
       {...props.attributes}
       {...props.listeners}
     >
-      <SortableContext
-        items={boardStore.listsById[props.list.id].cards}
-        strategy={verticalListSortingStrategy}
-      >
-        <div className="p-2 w-full">
-          <header className="flex mb-2">
-            <EditableTitle
-              title={props.list.title}
-              tag="h2"
-              onSave={handleBoardUpdate}
-              className="font-semibold text-base"
-            />
-            <PopOutMenu items={listMenuItems} className="ml-auto" />
-          </header>
+      {!props.isDragging ? (
+        <div className="bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left">
+          <SortableContext
+            items={boardStore.listsById[props.list.id].cards}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="p-2 w-full">
+              <header className="flex mb-2">
+                <EditableTitle
+                  title={props.list.title}
+                  tag="h2"
+                  onSave={handleBoardUpdate}
+                  className="font-semibold text-base"
+                />
+                <PopOutMenu items={listMenuItems} className="ml-auto" />
+              </header>
 
-          {props.list.cards &&
-            props.list.cards.map((card: CardType) => (
-              <DraggableCard key={card.id} card={card} />
-            ))}
+              {props.list.cards &&
+                props.list.cards.map((card: CardType) => (
+                  <DraggableCard key={card.id} card={card} />
+                ))}
 
-          <CardCreator listId={props.list.id} />
+              <CardCreator listId={props.list.id} />
+            </div>
+          </SortableContext>
         </div>
-      </SortableContext>
+      ) : (
+        <div
+          style={{ height: `${props.height}px` }}
+          className="bg-[#943c2a] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left"
+        ></div>
+      )}
     </div>
   ) : (
     <></>

@@ -104,6 +104,29 @@ const Board = () => {
       return;
     }
 
+    // moving card in the same list
+    if (activeListId === overListId) {
+      const overListCards = boardStore.listsById[overListId].cards;
+
+      const overListCardIndex = overListCards.findIndex(
+        (card) => card.id === overId
+      );
+
+      const newIndex = getNewIndex(overListCardIndex, over, active);
+
+      // recentlyMovedToNewContainer.current = true;
+
+      const activeList = boardStore.listsById[activeListId];
+      const overList = boardStore.listsById[overListId];
+
+      boardStore.moveCard({
+        cardId: active.id as string,
+        list: activeList,
+        pos: newIndex,
+      });
+    }
+
+    // moving to a different list
     if (activeListId !== overListId) {
       const overListCards = boardStore.listsById[overListId].cards;
 
@@ -117,7 +140,7 @@ const Board = () => {
         ? getNewIndex(overListCardIndex, over, active)
         : 0;
 
-      recentlyMovedToNewContainer.current = true;
+      // recentlyMovedToNewContainer.current = true;
 
       const activeList = boardStore.listsById[activeListId];
       const overList = boardStore.listsById[overListId];

@@ -8,14 +8,21 @@ export interface DraggableListProps {
 }
 
 function DraggableList(props: DraggableListProps) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id: props.list.id,
-      data: {
-        type: "container",
-        children: props.list.cards.map((card) => card.id),
-      },
-    });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    node,
+    isDragging,
+  } = useSortable({
+    id: props.list.id,
+    data: {
+      type: "container",
+      children: props.list.cards.map((card) => card.id),
+    },
+  });
 
   const style = {
     transform: transform
@@ -27,6 +34,8 @@ function DraggableList(props: DraggableListProps) {
 
   return (
     <List
+      isDragging={isDragging}
+      height={node.current?.clientHeight}
       ref={setNodeRef}
       style={style}
       attributes={attributes}
