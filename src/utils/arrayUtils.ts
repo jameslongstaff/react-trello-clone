@@ -14,7 +14,11 @@ const insert = <T>(
   item: T & { id: string },
   index: number
 ): T[] => {
-  return items.splice(index, 0, item);
+  const clonedItems = structuredClone(items);
+
+  clonedItems.splice(index, 0, item);
+
+  return clonedItems;
 };
 
 export { removeById, getById, insert };

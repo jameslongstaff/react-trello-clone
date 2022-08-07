@@ -6,7 +6,6 @@ import ListCreator from "./ListCreator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
 import {
-  CancelDrop,
   CollisionDetection,
   DndContext,
   DragEndEvent,
@@ -19,11 +18,12 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import customCollisionStrategy from "../../utils/customCollisionStrategy";
-import { findContainer, getNewIndex } from "../../utils/dndUtils";
+import { findCardById, findContainer, getNewIndex } from "../../utils/dndUtils";
 import List from "../List/List";
 import { createPortal } from "react-dom";
 import Card from "../Card/Card";
 import DraggableList from "../List/DraggableList";
+import CardType from "../../types/CardType";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -42,6 +42,7 @@ const Board = () => {
   }, []);
 
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeCard, setActiveCard] = useState<CardType | null>(null);
   const [clonedItems, setClonedItems] = useState<any | null>(null);
 
   const lastOverId = useRef<string | null>(null);
@@ -74,6 +75,16 @@ const Board = () => {
 
   const handleDragStart = (params: DragStartEvent) => {
     setActiveId(params.active.id as string);
+
+    if (!boardStore.lists.includes(params.active.id as string)) {
+      const card = findCardById(
+        params.active.id as string,
+        boardStore.listsById
+      );
+
+      if (card) setActiveCard(card);
+    }
+
     setClonedItems(boardStore.listsById);
   };
 
@@ -111,18 +122,18 @@ const Board = () => {
       const activeList = boardStore.listsById[activeListId];
       const overList = boardStore.listsById[overListId];
 
-      // boardStore.moveCardToList({
-      //   cardId: active.id as string,
-      //   fromList: activeList,
-      //   toList: overList,
-      //   pos: newIndex,
-      // });
+      boardStore.moveCardToList({
+        cardId: active.id as string,
+        fromList: activeList,
+        toList: overList,
+        pos: newIndex,
+      });
     }
   };
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
-    // if moving lists
     if (active.id in boardStore.listsById && over?.id) {
+      console.log(["end"]);
       const activeIndex = boardStore.lists.indexOf(active.id as string);
       const overIndex = boardStore.lists.indexOf(over.id as string);
 
@@ -134,44 +145,13 @@ const Board = () => {
       });
 
       setActiveId(null);
+      setActiveCard(null);
 
       return;
-    }
-
-    const activeContainer = findContainer(
-      active.id as string,
-      boardStore.listsById
-    );
-
-    const overId = over?.id;
-
-    if (!activeContainer || overId == null) {
-      setActiveId(null);
-      return;
-    }
-
-    const overContainer = findContainer(overId as string, boardStore.listsById);
-
-    if (overContainer) {
-      const activeIndex = boardStore.listsById[activeContainer].cards.findIndex(
-        (card) => card.id === active.id
-      );
-
-      const overIndex = boardStore.listsById[overContainer].cards.findIndex(
-        (card) => card.id === overId
-      );
-
-      if (activeIndex !== overIndex) {
-        boardStore.moveList({
-          fromList: boardStore.listsById[activeContainer],
-          toList: boardStore.listsById[overContainer],
-          fromIndex: activeIndex,
-          toIndex: overIndex,
-        });
-      }
     }
 
     setActiveId(null);
+    setActiveCard(null);
   };
 
   const handleDragCancel = () => {
@@ -189,14 +169,12 @@ const Board = () => {
     return <List list={list} />;
   }
 
-  function renderCardDragOverlay(id: string) {
-    const listId = findContainer(id, boardStore.listsById)!;
+  function renderCardDragOverlay() {
+    if (activeCard) {
+      return <Card card={activeCard} />;
+    }
 
-    const card = boardStore.listsById[listId].cards.find(
-      (card) => card.id === id
-    )!;
-
-    return <Card card={card} />;
+    return undefined;
   }
 
   return !!boardStore.board ? (
@@ -247,7 +225,7 @@ const Board = () => {
           {activeId
             ? boardStore.lists.includes(activeId)
               ? renderListOverlay(activeId)
-              : renderCardDragOverlay(activeId)
+              : renderCardDragOverlay()
             : null}
         </DragOverlay>,
         document.body

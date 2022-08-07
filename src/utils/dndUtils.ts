@@ -16,6 +16,13 @@ const findContainerForCard = (id: string, listsById: ListsByIdType) => {
   });
 };
 
+const findCardById = (id: string, listsById: ListsByIdType) => {
+  return Object.keys(listsById)
+    .map((listId) => listsById[listId].cards)
+    .flat()
+    .find((card) => card.id === id);
+};
+
 const getNextContainerId = (listsById: ListsByIdType) => {
   const listIds = Object.keys(listsById);
   const lastContainerId = listIds[listIds.length - 1];
@@ -66,6 +73,7 @@ const addCardToList = (
 };
 
 export {
+  findCardById,
   findContainer,
   findContainerForCard,
   getCardIndex,

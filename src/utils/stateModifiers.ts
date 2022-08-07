@@ -49,12 +49,12 @@ const moveCardToList = (state: AppState, params: moveCardToListParams) => {
 
   return produce(state, (draftState) => {
     draftState.listsById[fromList.id].cards = removeById<CardType>(
-      draftState.listsById[fromList.id].cards,
+      state.listsById[fromList.id].cards,
       cardId
     );
 
     draftState.listsById[toList.id].cards = insert<CardType>(
-      draftState.listsById[toList.id].cards,
+      state.listsById[toList.id].cards,
       fromCard,
       pos
     );
