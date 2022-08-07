@@ -19,6 +19,7 @@ export type CardPropsType = {
   attributes?: DraggableAttributes;
   listeners?: SyntheticListenerMap | undefined;
   isDragging?: boolean;
+  isOverlay?: boolean;
 };
 
 const Card = forwardRef((props: CardPropsType, ref: any) => {
@@ -90,7 +91,11 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
       className={`relative mb-2`}
     >
       {!props.isDragging ? (
-        <div className="bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative">
+        <div
+          className={`bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative origin-bottom-left ${
+            props.isOverlay && "rotate-3"
+          }`}
+        >
           <button
             onClick={(e) => handleClick(e)}
             className="absolute opacity-0 group-hover:opacity-100 top-0 right-0 hover:bg-[#cfcfcf52] px-2 py-1 rounded-[3px] m-1"
