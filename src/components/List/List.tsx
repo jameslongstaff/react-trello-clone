@@ -21,6 +21,7 @@ export type ListPropsType = {
   style?: CSSProperties;
   attributes?: DraggableAttributes;
   listeners?: SyntheticListenerMap | undefined;
+  isOverlay?: boolean;
 };
 
 const List = forwardRef((props: ListPropsType, ref: any) => {
@@ -49,7 +50,11 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
       {...props.listeners}
     >
       {!props.isDragging ? (
-        <div className="bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left">
+        <div
+          className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${
+            props.isOverlay && "rotate-3"
+          }`}
+        >
           <SortableContext
             items={boardStore.listsById[props.list.id].cards}
             strategy={verticalListSortingStrategy}

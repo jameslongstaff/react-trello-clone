@@ -105,7 +105,9 @@ const Board = () => {
       return;
     }
 
-    const overListCardIndex = boardStore.listsById[overListId].cards.findIndex(
+    const overList = boardStore.listsById[overListId];
+
+    const overListCardIndex = overList.cards.findIndex(
       ({ id }) => id === overId
     );
 
@@ -113,25 +115,24 @@ const Board = () => {
 
     recentlyMovedToNewContainer.current = true;
 
-    const activeList = boardStore.listsById[activeListId];
+    const updateParams = {
+      cardId: active.id as string,
+      pos: newIndex,
+    };
 
     if (overCurrentList) {
       boardStore.moveCard({
-        cardId: active.id as string,
-        list: activeList,
-        pos: newIndex,
+        list: boardStore.listsById[activeListId],
+        ...updateParams,
       });
 
       return;
     }
 
-    const overList = boardStore.listsById[overListId];
-
     boardStore.moveCardToList({
-      cardId: active.id as string,
-      fromList: activeList,
+      fromList: boardStore.listsById[activeListId],
       toList: overList,
-      pos: newIndex,
+      ...updateParams,
     });
   };
 
@@ -164,12 +165,12 @@ const Board = () => {
   function renderListOverlay(listId: string) {
     const list = boardStore.listsById[listId];
 
-    return <List list={list} />;
+    return <List isOverlay list={list} />;
   }
 
   function renderCardDragOverlay() {
     if (activeCard) {
-      return <Card card={activeCard} />;
+      return <Card isOverlay card={activeCard} />;
     }
 
     return undefined;
