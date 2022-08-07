@@ -8,6 +8,7 @@ export type DraggableCardPropsType = {
 
 const DraggableCard = (props: DraggableCardPropsType) => {
   const {
+    node,
     setNodeRef,
     listeners,
     attributes,
@@ -27,6 +28,7 @@ const DraggableCard = (props: DraggableCardPropsType) => {
 
   return (
     <Card
+      height={node.current?.clientHeight}
       ref={setNodeRef}
       style={style}
       attributes={attributes}
