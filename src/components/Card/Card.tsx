@@ -41,14 +41,14 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
   };
 
   const handleSaveCard = () => {
-    const updatedBoard = updateCard(card);
-    boardStore.setBoard(updatedBoard);
+    updateCard(card);
+    boardStore.updateCard(card);
     setIsQuickEditing(false);
   };
 
   const handleDeleteCard = (e: React.MouseEvent) => {
-    const updatedBoard = deleteCard(card);
-    boardStore.setBoard(updatedBoard);
+    deleteCard(card);
+    boardStore.removeCardFromList(card.listId, card.id);
     setIsQuickEditing(false);
   };
 
@@ -90,10 +90,10 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
       className={`relative mb-2`}
     >
       {!props.isDragging ? (
-        <div className="bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative z-20">
+        <div className="bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative">
           <button
             onClick={(e) => handleClick(e)}
-            className="absolute opacity-0 group-hover:opacity-100 top-0 right-0 hover:bg-[#cfcfcf52] px-2 py-1 rounded-[3px]"
+            className="absolute opacity-0 group-hover:opacity-100 top-0 right-0 hover:bg-[#cfcfcf52] px-2 py-1 rounded-[3px] m-1"
           >
             <FontAwesomeIcon
               className="text-[#6b778c] w-[0.65rem]"
@@ -123,7 +123,7 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
                     Save
                   </button>
                 </div>
-                <div className="absolute top-0 left-full ml-2 w-28">
+                <div className="absolute top-0 left-full ml-2 w-28 z-20">
                   <button
                     onClick={(e) => handleDeleteCard(e)}
                     className="block px-3 py-2 mb-2 left-0 text-white bg-[#0009] hover:bg-[#000c] rounded-[3px] transition-all hover:left-1 relative"

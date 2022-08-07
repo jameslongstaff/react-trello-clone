@@ -32,8 +32,8 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
   };
 
   const handleDeleteList = () => {
-    const updatedBoard = deleteList(props.list.id);
-    boardStore.setBoard(updatedBoard);
+    deleteList(props.list.id);
+    boardStore.removeListFromBoard(props.list.id);
   };
 
   const listMenuItems: PopoutMenuItemType[] = [

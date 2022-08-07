@@ -23,7 +23,7 @@ const setLists = (listIds: string[]) => {
   return { lists: listIds };
 };
 
-const setList = (state: AppState, list: ListType) => {
+const setList = (state: AppState, list: ListType): AppState => {
   return produce(state, (draftState) => {
     draftState.listsById[list.id] = list;
   });
@@ -36,20 +36,54 @@ const addListToBoard = (state: AppState, list: ListType) => {
   });
 };
 
-const addCardToList = (state: AppState, listId: string, card: CardType) => {
+const addCardToList = (
+  state: AppState,
+  listId: string,
+  card: CardType
+): AppState => {
   return produce(state, (draftState) => {
     draftState.listsById[listId].cards.push(card);
   });
 };
 
-const moveList = (state: AppState, params: moveListParams) => {
+const updateCard = (state: AppState, card: CardType): AppState => {
+  const cardIndex = state.listsById[card.listId].cards.findIndex(
+    (c) => c.id === card.id
+  );
+
+  return produce(state, (draftState) => {
+    draftState.listsById[card.listId].cards[cardIndex] = card;
+  });
+};
+
+const removeListFromBoard = (state: AppState, listId: string): AppState => {
+  return produce(state, (draftState) => {
+    delete draftState.listsById[listId];
+    draftState.lists.filter((id) => id !== listId);
+  });
+};
+
+const removeCardFromList = (
+  state: AppState,
+  listId: string,
+  cardId: string
+): AppState => {
+  return produce(state, (draftState) => {
+    draftState.listsById[listId].cards.filter((card) => card.id !== cardId);
+  });
+};
+
+const moveList = (state: AppState, params: moveListParams): AppState => {
   return produce(state, (draftState) => {
     draftState.lists[params.fromIndex] = state.lists[params.toIndex];
     draftState.lists[params.toIndex] = state.lists[params.fromIndex];
   });
 };
 
-const moveCardToList = (state: AppState, params: moveCardToListParams) => {
+const moveCardToList = (
+  state: AppState,
+  params: moveCardToListParams
+): AppState => {
   const { cardId, pos, fromList, toList } = params;
 
   const fromCard = getById<CardType>(fromList.cards, cardId)!;
@@ -68,7 +102,7 @@ const moveCardToList = (state: AppState, params: moveCardToListParams) => {
   });
 };
 
-const moveCard = (state: AppState, params: moveCardParams) => {
+const moveCard = (state: AppState, params: moveCardParams): AppState => {
   const { cardId, pos, list } = params;
 
   const oldIndex = list.cards.findIndex((card) => card.id === cardId);
@@ -102,6 +136,8 @@ export default {
   moveList,
   addListToBoard,
   addCardToList,
+  removeCardFromList,
+  removeListFromBoard,
   moveCardToList,
   setLists,
   setList,
@@ -109,4 +145,5 @@ export default {
   setCardModal,
   resetCardModal,
   moveCard,
+  updateCard,
 };
