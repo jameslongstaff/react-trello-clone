@@ -32,8 +32,8 @@ const CardCreator = (props: CardCreatorPropsType) => {
   }, [editorIsOpen]);
 
   const handleBoardUpdate = () => {
-    const updatedBoard = addCardToList(props.listId, title);
-    boardStore.setBoard(updatedBoard);
+    const card = addCardToList(props.listId, title);
+    boardStore.addCardToList(props.listId, card);
   };
 
   const handleKeyPress = (event: any) => {

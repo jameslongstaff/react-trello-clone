@@ -17,7 +17,7 @@ const getBoard = (): BoardType => {
   return JSON.parse(localStorage.getItem("board")!);
 };
 
-const addListToBoard = (title: string): BoardType => {
+const addListToBoard = (title: string): ListType => {
   const newList: ListType = {
     id: uuidv4(),
     title,
@@ -30,10 +30,10 @@ const addListToBoard = (title: string): BoardType => {
 
   setBoard(board);
 
-  return board;
+  return newList;
 };
 
-const addCardToList = (listId: string, title: string): BoardType => {
+const addCardToList = (listId: string, title: string): CardType => {
   const newCard: CardType = {
     id: uuidv4(),
     title,
@@ -47,7 +47,7 @@ const addCardToList = (listId: string, title: string): BoardType => {
 
   setBoard(board);
 
-  return board;
+  return newCard;
 };
 
 const deleteList = (listId: string): BoardType => {
@@ -60,7 +60,7 @@ const deleteList = (listId: string): BoardType => {
   return board;
 };
 
-const updateList = (update: ListType): BoardType => {
+const updateList = (update: ListType): ListType => {
   const board = getBoard();
 
   const index = board.lists.findIndex(
@@ -71,10 +71,10 @@ const updateList = (update: ListType): BoardType => {
 
   setBoard(board);
 
-  return board;
+  return update;
 };
 
-const deleteCard = (card: CardType): BoardType => {
+const deleteCard = (card: CardType) => {
   const board = getBoard();
 
   const listIndex = board.lists.findIndex(
@@ -86,8 +86,6 @@ const deleteCard = (card: CardType): BoardType => {
   );
 
   setBoard(board);
-
-  return board;
 };
 
 const updateCard = (update: CardType): BoardType => {

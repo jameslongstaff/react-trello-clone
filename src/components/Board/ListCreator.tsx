@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
-import { v4 as uuidv4 } from "uuid";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addListToBoard } from "../../utils/persistence";
@@ -44,8 +43,8 @@ const ListCreator = () => {
 
   const saveList = () => {
     if (title !== "") {
-      const updatedBoard = addListToBoard(title);
-      boardStore.setBoard(updatedBoard);
+      const list = addListToBoard(title);
+      boardStore.addListToBoard(list);
     }
 
     closeEditor();
@@ -88,7 +87,7 @@ const ListCreator = () => {
             />
           )}
 
-          {!boardStore.board.lists.length || editorIsOpen
+          {!boardStore.lists.length || editorIsOpen
             ? "Add a list"
             : "Add another list"}
         </button>

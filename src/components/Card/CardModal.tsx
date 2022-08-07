@@ -11,7 +11,7 @@ const CardModal = () => {
   };
 
   return boardStore.cardModal.card ? (
-    <div className="absolute h-[100vh] w-full top-0 left-0">
+    <div className="absolute h-[100vh] w-full top-0 left-0 z-20">
       <div
         className="absolute top-0 left-0 h-[100vh] w-full bg-[#0009]"
         onClick={closeModal}
