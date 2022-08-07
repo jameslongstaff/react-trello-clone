@@ -2,13 +2,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
+import { getBoard } from "../../utils/persistence";
 
 const BoardTopBar = () => {
   const boardStore = useBoardStore();
 
   const clearAll = () => {
     localStorage.clear();
-    boardStore.resetBoard();
+    boardStore.initBoard(getBoard());
   };
 
   return (

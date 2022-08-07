@@ -17,7 +17,6 @@ export interface AppState {
   board: BoardStateType;
   setBoard: (board: BoardStateType) => void;
   initBoard: (board: BoardType) => void;
-  resetBoard: () => void;
 
   cardModal: CardModalStateType;
   setCardModal: (card: CardType) => void;
@@ -47,8 +46,6 @@ const useBoardStore = create<AppState>()((set) => ({
 
   initBoard: (board: BoardType) =>
     set((state: AppState) => stateModifiers.initBoard(state, board)),
-
-  resetBoard: () => set(stateModifiers.resetBoard()),
 
   setCardModal: (card: CardType) =>
     set(() => stateModifiers.setCardModal(card)),

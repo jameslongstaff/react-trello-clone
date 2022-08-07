@@ -2,6 +2,7 @@ import BoardType from "../types/BoardType";
 import ListType from "../types/ListType";
 import { v4 as uuidv4 } from "uuid";
 import CardType from "../types/CardType";
+import config from "../config/board.config";
 
 const setBoard = (board: BoardType): void => {
   localStorage.setItem("board", JSON.stringify(board));
@@ -9,9 +10,8 @@ const setBoard = (board: BoardType): void => {
 
 const getBoard = (): BoardType => {
   if (!localStorage.getItem("board")) {
-    const board = { lists: [], title: "Board title" };
-    localStorage.setItem("board", JSON.stringify(board));
-    return board;
+    setBoard(config.initialLocalStorageBoard);
+    return config.initialLocalStorageBoard;
   }
 
   return JSON.parse(localStorage.getItem("board")!);
