@@ -2,19 +2,20 @@ import create from "zustand";
 import ListType from "../types/ListType";
 import CardType from "../types/CardType";
 import stateModifiers from "../utils/stateModifiers";
+import BoardType from "../types/BoardType";
 
 export type ListsByIdType = {
   [listId: string]: ListType;
 };
 
-interface CardModalState {
+type CardModalState = {
   show: boolean;
   card?: CardType;
-}
+};
 
-interface BoardState {
+type BoardState = {
   title: string;
-}
+};
 
 export type moveCardParams = {
   cardId: string;
@@ -39,6 +40,7 @@ export type moveListParams = {
 export interface AppState {
   board: BoardState;
   setBoard: (board: BoardState) => void;
+  initBoard: (board: BoardType) => void;
   resetBoard: () => void;
 
   cardModal: CardModalState;
@@ -47,18 +49,19 @@ export interface AppState {
 
   lists: string[];
   listsById: ListsByIdType;
-
+  setListsById: (listsById: ListsByIdType) => void;
   setLists: (listIds: string[]) => void;
   setList: (listType: ListType) => void;
+  moveList: (params: moveListParams) => void;
+
   addListToBoard: (list: ListType) => void;
   removeListFromBoard: (listId: string) => void;
+
   addCardToList: (listId: string, card: CardType) => void;
   removeCardFromList: (listId: string, cardId: string) => void;
   moveCardToList: (params: moveCardToListParams) => void;
   moveCard: (params: moveCardParams) => void;
   updateCard: (card: CardType) => void;
-  moveList: (params: moveListParams) => void;
-  setListsById: (listsById: ListsByIdType) => void;
 }
 
 const useBoardStore = create<AppState>()((set) => ({
@@ -73,6 +76,9 @@ const useBoardStore = create<AppState>()((set) => ({
   listsById: {},
 
   setBoard: (board: BoardState) => set({ board }),
+
+  initBoard: (board: BoardType) =>
+    set((state: AppState) => stateModifiers.initBoard(state, board)),
 
   resetBoard: () => set(() => stateModifiers.resetBoard()),
 

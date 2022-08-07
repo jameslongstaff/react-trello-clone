@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import BoardTitle from "./BoardTitle";
 import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardModal from "../Card/CardModal";
 import {
   CollisionDetection,
@@ -24,21 +22,13 @@ import { createPortal } from "react-dom";
 import Card from "../Card/Card";
 import DraggableList from "../List/DraggableList";
 import CardType from "../../types/CardType";
+import BoardTopBar from "./BoardTopBar";
 
 const Board = () => {
   const boardStore = useBoardStore();
 
   useEffect(() => {
-    const board = getBoard();
-
-    const listsById = board.lists.reduce((acc: any, curr: any) => {
-      acc[curr.id] = curr;
-      return acc;
-    }, {});
-
-    boardStore.setBoard({ title: board.title });
-    boardStore.setListsById(listsById);
-    boardStore.setLists(board.lists.map((list) => list.id));
+    boardStore.initBoard(getBoard());
   }, []);
 
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -68,15 +58,19 @@ const Board = () => {
     },
   });
 
-  const clearAll = () => {
-    localStorage.clear();
-    boardStore.resetBoard();
+  const setInactive = () => {
+    setActiveCard(null);
+    setActiveId(null);
+  };
+
+  const isList = (id: string) => {
+    return boardStore.lists.includes(id);
   };
 
   const handleDragStart = (params: DragStartEvent) => {
     setActiveId(params.active.id as string);
 
-    if (!boardStore.lists.includes(params.active.id as string)) {
+    if (!isList(params.active.id as string)) {
       const card = findCardById(
         params.active.id as string,
         boardStore.listsById
@@ -91,7 +85,7 @@ const Board = () => {
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     const overId = over?.id;
 
-    if (overId == null || active.id in boardStore.listsById) {
+    if (overId == null || isList(active.id as string)) {
       return;
     }
 
@@ -104,41 +98,45 @@ const Board = () => {
       return;
     }
 
-    if (activeListId === overListId || activeListId !== overListId) {
-      const overListCards = boardStore.listsById[overListId].cards;
+    const overDifferentList = activeListId !== overListId;
+    const overCurrentList = activeListId === overListId;
 
-      const overListCardIndex = overListCards.findIndex((c) => c.id === overId);
+    if (!(overCurrentList || overDifferentList)) {
+      return;
+    }
 
-      const newIndex = getNewIndex(overListCardIndex, over, active);
+    const overListCardIndex = boardStore.listsById[overListId].cards.findIndex(
+      ({ id }) => id === overId
+    );
 
-      recentlyMovedToNewContainer.current = true;
+    const newIndex = getNewIndex(overListCardIndex, over, active);
 
-      const activeList = boardStore.listsById[activeListId];
+    recentlyMovedToNewContainer.current = true;
 
-      if (activeListId === overListId) {
-        boardStore.moveCard({
-          cardId: active.id as string,
-          list: activeList,
-          pos: newIndex,
-        });
+    const activeList = boardStore.listsById[activeListId];
 
-        return;
-      }
-
-      const overList = boardStore.listsById[overListId];
-
-      boardStore.moveCardToList({
+    if (overCurrentList) {
+      boardStore.moveCard({
         cardId: active.id as string,
-        fromList: activeList,
-        toList: overList,
+        list: activeList,
         pos: newIndex,
       });
+
+      return;
     }
+
+    const overList = boardStore.listsById[overListId];
+
+    boardStore.moveCardToList({
+      cardId: active.id as string,
+      fromList: activeList,
+      toList: overList,
+      pos: newIndex,
+    });
   };
 
   const handleDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id in boardStore.listsById && over?.id) {
-      console.log(["end"]);
       const activeIndex = boardStore.lists.indexOf(active.id as string);
       const overIndex = boardStore.lists.indexOf(over.id as string);
 
@@ -148,15 +146,9 @@ const Board = () => {
         fromIndex: activeIndex,
         toIndex: overIndex,
       });
-
-      setActiveId(null);
-      setActiveCard(null);
-
-      return;
     }
 
-    setActiveId(null);
-    setActiveCard(null);
+    setInactive();
   };
 
   const handleDragCancel = () => {
@@ -164,7 +156,8 @@ const Board = () => {
       boardStore.setListsById(clonedItems);
     }
 
-    setActiveId(null);
+    setInactive();
+
     setClonedItems(null);
   };
 
@@ -196,33 +189,18 @@ const Board = () => {
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <div className="inline-flex">
-        <div>
-          <BoardTitle title={boardStore.board.title} />
-        </div>
-        <button
-          className="text-white ml-2 bg-[#ffffff3d] hover:bg-[#ffffff52] px-3 text-sm rounded-[3px]"
-          onClick={clearAll}
-        >
-          <FontAwesomeIcon className="mr-2" icon={["fas", "xmark"]} />
-          Clear all
-        </button>
-      </div>
-      <div className="w-full">
-        <div className="mt-4 flex-nowrap inline-flex">
-          <SortableContext items={boardStore.lists}>
-            {boardStore.lists.map((listId: string) => {
-              return (
-                <DraggableList
-                  key={listId}
-                  list={boardStore.listsById[listId]}
-                />
-              );
-            })}
-          </SortableContext>
+      <BoardTopBar />
 
-          <ListCreator></ListCreator>
-        </div>
+      <div className="w-full mt-4 flex-nowrap inline-flex">
+        <SortableContext items={boardStore.lists}>
+          {boardStore.lists.map((listId: string) => {
+            return (
+              <DraggableList key={listId} list={boardStore.listsById[listId]} />
+            );
+          })}
+        </SortableContext>
+
+        <ListCreator></ListCreator>
       </div>
 
       {createPortal(

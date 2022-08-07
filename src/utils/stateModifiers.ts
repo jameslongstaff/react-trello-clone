@@ -5,18 +5,27 @@ import {
   moveCardToListParams,
   moveListParams,
 } from "../hooks/useBoardStore";
+import BoardType from "../types/BoardType";
 import CardType from "../types/CardType";
 import ListType from "../types/ListType";
 import { getById, insert, move, removeById } from "./arrayUtils";
+import boardConfig from "../config/board.config";
+
+const initBoard = (state: AppState, board: BoardType) => {
+  const listsById = board.lists.reduce((acc: any, curr: any) => {
+    acc[curr.id] = curr;
+    return acc;
+  }, {});
+
+  return produce(state, (draftState) => {
+    draftState.board.title = board.title;
+    draftState.lists = board.lists.map((list) => list.id);
+    draftState.listsById = listsById;
+  });
+};
 
 const resetBoard = () => {
-  return {
-    board: {
-      title: "New title",
-    },
-    lists: [],
-    listsById: {},
-  };
+  return boardConfig.initialBoardState;
 };
 
 const setLists = (listIds: string[]) => {
@@ -133,6 +142,7 @@ const resetCardModal = () => {
 };
 
 export default {
+  initBoard,
   moveList,
   addListToBoard,
   addCardToList,
