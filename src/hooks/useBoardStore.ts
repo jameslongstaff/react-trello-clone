@@ -10,7 +10,7 @@ import {
   ListsByIdType,
   MoveCardParamsType,
   MoveCardToListParamsType,
-  MoveListParamsType,
+  MoveListParamsType
 } from "../types/StoreTypes";
 
 export interface AppState {
@@ -44,18 +44,15 @@ const useBoardStore = create<AppState>()((set) => ({
 
   setBoard: (board: BoardStateType) => set({ board }),
 
-  initBoard: (board: BoardType) =>
-    set((state: AppState) => stateModifiers.initBoard(state, board)),
+  initBoard: (board: BoardType) => set((state: AppState) => stateModifiers.initBoard(state, board)),
 
-  setCardModal: (card: CardType) =>
-    set(() => stateModifiers.setCardModal(card)),
+  setCardModal: (card: CardType) => set(() => stateModifiers.setCardModal(card)),
 
   resetCardModal: () => set(() => stateModifiers.resetCardModal()),
 
   setLists: (listIds: string[]) => set(() => stateModifiers.setLists(listIds)),
 
-  setList: (list: ListType) =>
-    set((state: AppState) => stateModifiers.setList(state, list)),
+  setList: (list: ListType) => set((state: AppState) => stateModifiers.setList(state, list)),
 
   moveList: (params: MoveListParamsType) =>
     set((state: AppState) => stateModifiers.moveList(state, params)),
@@ -70,9 +67,7 @@ const useBoardStore = create<AppState>()((set) => ({
     set((state: AppState) => stateModifiers.addCardToList(state, listId, card)),
 
   removeCardFromList: (listId: string, cardId: string) =>
-    set((state: AppState) =>
-      stateModifiers.removeCardFromList(state, listId, cardId)
-    ),
+    set((state: AppState) => stateModifiers.removeCardFromList(state, listId, cardId)),
 
   moveCardToList: (params: MoveCardToListParamsType) =>
     set((state: AppState) => stateModifiers.moveCardToList(state, params)),
@@ -80,13 +75,12 @@ const useBoardStore = create<AppState>()((set) => ({
   moveCard: (params: MoveCardParamsType) =>
     set((state: AppState) => stateModifiers.moveCard(state, params)),
 
-  updateCard: (card: CardType) =>
-    set((state: AppState) => stateModifiers.updateCard(state, card)),
+  updateCard: (card: CardType) => set((state: AppState) => stateModifiers.updateCard(state, card)),
 
   setListsById: (listsById: ListsByIdType) =>
     set({
-      listsById,
-    }),
+      listsById
+    })
 }));
 
 export default useBoardStore;

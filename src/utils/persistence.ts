@@ -14,21 +14,22 @@ const getBoard = (): BoardType => {
     return config.initialLocalStorageBoard;
   }
 
-  return JSON.parse(localStorage.getItem("board")!);
+  return JSON.parse(String(localStorage.getItem("board")));
 };
 
 const addListToBoard = (title: string): ListType => {
   const newList: ListType = {
     id: uuidv4(),
     title,
-    cards: [],
+    cards: []
   };
 
   const board = getBoard();
 
-  board.lists = board.lists.concat([newList]);
-
-  setBoard(board);
+  if (board) {
+    board.lists = board.lists.concat([newList]);
+    setBoard(board);
+  }
 
   return newList;
 };
@@ -38,24 +39,30 @@ const addCardToList = (listId: string, title: string): CardType => {
     id: uuidv4(),
     title,
     content: "",
-    listId,
+    listId
   };
 
   const board = getBoard();
 
-  board.lists.find((list: ListType) => list.id === listId)!.cards.push(newCard);
-
-  setBoard(board);
+  if (board) {
+    const list = board.lists.find((list: ListType) => list.id === listId);
+    if (list) {
+      list.cards.push(newCard);
+    }
+    setBoard(board);
+  }
 
   return newCard;
 };
 
-const deleteList = (listId: string): BoardType => {
+const deleteList = (listId: string): BoardType | undefined => {
   const board = getBoard();
 
-  board.lists = board.lists.filter((list: ListType) => list.id !== listId);
+  if (board) {
+    board.lists = board.lists.filter((list: ListType) => list.id !== listId);
 
-  setBoard(board);
+    setBoard(board);
+  }
 
   return board;
 };
@@ -63,13 +70,13 @@ const deleteList = (listId: string): BoardType => {
 const updateList = (update: ListType): ListType => {
   const board = getBoard();
 
-  const index = board.lists.findIndex(
-    (list: ListType) => list.id === update.id
-  );
+  if (board) {
+    const index = board.lists.findIndex((list: ListType) => list.id === update.id);
 
-  board.lists[index] = update;
+    board.lists[index] = update;
 
-  setBoard(board);
+    setBoard(board);
+  }
 
   return update;
 };
@@ -77,52 +84,46 @@ const updateList = (update: ListType): ListType => {
 const deleteCard = (card: CardType) => {
   const board = getBoard();
 
-  const listIndex = board.lists.findIndex(
-    (list: ListType) => list.id === card.listId
-  );
+  if (board) {
+    const listIndex = board.lists.findIndex((list: ListType) => list.id === card.listId);
 
-  board.lists[listIndex].cards = board.lists[listIndex].cards.filter(
-    (c) => c.id !== card.id
-  );
+    board.lists[listIndex].cards = board.lists[listIndex].cards.filter((c) => c.id !== card.id);
 
-  setBoard(board);
+    setBoard(board);
+  }
 };
 
-const updateCard = (update: CardType): BoardType => {
+const updateCard = (update: CardType): BoardType | undefined => {
   const board = getBoard();
 
-  const listIndex = board.lists.findIndex(
-    (list: ListType) => list.id === update.listId
-  );
+  if (board) {
+    const listIndex = board.lists.findIndex((list: ListType) => list.id === update.listId);
 
-  const cardIndex = board.lists[listIndex].cards.findIndex(
-    (card) => card.id === update.id
-  );
+    const cardIndex = board.lists[listIndex].cards.findIndex((card) => card.id === update.id);
 
-  board.lists[listIndex].cards[cardIndex] = update;
+    board.lists[listIndex].cards[cardIndex] = update;
 
-  setBoard(board);
+    setBoard(board);
+  }
 
   return board;
 };
 
-const moveList = (src: string, dest: string): BoardType => {
+const moveList = (src: string, dest: string): BoardType | undefined => {
   const board = getBoard();
 
-  const srcListIndex = board.lists.findIndex(
-    (list: ListType) => list.id === src
-  );
+  if (board) {
+    const srcListIndex = board.lists.findIndex((list: ListType) => list.id === src);
 
-  const destListIndex = board.lists.findIndex(
-    (list: ListType) => list.id === dest
-  );
+    const destListIndex = board.lists.findIndex((list: ListType) => list.id === dest);
 
-  const destListClone = structuredClone(board.lists[destListIndex]);
+    const destListClone = structuredClone(board.lists[destListIndex]);
 
-  board.lists[destListIndex] = board.lists[srcListIndex];
-  board.lists[srcListIndex] = destListClone;
+    board.lists[destListIndex] = board.lists[srcListIndex];
+    board.lists[srcListIndex] = destListClone;
 
-  setBoard(board);
+    setBoard(board);
+  }
 
   return board;
 };
@@ -136,5 +137,5 @@ export {
   updateCard,
   deleteList,
   deleteCard,
-  moveList,
+  moveList
 };

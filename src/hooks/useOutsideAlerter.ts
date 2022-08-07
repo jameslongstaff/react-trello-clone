@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const useOutsideAlerter = (ref: any, fn: any, deps?: any[]) => {
   useEffect(() => {

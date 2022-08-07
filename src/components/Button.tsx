@@ -1,5 +1,3 @@
-import React from "react";
-
 type TagType = "a" | "button";
 
 const Button = (props: any) => {

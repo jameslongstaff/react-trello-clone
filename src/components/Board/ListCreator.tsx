@@ -59,13 +59,10 @@ const ListCreator = () => {
       ref={wrapperRef}
       className={`w-64 mr-2 rounded-[3px] p-1 self-start cursor-pointer ${
         editorIsOpen ? "bg-[#ebecf0]" : "bg-[#ffffff3d] hover:bg-[#ffffff52]"
-      }`}
-    >
+      }`}>
       <input
         ref={inputRef}
-        className={`${
-          !!editorIsOpen ? "block p-2 mb-1 " : "hidden"
-        } w-full rounded-[3px] text-sm`}
+        className={`${editorIsOpen ? "block p-2 mb-1 " : "hidden"} w-full rounded-[3px] text-sm`}
         placeholder="Title.."
         onChange={(event) => handleChange(event)}
         onKeyDown={(event) => handleKeyPress(event)}
@@ -74,28 +71,17 @@ const ListCreator = () => {
       <div className="flex">
         <button
           className={`text-white py-1 text-sm rounded-[3px] ${
-            editorIsOpen
-              ? "bg-[#0079bf] px-4 hover:bg-[#026aa7]"
-              : "bg-none w-full text-left px-2"
+            editorIsOpen ? "bg-[#0079bf] px-4 hover:bg-[#026aa7]" : "bg-none w-full text-left px-2"
           }`}
-          onClick={editorIsOpen ? saveList : openEditor}
-        >
-          {!editorIsOpen && (
-            <FontAwesomeIcon
-              className="text-white mr-1"
-              icon={["fas", "plus"]}
-            />
-          )}
+          onClick={editorIsOpen ? saveList : openEditor}>
+          {!editorIsOpen && <FontAwesomeIcon className="text-white mr-1" icon={["fas", "plus"]} />}
 
-          {!boardStore.lists.length || editorIsOpen
-            ? "Add a list"
-            : "Add another list"}
+          {!boardStore.lists.length || editorIsOpen ? "Add a list" : "Add another list"}
         </button>
 
         <button
           className={`${editorIsOpen ? "h-auto" : "h-0"} ml-2 overflow-hidden`}
-          onClick={closeEditor}
-        >
+          onClick={closeEditor}>
           <FontAwesomeIcon className="text-[#6b778c]" icon={["fas", "xmark"]} />
         </button>
       </div>

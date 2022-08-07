@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard } from "../../utils/persistence";
 import ListCreator from "./ListCreator";
@@ -12,7 +12,7 @@ import {
   DragStartEvent,
   MeasuringStrategy,
   MouseSensor,
-  useSensor,
+  useSensor
 } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import customCollisionStrategy from "../../utils/customCollisionStrategy";
@@ -44,7 +44,7 @@ const Board = () => {
         activeId,
         items: boardStore.listsById,
         lastOverId,
-        recentlyMovedToNewContainer,
+        recentlyMovedToNewContainer
       };
 
       return customCollisionStrategy(args, opts);
@@ -54,8 +54,8 @@ const Board = () => {
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 10,
-    },
+      distance: 10
+    }
   });
 
   const setInactive = () => {
@@ -71,10 +71,7 @@ const Board = () => {
     setActiveId(params.active.id as string);
 
     if (!isList(params.active.id as string)) {
-      const card = findCardById(
-        params.active.id as string,
-        boardStore.listsById
-      );
+      const card = findCardById(params.active.id as string, boardStore.listsById);
 
       if (card) setActiveCard(card);
     }
@@ -90,8 +87,8 @@ const Board = () => {
     }
 
     const [overListId, activeListId] = [
-      findContainer(overId as string, boardStore.listsById)!,
-      findContainer(active.id as string, boardStore.listsById)!,
+      findContainer(overId as string, boardStore.listsById),
+      findContainer(active.id as string, boardStore.listsById)
     ];
 
     if (!overListId || !activeListId) {
@@ -107,9 +104,7 @@ const Board = () => {
 
     const overList = boardStore.listsById[overListId];
 
-    const overListCardIndex = overList.cards.findIndex(
-      ({ id }) => id === overId
-    );
+    const overListCardIndex = overList.cards.findIndex(({ id }) => id === overId);
 
     const newIndex = getNewIndex(overListCardIndex, over, active);
 
@@ -117,13 +112,13 @@ const Board = () => {
 
     const updateParams = {
       cardId: active.id as string,
-      pos: newIndex,
+      pos: newIndex
     };
 
     if (overCurrentList) {
       boardStore.moveCard({
         list: boardStore.listsById[activeListId],
-        ...updateParams,
+        ...updateParams
       });
 
       return;
@@ -132,7 +127,7 @@ const Board = () => {
     boardStore.moveCardToList({
       fromList: boardStore.listsById[activeListId],
       toList: overList,
-      ...updateParams,
+      ...updateParams
     });
   };
 
@@ -145,7 +140,7 @@ const Board = () => {
         fromList: boardStore.listsById[active.id],
         toList: boardStore.listsById[over.id],
         fromIndex: activeIndex,
-        toIndex: overIndex,
+        toIndex: overIndex
       });
     }
 
@@ -176,41 +171,47 @@ const Board = () => {
     return undefined;
   }
 
-  return !!boardStore.board ? (
+  return boardStore.board ? (
     <DndContext
       sensors={[mouseSensor]}
       collisionDetection={collisionDetectionStrategy}
       measuring={{
         droppable: {
-          strategy: MeasuringStrategy.Always,
-        },
+          strategy: MeasuringStrategy.Always
+        }
       }}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
-    >
-      <BoardTopBar />
+      onDragCancel={handleDragCancel}>
+      <div className="flex w-full flex-nowrap">
+        <div className="w-full flex-wrap inline-flex">
+          <div className="w-full p-5">
+            <BoardTopBar />
+          </div>
 
-      <div className="w-full mt-4 flex-nowrap inline-flex">
-        <SortableContext items={boardStore.lists}>
-          {boardStore.lists.map((listId: string) => {
-            return (
-              <DraggableList key={listId} list={boardStore.listsById[listId]} />
-            );
-          })}
-        </SortableContext>
+          <div className="w-full flex flex-wrap mb-5 pl-5 h-full">
+            <SortableContext items={boardStore.lists}>
+              {boardStore.lists.map((listId: string) => {
+                return <DraggableList key={listId} list={boardStore.listsById[listId]} />;
+              })}
+            </SortableContext>
 
-        <ListCreator></ListCreator>
+            <ListCreator></ListCreator>
+          </div>
+        </div>
+
+        {/* <div className="w-/12 h-[100vh] bg-[#f4f5f7]">
+          <BoardMenu />
+        </div> */}
       </div>
 
       {createPortal(
         <DragOverlay
           dropAnimation={{
             duration: 25,
-            easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)",
-          }}
-        >
+            easing: "cubic-bezier(0.18, 0.67, 0.6, 1.22)"
+          }}>
           {activeId
             ? boardStore.lists.includes(activeId)
               ? renderListOverlay(activeId)

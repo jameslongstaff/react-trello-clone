@@ -1,10 +1,7 @@
 import React, { CSSProperties, forwardRef } from "react";
 import { DraggableAttributes } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
@@ -37,28 +34,23 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
     boardStore.removeListFromBoard(props.list.id);
   };
 
-  const listMenuItems: PopoutMenuItemType[] = [
-    { title: "Delete list", fn: handleDeleteList },
-  ];
+  const listMenuItems: PopoutMenuItemType[] = [{ title: "Delete list", fn: handleDeleteList }];
 
   const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
 
-  return !!props.list ? (
+  return props.list ? (
     <div
-      className={`relative w-64 mr-2`}
+      className="relative w-64 mr-2"
       ref={ref}
       style={props.style}
       {...props.attributes}
-      {...props.listeners}
-    >
+      {...props.listeners}>
       {!props.isDragging ? (
         <div
-          className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}
-        >
+          className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}>
           <SortableContext
             items={boardStore.listsById[props.list.id].cards}
-            strategy={verticalListSortingStrategy}
-          >
+            strategy={verticalListSortingStrategy}>
             <div className="p-2 w-full">
               <header className="flex mb-2">
                 <EditableTitle
@@ -82,13 +74,14 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
       ) : (
         <div
           style={{ height: `${props.height}px` }}
-          className="bg-[#943c2a] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left"
-        ></div>
+          className="bg-[#943c2a] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left"></div>
       )}
     </div>
   ) : (
     <></>
   );
 });
+
+List.displayName = "List";
 
 export default List;

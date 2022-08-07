@@ -1,11 +1,8 @@
-import { ListsByIdType } from "../hooks/useBoardStore";
 import CardType from "../types/CardType";
 import ListType from "../types/ListType";
+import { ListsByIdType } from "../types/StoreTypes";
 
-const findContainer = (
-  id: string,
-  listsById: ListsByIdType
-): string | undefined => {
+const findContainer = (id: string, listsById: ListsByIdType): string | undefined => {
   if (id in listsById) {
     return id;
   }
@@ -13,19 +10,13 @@ const findContainer = (
   return findContainerForCard(id, listsById);
 };
 
-const findContainerForCard = (
-  id: string,
-  listsById: ListsByIdType
-): string | undefined => {
+const findContainerForCard = (id: string, listsById: ListsByIdType): string | undefined => {
   return Object.keys(listsById).find((listId) => {
     return listsById[listId].cards.find((card: CardType) => card.id === id);
   });
 };
 
-const findCardById = (
-  id: string,
-  listsById: ListsByIdType
-): CardType | undefined => {
+const findCardById = (id: string, listsById: ListsByIdType): CardType | undefined => {
   return Object.keys(listsById)
     .map((listId) => listsById[listId].cards)
     .flat()
@@ -46,9 +37,7 @@ const getCardIndex = (cardId: string, listsById: ListsByIdType) => {
     return -1;
   }
 
-  return listsById[listId].cards.findIndex(
-    (card: CardType) => card.id === cardId
-  );
+  return listsById[listId].cards.findIndex((card: CardType) => card.id === cardId);
 };
 
 const getNewIndex = (overListCardIndex: number, over: any, active: any) => {
@@ -75,8 +64,12 @@ const addCardToList = (
   index: number
 ): ListType => {
   const newList: ListType = structuredClone(toList);
-  const fromCard = fromList.cards.find((card) => card.id === cardId)!;
-  newList.cards.splice(index, 0, fromCard);
+  const fromCard = fromList.cards.find((card) => card.id === cardId);
+
+  if (fromCard) {
+    newList.cards.splice(index, 0, fromCard);
+  }
+
   return newList;
 };
 
@@ -88,5 +81,5 @@ export {
   getNewIndex,
   removeCardFromList,
   addCardToList,
-  getNextContainerId,
+  getNextContainerId
 };

@@ -1,10 +1,5 @@
-import {
-  closestCenter,
-  getFirstCollision,
-  pointerWithin,
-  rectIntersection,
-} from "@dnd-kit/core";
-import { ListsByIdType } from "../hooks/useBoardStore";
+import { closestCenter, getFirstCollision, pointerWithin, rectIntersection } from "@dnd-kit/core";
+import { ListsByIdType } from "../types/StoreTypes";
 
 export default (
   args: any,
@@ -20,7 +15,7 @@ export default (
       ...args,
       droppableContainers: args.droppableContainers.filter(
         (container: any) => container.id in opts.items
-      ),
+      )
     });
   }
 
@@ -47,7 +42,7 @@ export default (
             (container: any) =>
               container.id !== overId &&
               !!containerItems.cards.find((card) => card.id === container.id)
-          ),
+          )
         })[0]?.id;
       }
     }

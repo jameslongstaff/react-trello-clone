@@ -1,16 +1,14 @@
-import CardType from "../types/CardType";
-
 const config = {
   initialBoardState: {
     board: {
-      title: "",
+      title: ""
     },
     lists: [],
     listsById: {},
     cardModal: {
       show: false,
-      card: undefined,
-    },
+      card: undefined
+    }
   },
   initialLocalStorageBoard: {
     title: "Example board",
@@ -23,21 +21,21 @@ const config = {
             id: "card1",
             content: "",
             title: "Example card 1 title",
-            listId: "exampleList1",
+            listId: "exampleList1"
           },
           {
             id: "card2",
             content: "",
             title: "Example card 2 title",
-            listId: "exampleList1",
+            listId: "exampleList1"
           },
           {
             id: "card3",
             content: "",
             title: "Example card 3 title",
-            listId: "exampleList1",
-          },
-        ],
+            listId: "exampleList1"
+          }
+        ]
       },
       {
         id: "exampleList2",
@@ -47,24 +45,24 @@ const config = {
             id: "card4",
             content: "",
             title: "Example card 4 title",
-            listId: "exampleList2",
+            listId: "exampleList2"
           },
           {
             id: "card5",
             content: "",
             title: "Example card 5 title",
-            listId: "exampleList2",
+            listId: "exampleList2"
           },
           {
             id: "card6",
             content: "",
             title: "Example card 6 title",
-            listId: "exampleList2",
-          },
-        ],
-      },
-    ],
-  },
+            listId: "exampleList2"
+          }
+        ]
+      }
+    ]
+  }
 };
 
 export default config;

@@ -1,4 +1,3 @@
-import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard, setBoard } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";

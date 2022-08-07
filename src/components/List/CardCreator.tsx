@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -71,7 +71,7 @@ const CardCreator = (props: CardCreatorPropsType) => {
   };
 
   return (
-    <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px]`}>
+    <div ref={wrapperRef} className="w-full mr-2 rounded-[3px]">
       {!!editorIsOpen && (
         <textarea
           ref={inputRef}
@@ -89,23 +89,16 @@ const CardCreator = (props: CardCreatorPropsType) => {
               ? "bg-[#0079bf] px-4 hover:bg-[#026aa7] text-white text-center"
               : "bg-none px-2 text-[#5e6c84] hover:bg-[#091e4214] text-left w-full"
           }`}
-          onClick={editorIsOpen ? saveCard : openEditor}
-        >
+          onClick={editorIsOpen ? saveCard : openEditor}>
           {!editorIsOpen && (
-            <FontAwesomeIcon
-              className="text-[#6b778c] mr-1"
-              icon={["fas", "plus"]}
-            />
+            <FontAwesomeIcon className="text-[#6b778c] mr-1" icon={["fas", "plus"]} />
           )}
           Add a card
         </button>
 
         {editorIsOpen && (
           <button className="ml-2" onClick={saveCard}>
-            <FontAwesomeIcon
-              className="text-[#6b778c]"
-              icon={["fas", "xmark"]}
-            />
+            <FontAwesomeIcon className="text-[#6b778c]" icon={["fas", "xmark"]} />
           </button>
         )}
       </div>
