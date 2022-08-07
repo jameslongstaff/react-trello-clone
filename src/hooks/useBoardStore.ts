@@ -16,6 +16,12 @@ interface BoardState {
   title: string;
 }
 
+export type moveCardParams = {
+  cardId: string;
+  list: ListType;
+  pos: number;
+};
+
 export type moveCardToListParams = {
   cardId: string;
   fromList: ListType;
@@ -47,6 +53,7 @@ export interface AppState {
   removeListFromBoard: (list: ListType) => void;
   addCardToList: (listId: string, card: CardType) => void;
   moveCardToList: (params: moveCardToListParams) => void;
+  moveCard: (params: moveCardParams) => void;
   moveList: (params: moveListParams) => void;
   setListsById: (listsById: ListsByIdType) => void;
 }
@@ -87,6 +94,9 @@ const useBoardStore = create<AppState>()((set) => ({
 
   moveCardToList: (params: moveCardToListParams) =>
     set((state: AppState) => stateModifiers.moveCardToList(state, params)),
+
+  moveCard: (params: moveCardParams) =>
+    set((state: AppState) => stateModifiers.moveCard(state, params)),
 
   setListsById: (listsById: ListsByIdType) =>
     set({

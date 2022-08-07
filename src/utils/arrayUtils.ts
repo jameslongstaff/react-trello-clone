@@ -21,4 +21,24 @@ const insert = <T>(
   return clonedItems;
 };
 
-export { removeById, getById, insert };
+const move = <T>(
+  arr: Array<(T & { id: string }) | undefined>,
+  oldIndex: number,
+  newIndex: number
+) => {
+  if (newIndex >= arr.length) {
+    var k = newIndex - arr.length + 1;
+
+    while (k--) {
+      arr.push(undefined);
+    }
+  }
+
+  const clone = structuredClone(arr);
+
+  clone.splice(newIndex, 0, clone.splice(oldIndex, 1)[0]);
+
+  return clone as T[];
+};
+
+export { removeById, getById, insert, move };

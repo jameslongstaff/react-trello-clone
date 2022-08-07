@@ -1,12 +1,13 @@
 import produce from "immer";
 import {
   AppState,
+  moveCardParams,
   moveCardToListParams,
   moveListParams,
 } from "../hooks/useBoardStore";
 import CardType from "../types/CardType";
 import ListType from "../types/ListType";
-import { getById, insert, removeById } from "./arrayUtils";
+import { getById, insert, move, removeById } from "./arrayUtils";
 
 const resetBoard = () => {
   return {
@@ -61,6 +62,18 @@ const moveCardToList = (state: AppState, params: moveCardToListParams) => {
   });
 };
 
+const moveCard = (state: AppState, params: moveCardParams) => {
+  const { cardId, pos, list } = params;
+
+  const oldIndex = list.cards.findIndex((card) => card.id === cardId);
+
+  return produce(state, (draftState) => {
+    const cards = move(params.list.cards, oldIndex, pos);
+
+    draftState.listsById[list.id].cards = cards;
+  });
+};
+
 const setCardModal = (card: CardType) => {
   return {
     cardModal: {
@@ -88,4 +101,5 @@ export default {
   resetBoard,
   setCardModal,
   resetCardModal,
+  moveCard,
 };
