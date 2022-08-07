@@ -40,7 +40,7 @@ const setList = (state: AppState, list: ListType): AppState => {
 
 const addListToBoard = (state: AppState, list: ListType) => {
   return produce(state, (draftState) => {
-    draftState.lists.concat([list.id]);
+    draftState.lists = draftState.lists.concat([list.id]);
     draftState.listsById[list.id] = list;
   });
 };
@@ -68,7 +68,7 @@ const updateCard = (state: AppState, card: CardType): AppState => {
 const removeListFromBoard = (state: AppState, listId: string): AppState => {
   return produce(state, (draftState) => {
     delete draftState.listsById[listId];
-    draftState.lists.filter((id) => id !== listId);
+    draftState.lists = draftState.lists.filter((id) => id !== listId);
   });
 };
 
