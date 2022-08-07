@@ -81,6 +81,8 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
     boardStore.setCardModal(props.card);
   };
 
+  const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
+
   return (
     <div
       style={props.style}
@@ -92,9 +94,7 @@ const Card = forwardRef((props: CardPropsType, ref: any) => {
     >
       {!props.isDragging ? (
         <div
-          className={`bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative origin-bottom-left ${
-            props.isOverlay && "rotate-3"
-          }`}
+          className={`bg-white group text-sm  rounded-[3px] shadow-sm w-full h-16 p-2 hover:bg-[#f4f5f7] cursor-pointer relative ${dragStyle}`}
         >
           <button
             onClick={(e) => handleClick(e)}

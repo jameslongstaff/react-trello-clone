@@ -80,7 +80,7 @@ const useBoardStore = create<AppState>()((set) => ({
   initBoard: (board: BoardType) =>
     set((state: AppState) => stateModifiers.initBoard(state, board)),
 
-  resetBoard: () => set(() => stateModifiers.resetBoard()),
+  resetBoard: () => set(stateModifiers.resetBoard()),
 
   setCardModal: (card: CardType) =>
     set(() => stateModifiers.setCardModal(card)),

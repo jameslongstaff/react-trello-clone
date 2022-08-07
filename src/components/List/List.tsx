@@ -41,6 +41,8 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
     { title: "Delete list", fn: handleDeleteList },
   ];
 
+  const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
+
   return !!props.list ? (
     <div
       className={`relative w-64 mr-2`}
@@ -51,9 +53,7 @@ const List = forwardRef((props: ListPropsType, ref: any) => {
     >
       {!props.isDragging ? (
         <div
-          className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${
-            props.isOverlay && "rotate-3"
-          }`}
+          className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}
         >
           <SortableContext
             items={boardStore.listsById[props.list.id].cards}
