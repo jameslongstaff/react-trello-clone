@@ -1,6 +1,11 @@
 import create from "zustand";
 import ListType from "../types/ListType";
 import CardType from "../types/CardType";
+import stateModifiers from "../utils/stateModifiers";
+
+export type ListsByIdType = {
+  [listId: string]: ListType;
+};
 
 interface CardModalState {
   show: boolean;
@@ -11,7 +16,21 @@ interface BoardState {
   title: string;
 }
 
-interface AppState {
+export type moveCardToListParams = {
+  cardId: string;
+  fromList: ListType;
+  toList: ListType;
+  pos: number;
+};
+
+export type moveListParams = {
+  fromList: ListType;
+  toList: ListType;
+  fromIndex: number;
+  toIndex: number;
+};
+
+export interface AppState {
   board: BoardState;
   setBoard: (board: BoardState) => void;
   resetBoard: () => void;
@@ -21,14 +40,18 @@ interface AppState {
   resetCardModal: () => void;
 
   lists: string[];
+  listsById: ListsByIdType;
+
   setLists: (listIds: string[]) => void;
   addListToBoard: (list: ListType) => void;
+  removeListFromBoard: (list: ListType) => void;
   addCardToList: (listId: string, card: CardType) => void;
-
-  listsById: { [listId: string]: ListType };
-  setListsById: (lists: ListType[]) => void;
+  moveCardToList: (params: moveCardToListParams) => void;
+  moveList: (params: moveListParams) => void;
+  setListsById: (listsById: ListsByIdType) => void;
 }
 
+// TODO move state modifiers to helper -> stateModfiers.ts
 const useBoardStore = create<AppState>()((set) => ({
   board: {
     title: "",
@@ -39,61 +62,35 @@ const useBoardStore = create<AppState>()((set) => ({
   },
   lists: [],
   listsById: {},
-  setBoard: (board) => set({ board }),
-  resetBoard: () =>
-    set({
-      board: {
-        title: "New title",
-      },
-      lists: [],
-      listsById: {},
-    }),
+
+  setBoard: (board: BoardState) => set({ board }),
+
+  resetBoard: () => set(() => stateModifiers.resetBoard()),
+
   setCardModal: (card: CardType) =>
-    set({
-      cardModal: {
-        show: true,
-        card,
-      },
-    }),
-  resetCardModal: () =>
-    set({
-      cardModal: {
-        show: true,
-        card: undefined,
-      },
-    }),
-  setLists: (listIds: string[]) =>
-    set({
-      lists: listIds,
-    }),
+    set(() => stateModifiers.setCardModal(card)),
+
+  resetCardModal: () => set(() => stateModifiers.resetCardModal()),
+
+  setLists: (listIds: string[]) => set(() => stateModifiers.setLists(listIds)),
+
+  moveList: (params: moveListParams) =>
+    set((state: AppState) => stateModifiers.moveList(state, params)),
+
   addListToBoard: (list: ListType) =>
-    set((state: AppState) => {
-      return {
-        lists: state.lists.concat(list.id),
-        listsById: {
-          ...state.listsById,
-          [list.id]: list,
-        },
-      };
-    }),
+    set((state: AppState) => stateModifiers.addListToBoard(state, list)),
+
+  removeListFromBoard: (list: ListType) => set((state: AppState) => state),
+
   addCardToList: (listId: string, card: CardType) =>
-    set((state: AppState) => {
-      return {
-        listsById: {
-          ...state.listsById,
-          [listId]: {
-            ...state.listsById[listId],
-            cards: state.listsById[listId].cards.concat([card]),
-          },
-        },
-      };
-    }),
-  setListsById: (lists: ListType[]) =>
+    set((state: AppState) => stateModifiers.addCardToList(state, listId, card)),
+
+  moveCardToList: (params: moveCardToListParams) =>
+    set((state: AppState) => stateModifiers.moveCardToList(state, params)),
+
+  setListsById: (listsById: ListsByIdType) =>
     set({
-      listsById: lists.reduce((acc: any, curr: any) => {
-        acc[curr.id] = curr;
-        return acc;
-      }, {}),
+      listsById,
     }),
 }));
 

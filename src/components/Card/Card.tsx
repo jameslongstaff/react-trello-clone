@@ -1,29 +1,31 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  CSSProperties,
+  forwardRef,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardType from "../../types/CardType";
 import { deleteCard, updateCard } from "../../utils/persistence";
 import useBoardStore from "../../hooks/useBoardStore";
-import { useSortable } from "@dnd-kit/sortable";
+import { DraggableAttributes } from "@dnd-kit/core";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 
 export type CardPropsType = {
   card: CardType;
+  style?: CSSProperties;
+  attributes?: DraggableAttributes;
+  listeners?: SyntheticListenerMap | undefined;
+  isDragging?: boolean;
 };
 
-const Card = (props: CardPropsType) => {
+const Card = forwardRef((props: CardPropsType, ref: any) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const [isQuickEditing, setIsQuickEditing] = useState<boolean>(false);
   const [card, setCard] = useState<CardType>(props.card);
   const boardStore = useBoardStore();
-
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: props.card.id });
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -77,22 +79,15 @@ const Card = (props: CardPropsType) => {
     boardStore.setCardModal(props.card);
   };
 
-  const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    transition,
-  };
-
   return (
     <div
-      style={style}
-      {...attributes}
-      {...listeners}
-      ref={setNodeRef}
+      style={props.style}
+      {...props.listeners}
+      {...props.attributes}
+      ref={ref}
       onClick={handleCardClick}
       className={`group text-sm bg-white rounded-[3px] shadow-sm w-full h-16 mb-2 p-2 hover:bg-[#f4f5f7] cursor-pointer relative ${
-        isDragging && "z-30"
+        props.isDragging && "z-30"
       }`}
     >
       <div className="relative">
@@ -142,6 +137,6 @@ const Card = (props: CardPropsType) => {
       </div>
     </div>
   );
-};
+});
 
 export default Card;
