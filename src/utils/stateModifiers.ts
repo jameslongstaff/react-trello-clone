@@ -12,7 +12,7 @@ import {
 } from "../types/StoreTypes";
 
 const initBoard = (state: AppState, board: BoardType) => {
-  const listsById = board.lists.reduce((acc: any, curr: any) => {
+  const listsById = board.lists.reduce((acc: { [key: string]: ListType }, curr: ListType) => {
     acc[curr.id] = curr;
     return acc;
   }, {});
@@ -45,9 +45,9 @@ const addListToBoard = (state: AppState, list: ListType) => {
   });
 };
 
-const addCardToList = (state: AppState, listId: string, card: CardType): AppState => {
+const addCardToBoard = (state: AppState, card: CardType): AppState => {
   return produce(state, (draftState) => {
-    draftState.listsById[listId].cards.push(card);
+    draftState.listsById[card.listId].cards.push(card);
   });
 };
 
@@ -66,9 +66,9 @@ const removeListFromBoard = (state: AppState, listId: string): AppState => {
   });
 };
 
-const removeCardFromList = (state: AppState, listId: string, cardId: string): AppState => {
+const removeCardFromBoard = (state: AppState, card: CardType): AppState => {
   return produce(state, (draftState) => {
-    draftState.listsById[listId].cards.filter((card) => card.id !== cardId);
+    draftState.listsById[card.listId].cards.filter((card) => card.id !== card.id);
   });
 };
 
@@ -136,8 +136,8 @@ export default {
   initBoard,
   moveList,
   addListToBoard,
-  addCardToList,
-  removeCardFromList,
+  addCardToBoard,
+  removeCardFromBoard,
   removeListFromBoard,
   moveCardToList,
   setLists,

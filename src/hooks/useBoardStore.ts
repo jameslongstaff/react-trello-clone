@@ -31,9 +31,9 @@ export interface AppState {
 
   addListToBoard: (list: ListType) => void;
   removeListFromBoard: (listId: string) => void;
+  removeCardFromBoard: (card: CardType) => void;
 
-  addCardToList: (listId: string, card: CardType) => void;
-  removeCardFromList: (listId: string, cardId: string) => void;
+  addCardToBoard: (card: CardType) => void;
   moveCardToList: (params: MoveCardToListParamsType) => void;
   moveCard: (params: MoveCardParamsType) => void;
   updateCard: (card: CardType) => void;
@@ -63,11 +63,11 @@ const useBoardStore = create<AppState>()((set) => ({
   removeListFromBoard: (listId: string) =>
     set((state: AppState) => stateModifiers.removeListFromBoard(state, listId)),
 
-  addCardToList: (listId: string, card: CardType) =>
-    set((state: AppState) => stateModifiers.addCardToList(state, listId, card)),
+  addCardToBoard: (card: CardType) =>
+    set((state: AppState) => stateModifiers.addCardToBoard(state, card)),
 
-  removeCardFromList: (listId: string, cardId: string) =>
-    set((state: AppState) => stateModifiers.removeCardFromList(state, listId, cardId)),
+  removeCardFromBoard: (card: CardType) =>
+    set((state: AppState) => stateModifiers.removeCardFromBoard(state, card)),
 
   moveCardToList: (params: MoveCardToListParamsType) =>
     set((state: AppState) => stateModifiers.moveCardToList(state, params)),

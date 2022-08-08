@@ -43,7 +43,7 @@ const Card = forwardRef((props: CardPropsType, ref: React.Ref<HTMLDivElement>) =
 
   const handleDeleteCard = () => {
     deleteCard(card);
-    boardStore.removeCardFromList(card.listId, card.id);
+    boardStore.removeCardFromBoard(card);
     setIsQuickEditing(false);
   };
 

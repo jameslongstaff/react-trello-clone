@@ -1,6 +1,5 @@
 import BoardType from "../types/BoardType";
 import ListType from "../types/ListType";
-import { v4 as uuidv4 } from "uuid";
 import CardType from "../types/CardType";
 import config from "../config/board.config";
 
@@ -17,42 +16,25 @@ const getBoard = (): BoardType => {
   return JSON.parse(String(localStorage.getItem("board")));
 };
 
-const addListToBoard = (title: string): ListType => {
-  const newList: ListType = {
-    id: uuidv4(),
-    title,
-    cards: []
-  };
-
+const addListToBoard = (list: ListType): void => {
   const board = getBoard();
 
   if (board) {
-    board.lists = board.lists.concat([newList]);
+    board.lists = board.lists.concat([list]);
     setBoard(board);
   }
-
-  return newList;
 };
 
-const addCardToList = (listId: string, title: string): CardType => {
-  const newCard: CardType = {
-    id: uuidv4(),
-    title,
-    content: "",
-    listId
-  };
-
+const addCardToBoard = (card: CardType): void => {
   const board = getBoard();
 
   if (board) {
-    const list = board.lists.find((list: ListType) => list.id === listId);
+    const list = board.lists.find((list: ListType) => list.id === card.listId);
     if (list) {
-      list.cards.push(newCard);
+      list.cards.push(card);
     }
     setBoard(board);
   }
-
-  return newCard;
 };
 
 const deleteList = (listId: string): void => {
@@ -124,7 +106,7 @@ export {
   getBoard,
   addListToBoard,
   setBoard,
-  addCardToList,
+  addCardToBoard,
   updateList,
   updateCard,
   deleteList,

@@ -3,6 +3,7 @@ import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addListToBoard } from "../../utils/persistence";
+import { v4 as uuidv4 } from "uuid";
 
 const ListCreator = () => {
   const wrapperRef = useRef(null);
@@ -24,7 +25,7 @@ const ListCreator = () => {
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-      saveList();
+      updateBoard();
     }
 
     if (event.key === "Escape") {
@@ -41,9 +42,15 @@ const ListCreator = () => {
     setTitle("");
   };
 
-  const saveList = () => {
+  const updateBoard = () => {
     if (title !== "") {
-      const list = addListToBoard(title);
+      const list = {
+        title,
+        id: uuidv4(),
+        cards: []
+      };
+
+      addListToBoard(list);
       boardStore.addListToBoard(list);
     }
 
@@ -73,7 +80,7 @@ const ListCreator = () => {
           className={`text-white py-1 text-sm rounded-[3px] ${
             editorIsOpen ? "bg-[#0079bf] px-4 hover:bg-[#026aa7]" : "bg-none w-full text-left px-2"
           }`}
-          onClick={editorIsOpen ? saveList : openEditor}>
+          onClick={editorIsOpen ? updateBoard : openEditor}>
           {!editorIsOpen && <FontAwesomeIcon className="text-white mr-1" icon={["fas", "plus"]} />}
 
           {!boardStore.lists.length || editorIsOpen ? "Add a list" : "Add another list"}
