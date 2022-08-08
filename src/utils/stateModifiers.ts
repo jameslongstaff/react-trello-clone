@@ -114,22 +114,22 @@ const moveCard = (state: AppState, params: MoveCardParamsType): AppState => {
   });
 };
 
-const setCardModal = (card: CardType) => {
-  return {
-    cardModal: {
+const setCardModal = (state: AppState, card: CardType): AppState => {
+  return produce(state, (draftState) => {
+    draftState.cardModal = {
       show: true,
       card
-    }
-  };
+    };
+  });
 };
 
-const resetCardModal = () => {
-  return {
-    cardModal: {
+const resetCardModal = (state: AppState): AppState => {
+  return produce(state, (draftState) => {
+    draftState.cardModal = {
       show: true,
       card: undefined
-    }
-  };
+    };
+  });
 };
 
 export default {
