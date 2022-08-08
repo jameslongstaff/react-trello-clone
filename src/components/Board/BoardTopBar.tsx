@@ -8,7 +8,7 @@ const BoardTopBar = () => {
   const boardStore = useBoardStore();
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const clearAll = () => {
+  const resetBoard = () => {
     localStorage.clear();
     boardStore.initBoard(getBoard());
   };
@@ -21,9 +21,9 @@ const BoardTopBar = () => {
         </div>
         <button
           className="text-white ml-2 bg-[#ffffff3d] hover:bg-[#ffffff52] px-3 text-sm rounded-[3px]"
-          onClick={clearAll}>
+          onClick={resetBoard}>
           <FontAwesomeIcon className="mr-2" icon={["fas", "xmark"]} />
-          Clear all
+          Reset
         </button>
         <button
           onClick={() => setMenuOpen(!menuOpen)}

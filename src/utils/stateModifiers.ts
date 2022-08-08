@@ -52,7 +52,7 @@ const addCardToBoard = (state: AppState, card: CardType): AppState => {
 };
 
 const updateCard = (state: AppState, card: CardType): AppState => {
-  const cardIndex = state.listsById[card.listId].cards.findIndex((c) => c.id === card.id);
+  const cardIndex = state.listsById[card.listId].cards.findIndex(({ id }) => id === card.id);
 
   return produce(state, (draftState) => {
     draftState.listsById[card.listId].cards[cardIndex] = card;
@@ -68,7 +68,9 @@ const removeListFromBoard = (state: AppState, listId: string): AppState => {
 
 const removeCardFromBoard = (state: AppState, card: CardType): AppState => {
   return produce(state, (draftState) => {
-    draftState.listsById[card.listId].cards.filter((card) => card.id !== card.id);
+    draftState.listsById[card.listId].cards = draftState.listsById[card.listId].cards.filter(
+      ({ id }) => id !== card.id
+    );
   });
 };
 
