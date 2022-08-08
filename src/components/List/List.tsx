@@ -34,7 +34,13 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
     boardStore.removeListFromBoard(props.list.id);
   };
 
+  const cardsByListId = (listId: string): CardType[] => {
+    return boardStore.listsById[listId].cards;
+  };
+
   const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
+
+  console.log(props.height);
 
   return props.list ? (
     <div
@@ -47,7 +53,7 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
         <div
           className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}>
           <SortableContext
-            items={boardStore.listsById[props.list.id].cards}
+            items={cardsByListId(props.list.id)}
             strategy={verticalListSortingStrategy}>
             <div className="p-2 w-full">
               <ListHeader
