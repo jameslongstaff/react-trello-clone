@@ -6,10 +6,9 @@ import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
 import { deleteList, updateList } from "../../utils/persistence";
-import EditableTitle from "../EditableTitle";
-import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
 import CardCreator from "./CardCreator";
 import DraggableCard from "../Card/DraggableCard";
+import ListHeader from "./ListHeader";
 
 export type ListPropsType = {
   height?: number;
@@ -24,7 +23,7 @@ export type ListPropsType = {
 const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) => {
   const boardStore = useBoardStore();
 
-  const handleBoardUpdate = (title: string) => {
+  const handleListSave = (title: string) => {
     const updatedList = { ...props.list, title };
     updateList({ ...props.list, title });
     boardStore.setList(updatedList);
@@ -34,8 +33,6 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
     deleteList(props.list.id);
     boardStore.removeListFromBoard(props.list.id);
   };
-
-  const listMenuItems: PopoutMenuItemType[] = [{ title: "Delete list", fn: handleDeleteList }];
 
   const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
 
@@ -53,15 +50,11 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
             items={boardStore.listsById[props.list.id].cards}
             strategy={verticalListSortingStrategy}>
             <div className="p-2 w-full">
-              <header className="flex mb-2">
-                <EditableTitle
-                  title={props.list.title}
-                  tag="h2"
-                  onSave={handleBoardUpdate}
-                  className="font-semibold text-base"
-                />
-                <PopOutMenu items={listMenuItems} className="ml-auto" />
-              </header>
+              <ListHeader
+                onSaveTitle={handleListSave}
+                onDeleteList={handleDeleteList}
+                list={props.list}
+              />
 
               {props.list.cards &&
                 props.list.cards.map((card: CardType) => (
