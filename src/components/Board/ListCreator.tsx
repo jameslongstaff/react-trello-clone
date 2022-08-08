@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addListToBoard } from "../../utils/persistence";
 import { v4 as uuidv4 } from "uuid";
+import useInputFocus from "../../hooks/useInputFocus";
 
 const ListCreator = () => {
   const wrapperRef = useRef(null);
@@ -12,16 +13,11 @@ const ListCreator = () => {
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
 
+  useInputFocus(inputRef, editorIsOpen);
+
   useOutsideAlerter(wrapperRef, () => {
     setEditorIsOpen(false);
   });
-
-  useEffect(() => {
-    if (!!inputRef && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [editorIsOpen]);
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {

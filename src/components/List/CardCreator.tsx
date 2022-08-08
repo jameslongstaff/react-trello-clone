@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addCardToBoard } from "../../utils/persistence";
 import { v4 as uuidv4 } from "uuid";
+import useInputFocus from "../../hooks/useInputFocus";
 
 export type CardCreatorPropsType = {
   listId: string;
@@ -12,10 +13,11 @@ export type CardCreatorPropsType = {
 const CardCreator = (props: CardCreatorPropsType) => {
   const wrapperRef = useRef(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
   const [title, setTitle] = useState<string>("");
   const [editorIsOpen, setEditorIsOpen] = useState<boolean>(false);
   const boardStore = useBoardStore();
+
+  useInputFocus(inputRef, editorIsOpen);
 
   useOutsideAlerter(wrapperRef, () => {
     if (editorIsOpen) {
@@ -24,13 +26,6 @@ const CardCreator = (props: CardCreatorPropsType) => {
 
     setEditorIsOpen(false);
   });
-
-  useEffect(() => {
-    if (!!inputRef && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [editorIsOpen]);
 
   const updateBoard = () => {
     const newCard = {

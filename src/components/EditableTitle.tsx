@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import useInputFocus from "../hooks/useInputFocus";
 import useOutsideAlerter from "../hooks/useOutsideAlerter";
 
 type TagType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p";
@@ -26,14 +27,9 @@ const EditableTitle = (props: EditableTitleType) => {
     }
   };
 
-  useOutsideAlerter(wrapperRef, handleClickOutside, [newTitle, isEditing]);
+  useInputFocus(inputRef, isEditing);
 
-  useEffect(() => {
-    if (!!inputRef && inputRef.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [isEditing]);
+  useOutsideAlerter(wrapperRef, handleClickOutside, [newTitle, isEditing]);
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (isEditing && event.key === "Enter") {

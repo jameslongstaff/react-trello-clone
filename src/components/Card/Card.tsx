@@ -1,10 +1,11 @@
-import React, { CSSProperties, forwardRef, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, forwardRef, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardType from "../../types/CardType";
 import { deleteCard, updateCard } from "../../utils/persistence";
 import useBoardStore from "../../hooks/useBoardStore";
 import { DraggableAttributes } from "@dnd-kit/core";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import useInputFocus from "../../hooks/useInputFocus";
 
 export type CardPropsType = {
   height?: number;
@@ -23,12 +24,7 @@ const Card = forwardRef((props: CardPropsType, ref: React.Ref<HTMLDivElement>) =
   const [card, setCard] = useState<CardType>(props.card);
   const boardStore = useBoardStore();
 
-  useEffect(() => {
-    if (inputRef?.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-    }
-  }, [isQuickEditing]);
+  useInputFocus(inputRef, isQuickEditing);
 
   const handleBackdropClick = (e: React.MouseEvent) => {
     e.stopPropagation();
