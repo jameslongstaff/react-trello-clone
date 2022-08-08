@@ -6,10 +6,9 @@ import useBoardStore from "../../hooks/useBoardStore";
 import CardType from "../../types/CardType";
 import ListType from "../../types/ListType";
 import { deleteList, updateList } from "../../utils/persistence";
-import EditableTitle from "../EditableTitle";
-import PopOutMenu, { PopoutMenuItemType } from "../PopOutMenu";
 import CardCreator from "./CardCreator";
 import DraggableCard from "../Card/DraggableCard";
+import ListHeader from "./ListHeader";
 
 export type ListPropsType = {
   height?: number;
@@ -24,7 +23,7 @@ export type ListPropsType = {
 const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) => {
   const boardStore = useBoardStore();
 
-  const handleBoardUpdate = (title: string) => {
+  const handleListSave = (title: string) => {
     const updatedList = { ...props.list, title };
     updateList({ ...props.list, title });
     boardStore.setList(updatedList);
@@ -35,9 +34,13 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
     boardStore.removeListFromBoard(props.list.id);
   };
 
-  const listMenuItems: PopoutMenuItemType[] = [{ title: "Delete list", fn: handleDeleteList }];
+  const cardsByListId = (listId: string): CardType[] => {
+    return boardStore.listsById[listId].cards;
+  };
 
   const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
+
+  console.log(props.height);
 
   return props.list ? (
     <div
@@ -50,18 +53,14 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
         <div
           className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}>
           <SortableContext
-            items={boardStore.listsById[props.list.id].cards}
+            items={cardsByListId(props.list.id)}
             strategy={verticalListSortingStrategy}>
             <div className="p-2 w-full">
-              <header className="flex mb-2">
-                <EditableTitle
-                  title={props.list.title}
-                  tag="h2"
-                  onSave={handleBoardUpdate}
-                  className="font-semibold text-base"
-                />
-                <PopOutMenu items={listMenuItems} className="ml-auto" />
-              </header>
+              <ListHeader
+                onSaveTitle={handleListSave}
+                onDeleteList={handleDeleteList}
+                list={props.list}
+              />
 
               {props.list.cards &&
                 props.list.cards.map((card: CardType) => (

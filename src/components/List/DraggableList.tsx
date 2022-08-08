@@ -29,7 +29,7 @@ function DraggableList(props: DraggableListProps) {
   return (
     <List
       isDragging={isDragging}
-      height={node.current?.clientHeight}
+      height={node.current?.children[0].clientHeight}
       ref={setNodeRef}
       style={style}
       attributes={attributes}
