@@ -11,6 +11,7 @@ import {
   MoveCardParamsType,
   MoveCardToListParamsType,
   MoveListParamsType,
+  ZustandSetFnType
 } from "../types/StoreTypes";
 
 export interface AppState {
@@ -31,62 +32,78 @@ export interface AppState {
 
   addListToBoard: (list: ListType) => void;
   removeListFromBoard: (listId: string) => void;
+  removeCardFromBoard: (card: CardType) => void;
 
-  addCardToList: (listId: string, card: CardType) => void;
-  removeCardFromList: (listId: string, cardId: string) => void;
+  addCardToBoard: (card: CardType) => void;
   moveCardToList: (params: MoveCardToListParamsType) => void;
   moveCard: (params: MoveCardParamsType) => void;
   updateCard: (card: CardType) => void;
 }
 
+const cardActions = (set: ZustandSetFnType) => {
+  return {
+    addCardToBoard: (card: CardType) =>
+      set((state: AppState) => stateModifiers.addCardToBoard(state, card)),
+
+    removeCardFromBoard: (card: CardType) =>
+      set((state: AppState) => stateModifiers.removeCardFromBoard(state, card)),
+
+    moveCardToList: (params: MoveCardToListParamsType) =>
+      set((state: AppState) => stateModifiers.moveCardToList(state, params)),
+
+    moveCard: (params: MoveCardParamsType) =>
+      set((state: AppState) => stateModifiers.moveCard(state, params)),
+
+    updateCard: (card: CardType) => set((state: AppState) => stateModifiers.updateCard(state, card))
+  };
+};
+
+const listActions = (set: ZustandSetFnType) => {
+  return {
+    setLists: (listIds: string[]) => set(() => stateModifiers.setLists(listIds)),
+
+    setList: (list: ListType) => set((state: AppState) => stateModifiers.setList(state, list)),
+
+    moveList: (params: MoveListParamsType) =>
+      set((state: AppState) => stateModifiers.moveList(state, params)),
+
+    addListToBoard: (list: ListType) =>
+      set((state: AppState) => stateModifiers.addListToBoard(state, list)),
+
+    removeListFromBoard: (listId: string) =>
+      set((state: AppState) => stateModifiers.removeListFromBoard(state, listId)),
+
+    setListsById: (listsById: ListsByIdType) =>
+      set({
+        listsById
+      })
+  };
+};
+
+const boardActions = (set: ZustandSetFnType) => {
+  return {
+    setBoard: (board: BoardStateType) => set({ board }),
+
+    initBoard: (board: BoardType) =>
+      set((state: AppState) => stateModifiers.initBoard(state, board))
+  };
+};
+
+const modalActions = (set: ZustandSetFnType) => {
+  return {
+    setCardModal: (card: CardType) =>
+      set((state: AppState) => stateModifiers.setCardModal(state, card)),
+
+    resetCardModal: () => set((state: AppState) => stateModifiers.resetCardModal(state))
+  };
+};
+
 const useBoardStore = create<AppState>()((set) => ({
   ...config.initialBoardState,
-
-  setBoard: (board: BoardStateType) => set({ board }),
-
-  initBoard: (board: BoardType) =>
-    set((state: AppState) => stateModifiers.initBoard(state, board)),
-
-  setCardModal: (card: CardType) =>
-    set(() => stateModifiers.setCardModal(card)),
-
-  resetCardModal: () => set(() => stateModifiers.resetCardModal()),
-
-  setLists: (listIds: string[]) => set(() => stateModifiers.setLists(listIds)),
-
-  setList: (list: ListType) =>
-    set((state: AppState) => stateModifiers.setList(state, list)),
-
-  moveList: (params: MoveListParamsType) =>
-    set((state: AppState) => stateModifiers.moveList(state, params)),
-
-  addListToBoard: (list: ListType) =>
-    set((state: AppState) => stateModifiers.addListToBoard(state, list)),
-
-  removeListFromBoard: (listId: string) =>
-    set((state: AppState) => stateModifiers.removeListFromBoard(state, listId)),
-
-  addCardToList: (listId: string, card: CardType) =>
-    set((state: AppState) => stateModifiers.addCardToList(state, listId, card)),
-
-  removeCardFromList: (listId: string, cardId: string) =>
-    set((state: AppState) =>
-      stateModifiers.removeCardFromList(state, listId, cardId)
-    ),
-
-  moveCardToList: (params: MoveCardToListParamsType) =>
-    set((state: AppState) => stateModifiers.moveCardToList(state, params)),
-
-  moveCard: (params: MoveCardParamsType) =>
-    set((state: AppState) => stateModifiers.moveCard(state, params)),
-
-  updateCard: (card: CardType) =>
-    set((state: AppState) => stateModifiers.updateCard(state, card)),
-
-  setListsById: (listsById: ListsByIdType) =>
-    set({
-      listsById,
-    }),
+  ...cardActions(set),
+  ...listActions(set),
+  ...boardActions(set),
+  ...modalActions(set)
 }));
 
 export default useBoardStore;

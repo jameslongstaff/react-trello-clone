@@ -7,27 +7,18 @@ export type DraggableCardPropsType = {
 };
 
 const DraggableCard = (props: DraggableCardPropsType) => {
-  const {
-    node,
-    setNodeRef,
-    listeners,
-    attributes,
-    isDragging,
-    transform,
-    transition,
-  } = useSortable({
-    id: props.card.id,
-    transition: {
-      duration: 100,
-      easing: "cubic-bezier(0.25, 1, 0.5, 1)",
-    },
-  });
+  const { node, setNodeRef, listeners, attributes, isDragging, transform, transition } =
+    useSortable({
+      id: props.card.id,
+      transition: {
+        duration: 100,
+        easing: "cubic-bezier(0.25, 1, 0.5, 1)"
+      }
+    });
 
   const style = {
-    transform: transform
-      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
-      : undefined,
-    transition,
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    transition
   };
 
   return (
@@ -38,8 +29,7 @@ const DraggableCard = (props: DraggableCardPropsType) => {
       attributes={attributes}
       listeners={listeners}
       isDragging={isDragging}
-      {...props}
-    ></Card>
+      {...props}></Card>
   );
 };
 

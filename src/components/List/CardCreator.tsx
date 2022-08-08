@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import useOutsideAlerter from "../../hooks/useOutsideAlerter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addCardToList } from "../../utils/persistence";
+import { addCardToBoard } from "../../utils/persistence";
+import { v4 as uuidv4 } from "uuid";
 
 export type CardCreatorPropsType = {
   listId: string;
@@ -31,12 +32,20 @@ const CardCreator = (props: CardCreatorPropsType) => {
     }
   }, [editorIsOpen]);
 
-  const handleBoardUpdate = () => {
-    const card = addCardToList(props.listId, title);
-    boardStore.addCardToList(props.listId, card);
+  const updateBoard = () => {
+    const newCard = {
+      id: uuidv4(),
+      title,
+      content: "",
+      listId: props.listId
+    };
+
+    addCardToBoard(newCard);
+
+    boardStore.addCardToBoard(newCard);
   };
 
-  const handleKeyPress = (event: any) => {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
       saveCard();
     }
@@ -60,18 +69,18 @@ const CardCreator = (props: CardCreatorPropsType) => {
 
   const saveCard = () => {
     if (title !== "") {
-      handleBoardUpdate();
+      updateBoard();
     }
 
     closeEditor();
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
   };
 
   return (
-    <div ref={wrapperRef} className={`w-full mr-2 rounded-[3px]`}>
+    <div ref={wrapperRef} className="w-full mr-2 rounded-[3px]">
       {!!editorIsOpen && (
         <textarea
           ref={inputRef}
@@ -89,23 +98,16 @@ const CardCreator = (props: CardCreatorPropsType) => {
               ? "bg-[#0079bf] px-4 hover:bg-[#026aa7] text-white text-center"
               : "bg-none px-2 text-[#5e6c84] hover:bg-[#091e4214] text-left w-full"
           }`}
-          onClick={editorIsOpen ? saveCard : openEditor}
-        >
+          onClick={editorIsOpen ? saveCard : openEditor}>
           {!editorIsOpen && (
-            <FontAwesomeIcon
-              className="text-[#6b778c] mr-1"
-              icon={["fas", "plus"]}
-            />
+            <FontAwesomeIcon className="text-[#6b778c] mr-1" icon={["fas", "plus"]} />
           )}
           Add a card
         </button>
 
         {editorIsOpen && (
           <button className="ml-2" onClick={saveCard}>
-            <FontAwesomeIcon
-              className="text-[#6b778c]"
-              icon={["fas", "xmark"]}
-            />
+            <FontAwesomeIcon className="text-[#6b778c]" icon={["fas", "xmark"]} />
           </button>
         )}
       </div>

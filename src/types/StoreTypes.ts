@@ -1,5 +1,11 @@
+import { AppState } from "../hooks/useBoardStore";
 import CardType from "./CardType";
 import ListType from "./ListType";
+
+export type ZustandSetFnType = (
+  partial: AppState | Partial<AppState> | ((state: AppState) => AppState | Partial<AppState>),
+  replace?: boolean | undefined
+) => void;
 
 export type ListsByIdType = {
   [listId: string]: ListType;

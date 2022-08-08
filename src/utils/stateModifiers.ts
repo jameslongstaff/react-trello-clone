@@ -8,11 +8,11 @@ import boardConfig from "../config/board.config";
 import {
   MoveCardParamsType,
   MoveCardToListParamsType,
-  MoveListParamsType,
+  MoveListParamsType
 } from "../types/StoreTypes";
 
 const initBoard = (state: AppState, board: BoardType) => {
-  const listsById = board.lists.reduce((acc: any, curr: any) => {
+  const listsById = board.lists.reduce((acc: { [key: string]: ListType }, curr: ListType) => {
     acc[curr.id] = curr;
     return acc;
   }, {});
@@ -45,20 +45,14 @@ const addListToBoard = (state: AppState, list: ListType) => {
   });
 };
 
-const addCardToList = (
-  state: AppState,
-  listId: string,
-  card: CardType
-): AppState => {
+const addCardToBoard = (state: AppState, card: CardType): AppState => {
   return produce(state, (draftState) => {
-    draftState.listsById[listId].cards.push(card);
+    draftState.listsById[card.listId].cards.push(card);
   });
 };
 
 const updateCard = (state: AppState, card: CardType): AppState => {
-  const cardIndex = state.listsById[card.listId].cards.findIndex(
-    (c) => c.id === card.id
-  );
+  const cardIndex = state.listsById[card.listId].cards.findIndex((c) => c.id === card.id);
 
   return produce(state, (draftState) => {
     draftState.listsById[card.listId].cards[cardIndex] = card;
@@ -72,13 +66,9 @@ const removeListFromBoard = (state: AppState, listId: string): AppState => {
   });
 };
 
-const removeCardFromList = (
-  state: AppState,
-  listId: string,
-  cardId: string
-): AppState => {
+const removeCardFromBoard = (state: AppState, card: CardType): AppState => {
   return produce(state, (draftState) => {
-    draftState.listsById[listId].cards.filter((card) => card.id !== cardId);
+    draftState.listsById[card.listId].cards.filter((card) => card.id !== card.id);
   });
 };
 
@@ -89,26 +79,27 @@ const moveList = (state: AppState, params: MoveListParamsType): AppState => {
   });
 };
 
-const moveCardToList = (
-  state: AppState,
-  params: MoveCardToListParamsType
-): AppState => {
+const moveCardToList = (state: AppState, params: MoveCardToListParamsType): AppState => {
   const { cardId, pos, fromList, toList } = params;
 
-  const fromCard = getById<CardType>(fromList.cards, cardId)!;
+  const fromCard = getById<CardType>(fromList.cards, cardId);
 
-  return produce(state, (draftState) => {
-    draftState.listsById[fromList.id].cards = removeById<CardType>(
-      state.listsById[fromList.id].cards,
-      cardId
-    );
+  if (fromCard) {
+    return produce(state, (draftState) => {
+      draftState.listsById[fromList.id].cards = removeById<CardType>(
+        state.listsById[fromList.id].cards,
+        cardId
+      );
 
-    draftState.listsById[toList.id].cards = insert<CardType>(
-      state.listsById[toList.id].cards,
-      fromCard,
-      pos
-    );
-  });
+      draftState.listsById[toList.id].cards = insert<CardType>(
+        state.listsById[toList.id].cards,
+        fromCard,
+        pos
+      );
+    });
+  }
+
+  return state;
 };
 
 const moveCard = (state: AppState, params: MoveCardParamsType): AppState => {
@@ -123,30 +114,30 @@ const moveCard = (state: AppState, params: MoveCardParamsType): AppState => {
   });
 };
 
-const setCardModal = (card: CardType) => {
-  return {
-    cardModal: {
+const setCardModal = (state: AppState, card: CardType): AppState => {
+  return produce(state, (draftState) => {
+    draftState.cardModal = {
       show: true,
-      card,
-    },
-  };
+      card
+    };
+  });
 };
 
-const resetCardModal = () => {
-  return {
-    cardModal: {
+const resetCardModal = (state: AppState): AppState => {
+  return produce(state, (draftState) => {
+    draftState.cardModal = {
       show: true,
-      card: undefined,
-    },
-  };
+      card: undefined
+    };
+  });
 };
 
 export default {
   initBoard,
   moveList,
   addListToBoard,
-  addCardToList,
-  removeCardFromList,
+  addCardToBoard,
+  removeCardFromBoard,
   removeListFromBoard,
   moveCardToList,
   setLists,
@@ -155,5 +146,5 @@ export default {
   setCardModal,
   resetCardModal,
   moveCard,
-  updateCard,
+  updateCard
 };

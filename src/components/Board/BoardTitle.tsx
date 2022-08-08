@@ -1,4 +1,3 @@
-import React from "react";
 import useBoardStore from "../../hooks/useBoardStore";
 import { getBoard, setBoard } from "../../utils/persistence";
 import EditableTitle from "../EditableTitle";
@@ -11,8 +10,7 @@ const BoardTitle = (props: BoardTitleType) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {
-    const board = getBoard();
-    const boardUpdate = { ...board, title: title };
+    const boardUpdate = { ...getBoard(), title: title };
     setBoard(boardUpdate);
     boardStore.setBoard(boardUpdate);
   };
