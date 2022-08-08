@@ -9,6 +9,7 @@ import { deleteList, updateList } from "../../utils/persistence";
 import CardCreator from "./CardCreator";
 import DraggableCard from "../Card/DraggableCard";
 import ListHeader from "./ListHeader";
+import { getCardsByListId } from "../../utils/stateHelpers";
 
 export type ListPropsType = {
   height?: number;
@@ -34,13 +35,9 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
     boardStore.removeListFromBoard(props.list.id);
   };
 
-  const cardsByListId = (listId: string): CardType[] => {
-    return boardStore.listsById[listId].cards;
-  };
-
   const dragStyle = props.isOverlay && "origin-bottom-left rotate-3";
 
-  console.log(props.height);
+  const listCards = props.list.cards;
 
   return props.list ? (
     <div
@@ -52,9 +49,7 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
       {!props.isDragging ? (
         <div
           className={`bg-[#ebecf0] rounded-[3px] border-solid border-[#ccc] shadow-sm self-start origin-bottom-left ${dragStyle}`}>
-          <SortableContext
-            items={cardsByListId(props.list.id)}
-            strategy={verticalListSortingStrategy}>
+          <SortableContext items={listCards} strategy={verticalListSortingStrategy}>
             <div className="p-2 w-full">
               <ListHeader
                 onSaveTitle={handleListSave}
@@ -62,10 +57,9 @@ const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) =
                 list={props.list}
               />
 
-              {props.list.cards &&
-                props.list.cards.map((card: CardType) => (
-                  <DraggableCard key={card.id} card={card} />
-                ))}
+              {(listCards || []).map((card: CardType) => (
+                <DraggableCard key={card.id} card={card} />
+              ))}
 
               <CardCreator listId={props.list.id} />
             </div>
