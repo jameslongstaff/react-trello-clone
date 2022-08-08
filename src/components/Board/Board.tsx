@@ -23,6 +23,7 @@ import Card from "../Card/Card";
 import DraggableList from "../List/DraggableList";
 import CardType from "../../types/CardType";
 import BoardTopBar from "./BoardTopBar";
+import { ListsByIdType } from "../../types/StoreTypes";
 
 const Board = () => {
   const boardStore = useBoardStore();
@@ -33,12 +34,12 @@ const Board = () => {
 
   const [activeId, setActiveId] = useState<string | null>(null);
   const [activeCard, setActiveCard] = useState<CardType | null>(null);
-  const [clonedItems, setClonedItems] = useState<any | null>(null);
+  const [clonedItems, setClonedItems] = useState<ListsByIdType | null>(null);
 
   const lastOverId = useRef<string | null>(null);
   const recentlyMovedToNewContainer = useRef(false);
 
-  const collisionDetectionStrategy: CollisionDetection = useCallback(
+  const collisionDetectionStrategy = useCallback<CollisionDetection>(
     (args) => {
       const opts = {
         activeId,
@@ -82,7 +83,7 @@ const Board = () => {
   const handleDragOver = ({ active, over }: DragOverEvent) => {
     const overId = over?.id;
 
-    if (overId == null || isList(active.id as string)) {
+    if (over === null || isList(active.id as string)) {
       return;
     }
 

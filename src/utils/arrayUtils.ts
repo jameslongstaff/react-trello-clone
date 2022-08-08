@@ -2,10 +2,7 @@ const removeById = <T>(items: Array<T & { id: string }>, id: string): T[] => {
   return items.filter((item) => item.id !== id);
 };
 
-const getById = <T>(
-  items: Array<T & { id: string }>,
-  id: string
-): T | undefined => {
+const getById = <T>(items: Array<T & { id: string }>, id: string): T | undefined => {
   return items.find((item) => item.id === id);
 };
 
@@ -27,7 +24,7 @@ const move = <T>(
   newIndex: number
 ): T[] => {
   if (newIndex >= arr.length) {
-    var k = newIndex - arr.length + 1;
+    let k = newIndex - arr.length + 1;
 
     while (k--) {
       arr.push(undefined);

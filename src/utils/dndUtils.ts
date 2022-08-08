@@ -1,5 +1,5 @@
+import { Active, Over } from "@dnd-kit/core";
 import CardType from "../types/CardType";
-import ListType from "../types/ListType";
 import { ListsByIdType } from "../types/StoreTypes";
 
 const findContainer = (id: string, listsById: ListsByIdType): string | undefined => {
@@ -30,7 +30,7 @@ const getNextContainerId = (listsById: ListsByIdType) => {
   return String.fromCharCode(lastContainerId.charCodeAt(0) + 1);
 };
 
-const getCardIndex = (cardId: string, listsById: ListsByIdType) => {
+const getCardIndex = (cardId: string, listsById: ListsByIdType): number => {
   const listId = findContainer(cardId, listsById);
 
   if (!listId) {
@@ -40,37 +40,17 @@ const getCardIndex = (cardId: string, listsById: ListsByIdType) => {
   return listsById[listId].cards.findIndex((card: CardType) => card.id === cardId);
 };
 
-const getNewIndex = (overListCardIndex: number, over: any, active: any) => {
+const getNewIndex = (overListCardIndex: number, over: Over, active: Active): number => {
   const modifier = isBelowOverItem(over, active) ? 1 : 0;
   return overListCardIndex + modifier;
 };
 
-const isBelowOverItem = (over: any, active: any) => {
-  return (
+const isBelowOverItem = (over: Over, active: Active): boolean => {
+  return !!(
     over &&
     active.rect.current.translated &&
     active.rect.current.translated?.top > over.rect.top + over.rect.height
   );
-};
-
-const removeCardFromList = (list: ListType, cardId: string): ListType => {
-  return { ...list, cards: list.cards.filter((card) => card.id !== cardId) };
-};
-
-const addCardToList = (
-  cardId: string,
-  fromList: ListType,
-  toList: ListType,
-  index: number
-): ListType => {
-  const newList: ListType = structuredClone(toList);
-  const fromCard = fromList.cards.find((card) => card.id === cardId);
-
-  if (fromCard) {
-    newList.cards.splice(index, 0, fromCard);
-  }
-
-  return newList;
 };
 
 export {
@@ -79,7 +59,5 @@ export {
   findContainerForCard,
   getCardIndex,
   getNewIndex,
-  removeCardFromList,
-  addCardToList,
   getNextContainerId
 };

@@ -50,7 +50,7 @@ const ListCreator = () => {
     closeEditor();
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 

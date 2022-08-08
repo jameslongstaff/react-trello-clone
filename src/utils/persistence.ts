@@ -55,7 +55,7 @@ const addCardToList = (listId: string, title: string): CardType => {
   return newCard;
 };
 
-const deleteList = (listId: string): BoardType | undefined => {
+const deleteList = (listId: string): void => {
   const board = getBoard();
 
   if (board) {
@@ -63,11 +63,9 @@ const deleteList = (listId: string): BoardType | undefined => {
 
     setBoard(board);
   }
-
-  return board;
 };
 
-const updateList = (update: ListType): ListType => {
+const updateList = (update: ListType): void => {
   const board = getBoard();
 
   if (board) {
@@ -77,11 +75,9 @@ const updateList = (update: ListType): ListType => {
 
     setBoard(board);
   }
-
-  return update;
 };
 
-const deleteCard = (card: CardType) => {
+const deleteCard = (card: CardType): void => {
   const board = getBoard();
 
   if (board) {
@@ -93,7 +89,7 @@ const deleteCard = (card: CardType) => {
   }
 };
 
-const updateCard = (update: CardType): BoardType | undefined => {
+const updateCard = (update: CardType): void => {
   const board = getBoard();
 
   if (board) {
@@ -105,11 +101,9 @@ const updateCard = (update: CardType): BoardType | undefined => {
 
     setBoard(board);
   }
-
-  return board;
 };
 
-const moveList = (src: string, dest: string): BoardType | undefined => {
+const moveList = (src: string, dest: string): void => {
   const board = getBoard();
 
   if (board) {
@@ -124,8 +118,6 @@ const moveList = (src: string, dest: string): BoardType | undefined => {
 
     setBoard(board);
   }
-
-  return board;
 };
 
 export {

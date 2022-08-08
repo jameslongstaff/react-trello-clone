@@ -21,11 +21,12 @@ export type ListPropsType = {
   isOverlay?: boolean;
 };
 
-const List = forwardRef((props: ListPropsType, ref: any) => {
+const List = forwardRef((props: ListPropsType, ref: React.Ref<HTMLDivElement>) => {
   const boardStore = useBoardStore();
 
   const handleBoardUpdate = (title: string) => {
-    const updatedList = updateList({ ...props.list, title });
+    const updatedList = { ...props.list, title };
+    updateList({ ...props.list, title });
     boardStore.setList(updatedList);
   };
 
