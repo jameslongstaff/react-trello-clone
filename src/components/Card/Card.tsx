@@ -37,7 +37,8 @@ const Card = forwardRef((props: CardPropsType, ref: React.Ref<HTMLDivElement>) =
     setIsQuickEditing(false);
   };
 
-  const handleDeleteCard = () => {
+  const handleDeleteCard = (e: React.MouseEvent) => {
+    e.stopPropagation();
     deleteCard(card);
     boardStore.removeCardFromBoard(card);
     setIsQuickEditing(false);
@@ -112,7 +113,7 @@ const Card = forwardRef((props: CardPropsType, ref: React.Ref<HTMLDivElement>) =
                 </div>
                 <div className="absolute top-0 left-full ml-2 w-28 z-20">
                   <button
-                    onClick={() => handleDeleteCard()}
+                    onClick={(e) => handleDeleteCard(e)}
                     className="block px-3 py-2 mb-2 left-0 text-white bg-[#0009] hover:bg-[#000c] rounded-[3px] transition-all hover:left-1 relative">
                     Delete card
                   </button>
